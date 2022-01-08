@@ -1,0 +1,85 @@
+# The MariaDB/MySQL tools read configuration files in the following order:
+# 0. "/etc/mysql/my.cnf" symlinks to this file, reason why all the rest is read.
+# 1. "/etc/mysql/mariadb.cnf" (this file) to set global defaults,
+# 2. "/etc/mysql/conf.d/*.cnf" to set global options.
+# 3. "/etc/mysql/mariadb.conf.d/*.cnf" to set MariaDB-only options.
+# 4. "~/.my.cnf" to set user-specific options.
+#
+# If the same option is defined multiple times, the last one will apply.
+#
+# One can use all long options that the program supports.
+# Run program with --help to get a list of available options and with
+# --print-defaults to see which it would actually understand and use.
+#
+# If you are new to MariaDB, check out https://mariadb.com/kb/en/basic-mariadb-articles/
+# ---------------------
+
+[client-server]
+socket                  = /run/mysqld/mysqld.sock
+#port                   = 3306
+
+[mysqld_safe]
+nice = 0
+skip_log_error
+syslog
+
+[mysqld]
+#
+# * Basic Settings
+#
+user                        = mysql
+pid_file                    = /run/mysqld/mysqld.pid
+basedir                     = /usr
+datadir                     = /var/lib/mysql
+tmpdir                      = /tmp
+log_error                   = /var/log/mysql/error.log
+lc_messages_dir             = /usr/share/mysql
+lc-messages                 = en_US
+skip-external-locking
+bind_address                = 127.0.0.1
+character_set_server        = utf8mb4
+collation_server            = utf8mb4_unicode_520_ci
+
+# * Safety
+#
+sql_mode                    = TRADITIONAL
+symbolic_links              = 0
+
+# * Fine Tuning
+#
+# max_connections             = 300
+explicit_defaults_for_timestamp
+# Broken reverse DNS slows down connections considerably and name resolve is
+# safe to skip if there are no "host by domain name" access grants
+skip-name-resolve           = on
+
+#
+# * MyISAM
+#
+key_buffer_size             = 32M
+#open-files-limit           = 2000
+myisam_sort_buffer_size     = 8M
+
+#
+# * InnoDB
+#
+innodb_buffer_pool_size     = 2G
+innodb_flush_method         = O_DIRECT
+
+#
+# * Logging and Replication
+#
+# slow_query_log              = 1
+# slow_query_log_file         = /var/log/mysql/slow.log
+expire_logs_days            = 10
+
+[mysql]
+#no_auto_rehash # faster start of mysql but no tab completion
+default_character_set       = utf8mb4
+
+[client]
+default_character_set       = utf8mb4
+protocol=SOCKET
+
+[mysqldump]
+# default_character_set       = utf8mb4

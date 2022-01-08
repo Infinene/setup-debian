@@ -1,0 +1,6 @@
+        allow all;
+        log_not_found off;
+        access_log off;
+        # comment out following on live sites
+        add_header Content-Type text/plain;
+        return 200 "User-agent: *\nDisallow: /\n";

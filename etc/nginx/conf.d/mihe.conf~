@@ -1,0 +1,7 @@
+server {
+    server_name mihe.infinene.net;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    root /srv/www/mihe.ac.uk/web;
+    include /etc/nginx/snippets/_drupal.conf;
+}

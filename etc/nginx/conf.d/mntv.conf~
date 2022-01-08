@@ -1,0 +1,23 @@
+server {
+    server_name mntvwp.infinene.net;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    root /srv/www/mntvwp/web;
+    include /etc/nginx/snippets/_wordpress.conf;
+}
+
+server {
+  server_name muslimnetworktv.infinene.net;
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  root /srv/www/muslimnetwork.tv/web;
+  include /etc/nginx/snippets/_drupal.conf;
+}
+
+server {
+  server_name mntv.infinene.net;
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  root /srv/www/mntv/web;
+  include /etc/nginx/snippets/_drupal.conf;
+}
