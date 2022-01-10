@@ -1,0 +1,2 @@
+
+PROMPT="╭─%(?..[%F{red}%?%f]─)%\(%(!.%F{red}%n%f.%F{yellow}%n%f)@%F{cyan}%m%f)─(%F{green}%~%f)"$'\n'"╰─%F{8}%D{%H:%M:%S}%f─❱ "

@@ -1,0 +1,66 @@
+#!/bin/bash
+# set -x
+
+if [[ $EUID -eq 0 ]]; then
+    echo "Do not run as root!"
+    exit 1
+fi
+
+user=$USER
+group=nginx
+
+usage() {
+    echo "Usage:  ${0##*/} [options] dir"
+    echo "    dir  directory to set permission"
+    echo "    -w   enable group write permission (default: read only)"
+    echo "    -u   user to set as owner (default: $user)"
+    echo "    -g   group (default: $group)"
+    echo "    -h   display this help"
+    exit 1
+}
+
+while getopts "wu:g:h" option; do
+    case "$option" in
+    w) grpwrite=1 ;;
+    u) user=${OPTARG} ;;
+    g) group=${OPTARG} ;;
+    h) usage ;;
+    *) usage ;;
+    \?)
+        echo "Unknown option: -$OPTARG" >&2
+        exit 1
+        ;;
+    :)
+        echo "Missing option argument for -$OPTARG" >&2
+        exit 1
+        ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+if [ -z "$1" ]; then
+    usage
+    exit 0
+fi
+
+if [ -d "$1" ]; then
+    dir=$(realpath "$1")
+
+    echo "setting owner to: $user:$group . . ."
+    sudo chown -R $user:$group $1
+
+    echo "setting permissions on: ${dir} . . ."
+
+    # {var+x} evaluates to nothing if variable is unset (parameter expansion)
+    if [[ ${grpwrite+x} ]] && [[ $grpwrite = 1 ]]; then
+        echo " - enabling group write on: ${dir} . . ."
+        sudo chmod -R a=rX,ug+w $1
+    else
+        sudo chmod -R a=rX,u+w $1
+    fi
+    # find $dir -type d -exec sudo chmod g+s {} \+      #sometimes gives argument too long error
+    # https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong
+    find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
+else
+    echo "cannot access '${1}': No such file or directory in ${PWD}"
+fi

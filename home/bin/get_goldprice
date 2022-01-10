@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+set -x
+
+#res = $(curl -s -X GET 'https://www.goldapi.io/api/XAU/USD' -H 'x-access-token: goldapi-aq2kfluknfzx5zt-io')
+data='{"timestamp":1619562852,"metal":"XAU","currency":"USD","exchange":"FOREXCOM","symbol":"FOREXCOM:XAUUSD","prev_close_price":1777.07,"open_price":1777.07,"low_price":1775.96,"high_price":1778.51,"open_time":1619568000,"price":1776.17,"ch":-0.9,"chp":-0.05,"ask":1776.57,"bid":1775.75}'
+
+curl -X POST -k -H 'Content-Type: application/json' -H 'Authorization: Basic ZGJ1c2VyOlBhc3NfNzg2' -i 'https://couchdb.infinene.net/zakat-gold-price' --data $data

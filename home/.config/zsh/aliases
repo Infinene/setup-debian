@@ -1,0 +1,61 @@
+alias ls='ls -v --g --color=auto'
+# alias ll='ls -Alhv --g --color'
+alias l='ls -ACv --g --color=auto'
+alias e='micro'
+alias ping='ping -c 4'
+alias p='less -XFx4'
+alias lps='ps -elf | grep'
+# alias f='nnn -dH'
+alias sc-start='sudo systemctl start'
+alias sc-restart='sudo systemctl restart'
+alias sc-reload='sudo systemctl reload'
+alias sc-stop='sudo systemctl stop'
+alias sc-status='sudo systemctl status'
+
+alias aptupdate='sudo apt update && sudo apt full-upgrade -y'
+alias aptlist='sudo apt list --installed | pager'
+alias aptsrch='apt search --names-only'
+alias apt='sudo apt'
+
+alias bat='bat --style=plain'
+
+#alias e='micro'
+# e() {
+  # local dir=$(dirname "${1}")
+  # [ ! -w "${dir}" ] && local SUDO=true
+  # ${SUDO:+sudo -E} micro $1
+# }
+
+f() {
+  local dir=$(dirname "${1}")
+  [ ! -w "${dir}" ] && sudo -E nnn -dHUue $1 || nnn -dHUue $1
+  # if [ ! -w "${dir}" ]; then
+    # sudo -E nnn -dHUu $1
+  # else
+    # nnn -dHUu $1
+  # fi
+}
+
+ll() {
+ ls -Alh --g --color $1 | less -RXFx4
+}
+
+cdw() {
+  if [ -z $1 ]; then
+    cd /srv/www/
+  else
+    cd $(find /srv/www -maxdepth 1 -type d -iname "*$1*" | head -n 1)
+  fi
+}
+
+v() {
+  local dir=$(dirname "${1}")
+  [ ! -w "${dir}" ] && local SUDO=true
+  ${SUDO:+sudo} bat --style=plain $1
+}
+
+m() {
+  local dir=$(dirname "${1}")
+  [ ! -w "${dir}" ] && local SUDO=true
+  ${SUDO:+sudo} less -N +F $1
+}

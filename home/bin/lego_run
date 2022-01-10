@@ -1,0 +1,4 @@
+export GODADDY_API_KEY=2uKXe1Ei8p_LJz1nxW3MW9e32noQmPLVh
+export GODADDY_API_SECRET=VoyJUVv4hrSPTR5G3ajsQe
+
+/usr/local/bin/lego --path .config/lego -d 'infinene.net' -d '*.infinene.net' --dns godaddy -m infinene@gmail.com -a --dns.resolvers 8.8.8.8 run

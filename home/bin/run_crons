@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+#
+# https://superuser.com/questions/636283/how-to-allow-user-to-preserve-environment-with-sudo
+# visudo
+# %nginx ALL=(nginx) NOPASSWD:SETENV: /usr/local/bin/drush,/home/aom/bin/drush.phar
+# set -x
+#log "drupal: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com core-cron --yes)"
+#log "civicrm: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com cvapi job.execute auth=0)"
+
+source ~/bin/log.sh
+create_log ~/log/run_crons.log
+
+log "----- cividrupal -----"
+log "drupal: $(curl -s https://cividrupal.infinene.net/cron.php?cron_key=tdfOiINdNDNabRU2f_UD4eg-aWb_WxEV8nI37nS83DY)"
+log "civicrm: $(sudo -E -u nginx /usr/local/bin/cv api job.execute --user=cronuser --cwd=/srv/www/dev/cividrupal)"

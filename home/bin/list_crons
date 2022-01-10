@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo crontab -l
+sudo crontab -u nginx -l
+crontab -l

@@ -1,0 +1,3 @@
+#!/bin/bash
+set -x
+sudo rm -rf civicrm/templates_c/Cached* civicrm/templates_c/en_US/*

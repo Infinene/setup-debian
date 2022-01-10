@@ -1,0 +1,43 @@
+#!/bin/bash
+# To add this repository please do:
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+fi
+
+${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl software-properties-common dirmngr gnupg2 debian-archive-keyring
+
+### backports ###
+${SUDO} sh -c 'echo "deb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free" > /etc/apt/sources.list.d/debian-backports.list'
+echo -e "Package: *\nPin: release a=$(lsb_release -sc)-backports\nPin-Priority: 500\n" \
+    | ${SUDO} tee /etc/apt/preferences.d/50backports
+
+
+### php ###
+${SUDO} wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+${SUDO} sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
+### mariadb ###
+${SUDO} apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+${SUDO} sh -c 'echo "deb [arch=amd64,i386,arm64,ppc64el] https://mirror.rackspace.com/mariadb/repo/10.7/debian bullseye main" > /etc/apt/sources.list.d/mariadb.list'
+
+
+### nginx ###
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | ${SUDO} tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+    | ${SUDO} tee /etc/apt/sources.list.d/nginx.list
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | ${SUDO} tee /etc/apt/preferences.d/99nginx
+
+
+# 'Drupal/CiviCRM requirements'
+# 'php-fpm php8.0-apcu php8.0-bcmath php8.0-Curl php8.0-gd php8.0-Intl php8.0-mbstring php8.0-mysql php8.0-soap php8.0-xml php8.0-Zip php8.0-zstd'
+
+${SUDO} apt update
+${SUDO} apt -y full-upgrade
+${SUDO} apt -y install php-fpm php8.0-apcu php8.0-bcmath php8.0-Curl php8.0-gd php8.0-Intl php8.0-mbstring php8.0-mysql php8.0-soap php8.0-xml php8.0-Zip php8.0-zstd
+${SUDO} apt -y install mariadb-server
+${SUDO} apt -y install nginx

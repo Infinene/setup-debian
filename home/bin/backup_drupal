@@ -1,0 +1,169 @@
+#!/usr/bin/bash
+#
+#   Script to backup drupal 7/8/9 sites
+#   Version = 20201117
+#   Ahmed Murad
+#
+set -x #echo commands
+
+#
+# Configuration
+#
+log=true
+server_root=/srv/www
+backup_root=~/backup
+drush_dir=/usr/local/bin
+
+#
+# Usage help
+#
+usage() {
+  this=$(basename $0)
+  echo
+  echo "USAGE:"
+  echo "$this <options>"
+  echo
+  echo 'Required options:'
+  echo '    -r <string>       Drupal base directory name'
+  echo '    -p <string>       Backup file name prefix (site name)'
+  echo '    -d <string>       Destination directory name'
+  echo '    -a                Archive all files (for non-composer managed sites)'
+  echo
+  exit 1
+}
+
+#
+# Get options
+#
+while getopts ":r:p:d:a" option; do
+  case $option in
+    r)
+      drupal_base="$OPTARG"
+      ;;
+    p)
+      file_prefix="$OPTARG"
+      ;;
+    d)
+      dest_dirname="$OPTARG"
+      ;;
+    a)
+      full_backup=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument" >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+#
+# Verify options
+#
+if [ -z "$drupal_base" -o -z "$file_prefix" -o -z "$dest_dirname" ]; then
+  usage
+fi
+
+if [ ! -d $backup_root ]; then
+  echo "ERROR: Backup root $backup_root not found"
+  exit 2
+fi
+
+if [ ! -d $server_root/$drupal_base ]; then
+  echo "ERROR: Site root $server_root/$drupal_base not found"
+  exit 4
+fi
+
+#
+# Setup variables
+#
+timestamp=$(date +%Y%m%d_%H%M%S)
+site_dir="$server_root/$drupal_base"
+backup_dir="${backup_root}/${dest_dirname}"
+backup_file="${file_prefix}_${timestamp}.tar.zst"
+
+#
+# Setup log file
+#
+if [ ! -d $backup_dir ]; then
+  mkdir -pv $backup_dir
+fi
+
+source ~/bin/log.sh
+if [ $log = true ]; then
+  create_log "${backup_dir}/${file_prefix}_backup.log"
+fi
+
+#
+# Setup rotation function
+#
+function rotate() {
+  # delete daily file from 7 days ago and monthly file from  4 months ago
+  rotate_date=$(date +%Y%m%d --date '7 day ago')
+  rotate_day=$(date +%d --date '7 day ago')
+  rotate_month=$(date +%Y%m --date '92 days ago')
+  if [ ! "$rotate_day" == "01" ]; then
+    log "Deleting old daily: ${backup_dir}/${file_prefix}_${rotate_date}*.* ..."
+    find $backup_dir -type f -name "${file_prefix}_${rotate_date}*.*" -print0 | xargs -0 -n 10 -r rm -v
+  fi
+  log "Deleting old monthly: ${backup_dir}/${file_prefix}_${rotate_month}*.* ..."
+  find $backup_dir -type f -name "${file_prefix}_${rotate_month}*.*" -print0 | xargs -0 -n 10 -r rm -v
+}
+
+echo
+log ------------ $drupal_base backup started -------------
+
+#
+# Backup database
+#
+database=$($drush_dir/drush -r $server_root/$drupal_base sql-connect | cut -d' ' -f 4 | cut -d '=' -f 2)
+dump_file="${database}_${timestamp}.sql"
+
+if ! $drush_dir/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
+  log "ERROR: database dump failed ($?)"
+  exit 2
+else
+  log "database dump created: ${server_root}/${dump_file}"
+fi
+
+#
+# Backup files
+#
+if [ "$full_backup" = true ]; then
+  log "archiving all files to: $backup_file"
+  tar --zstd -cf $backup_dir/$backup_file -C $server_root $drupal_base $dump_file
+  status=$?
+else
+  log "archiving site files (excluding core files managed by composer)"
+  tar --zstd -cf $backup_dir/$backup_file --anchored \
+      --exclude=$drupal_base/vendor \
+      --exclude=$drupal_base/web/core \
+      --exclude=$drupal_base/web/modules/contrib \
+      --exclude=$drupal_base/web/profiles \
+      --exclude=$drupal_base/web/themes/contrib \
+      --exclude=$drupal_base/web/.* \
+      --exclude=$drupal_base/web/auto*.php \
+      --exclude=$drupal_base/web/index.php \
+      --exclude=$drupal_base/web/update.php \
+      --exclude=$drupal_base/web/README.txt \
+      -C $server_root $drupal_base $dump_file
+    status=$?
+fi
+
+if [ $status -eq 0 ]; then
+  log "archive created: $backup_dir/$backup_file"
+  rotate
+else
+  log "ERROR: archive failed"
+  exit $status
+fi
+
+if [ -f $server_root/$dump_file ]; then
+  rm -v $server_root/$dump_file
+fi
+

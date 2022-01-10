@@ -1,0 +1,6 @@
+#!/bin/bash
+set -x
+
+if ! mount | rg //thinkserver/datastore > /dev/null; then
+  sudo mount -t cifs //thinkserver/datastore /mnt/datastore -o credentials=/home/aom/.config/cifs/datastore,uid=0,gid=0,rw,iocharset=utf8,vers=3.0
+fi
