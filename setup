@@ -66,15 +66,18 @@ read -p "Press enter to continue"
 source $SCRIPT_DIR/setup.d/_nginx
 
 echo
-echo "Finishing up ..."
+echo "Installing utils..."
+. $HOME/bin/update_utils
+
+echo
+echo "Restarting services ..."
 ${SUDO} systemctl restart mariadb
 ${SUDO} systemctl restart php${PHP_VERSION}-fpm
 ${SUDO} systemctl restart nginx
 
 echo
-echo 'To install extras run:'
-echo '> $HOME/bin/update_utils'
-echo '> sudo apt install zsh zsh-common '
+echo 'To install zsh:'
+echo '> sudo apt install zsh'
 echo 'reload ~/.bashrc to refresh shell.'
 echo
 
