@@ -1,0 +1,24 @@
+### nginx ###
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | ${SUDO} tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
+    | ${SUDO} tee /etc/apt/sources.list.d/nginx.list
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | ${SUDO} tee /etc/apt/preferences.d/99nginx
+
+${SUDO} apt update
+${SUDO} apt -y install nginx
+
+${SUDO} cp -rv $SCRIPT_DIR/etc/nginx/* /etc/nginx
+
+### create webroot ###
+${SUDO} mkdir -p /srv/www/local
+echo $HOSTNAME | ${SUDO} tee /srv/local/index.php
+${SUDO} cp -rv $SCRIPT_DIR/www/utils /srv/www/local/
+
+### set permissions ###
+${SUDO} chown -R $USER:nginx /srv/www
+${SUDO} chmod -R a=rX,u+w /srv/www
+${SUDO} find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
+

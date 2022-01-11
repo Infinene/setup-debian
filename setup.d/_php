@@ -1,0 +1,12 @@
+### php ###
+${SUDO} wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | ${SUDO} tee /etc/apt/sources.list.d/php.list
+
+# 'Drupal/CiviCRM requirements'
+# 'php-fpm php-apcu php-bcmath php-Curl php-gd php-Intl php-mbstring php-mysql php-soap php-xml php-Zip php-zstd'
+
+${SUDO} apt update
+${SUDO} apt -y full-upgrade
+${SUDO} apt -y install php${PHP_VERSION}-fpm php${PHP_VERSION}-apcu php${PHP_VERSION}-bcmath php${PHP_VERSION}-Curl php${PHP_VERSION}-gd php${PHP_VERSION}-Intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-soap php${PHP_VERSION}-xml php${PHP_VERSION}-Zip php${PHP_VERSION}-zstd
+
+${SUDO} cp -rv $SCRIPT_DIR/etc/php/${PHP_VERSION}/* /etc/php/${PHP_VERSION}

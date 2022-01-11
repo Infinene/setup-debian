@@ -7,7 +7,7 @@ unsetopt beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/am/.zshrc'
+zstyle :compinstall filename "$HOME/.config/zsh/.zshrc"
 
 autoload -Uz compinit
 compinit
@@ -18,19 +18,12 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
 
-[ -f ~/.config/zsh/aliases ] && source ~/.config/zsh/aliases 
-[ -f ~/.config/zsh/prompt ] && source ~/.config/zsh/prompt 
 
 export VISUAL=micro
 export EDITOR=micro
 
-# nnn filemanager
-export NNN_PLUG='p:-!less -iR $nnn*;b:-!bat --paging=always $nnn*'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export NNN_COLORS='2356'
+[ -f ~/.config/zsh/prompt ] && source ~/.config/zsh/prompt 
+[ -f ~/.config/shell/aliases ] && source ~/.config/shell/aliases
+[ -f ~/.config/shell/utils_env ] && source ~/.config/shell/utils_env
 
-# composer memory limit if not set in php cli ini
-# export COMPOSER_MEMORY_LIMIT=-1
-# . "/home/aom/.acme.sh/acme.sh.env"
 
-screenfetch

@@ -60,7 +60,7 @@ if [ -d "$1" ]; then
     fi
     # find $dir -type d -exec sudo chmod g+s {} \+      #sometimes gives argument too long error
     # https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong
-    find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
+    sudo find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
 else
     echo "cannot access '${1}': No such file or directory in ${PWD}"
 fi

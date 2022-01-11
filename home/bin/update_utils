@@ -6,6 +6,7 @@ fi
 
 
 ### nnn ###
+echo
 echo "Updating nnn filemanager..."
 
 if command -v nnn &> /dev/null
@@ -21,13 +22,10 @@ if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
     echo "Already at latest version: nnn $CUR_VERSION"
 else
     # get the package
-    newfile="nnn-musl-static-${NEW_VERSION}.x86_64.tar.gz"
-    # curl -Ls -O "https://github.com/jarun/nnn/releases/download/v${NEW_VERSION}/nnn_${NEW_VERSION}-1_debian10.amd64.deb"
+    newfile="nnn-static-${NEW_VERSION}.x86_64.tar.gz"
     curl -Ls -O "https://github.com/jarun/nnn/releases/download/v${NEW_VERSION}/${newfile}"
-    # install it
-    # ${SUDO} dpkg -i nnn_"${NEW_VERSION}"-1_debian10.amd64.deb
     tar -xf $newfile
-    ${SUDO} mv nnn-musl-static /usr/local/bin/nnn
+    ${SUDO} mv nnn-static /usr/local/bin/nnn
     # remove the file
     rm -rf $newfile
 fi
@@ -35,7 +33,7 @@ fi
 
 ### bat ###
 echo
-echo "Updating nnn bat..."
+echo "Updating bat..."
 
 if command -v bat &> /dev/null
 then
@@ -52,7 +50,7 @@ else
     # get the package
     curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${NEW_VERSION}/bat_${NEW_VERSION}_amd64.deb"
     # install it
-     dpkg -i bat_"${NEW_VERSION}"_amd64.deb
+    ${SUDO} dpkg -i bat_"${NEW_VERSION}"_amd64.deb
     # remove the file
     rm -rf bat_"${NEW_VERSION}"_amd64.deb
 fi
@@ -77,7 +75,7 @@ else
     # get the package
     curl -Ls -O "https://github.com/BurntSushi/ripgrep/releases/download/${NEW_VERSION}/ripgrep_${NEW_VERSION}_amd64.deb"
     # install it
-     dpkg -i ripgrep_"${NEW_VERSION}"_amd64.deb
+    ${SUDO} dpkg -i ripgrep_"${NEW_VERSION}"_amd64.deb
     # remove the file
     rm -rf ripgrep_"${NEW_VERSION}"_amd64.deb
 fi

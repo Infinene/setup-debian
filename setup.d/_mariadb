@@ -1,0 +1,9 @@
+### mariadb ###
+
+${SUDO} apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
+echo "deb [arch=amd64,i386,arm64,ppc64el] https://mirror.rackspace.com/mariadb/repo/${MARIADB_VERSION}/debian bullseye main" | ${SUDO} tee /etc/apt/sources.list.d/mariadb.list
+
+${SUDO} apt update
+${SUDO} apt -y install mariadb-server
+
+${SUDO} cp -rv $SCRIPT_DIR/etc/mysql/* /etc/mysql/

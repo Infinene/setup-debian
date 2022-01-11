@@ -19,21 +19,9 @@ alias apt='sudo apt'
 
 alias bat='bat --style=plain'
 
-#alias e='micro'
-# e() {
-  # local dir=$(dirname "${1}")
-  # [ ! -w "${dir}" ] && local SUDO=true
-  # ${SUDO:+sudo -E} micro $1
-# }
-
 f() {
   local dir=$(dirname "${1}")
-  [ ! -w "${dir}" ] && sudo -E nnn -dHUue $1 || nnn -dHUue $1
-  # if [ ! -w "${dir}" ]; then
-    # sudo -E nnn -dHUu $1
-  # else
-    # nnn -dHUu $1
-  # fi
+  [ ! -w "${dir}" ] && sudo -E nnn -dHUuie $1 || nnn -dHUuie $1
 }
 
 ll() {
