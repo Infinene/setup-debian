@@ -1,0 +1,45 @@
+#!/usr/bin/bash
+set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+
+
+### install mailhog ###
+MAILHOG_VER="$(curl -s "https://github.com/mailhog/MailHog/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+curl -Ls -O "https://github.com/mailhog/MailHog/releases/download/v${MAILHOG_VER}/MailHog_linux_amd64"
+chmod +x ./MailHog_linux_amd64
+${SUDO} mv ./MailHog_linux_amd64 /usr/local/bin/mailhog
+
+### install mailhog ###
+# MHSENDMAIL_VER="$(curl -s "https://github.com/mailhog/mhsendmail/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+# curl -Ls -O "https://github.com/mailhog/mhsendmail/releases/download/v${MHSENDMAIL_VER}/mhsendmail_linux_amd64"
+# chmod +x ./mhsendmail_linux_amd64
+${SUDO} cp -v $SCRIPT_DIR/misc/mhsendmail /usr/local/bin/
+
+
+if [ $(uname -r | sed -n 's/.*\( *microsoft *\).*/\1/ip') ]; then
+    echo "Installing service for WSL!"
+    ${SUDO} apt install daemonize
+    ${SUDO} cp -v $SCRIPT_DIR/misc/wsl_mailhog_init /etc/init.d/mailhog
+    ${SUDO} service mailhog start
+    ${SUDO} service mailhog status
+else
+    echo "Installing systemd service"
+    ${SUDO} cp -v $SCRIPT_DIR/misc/mailhog.service /lib/systemd/system/
+    ${SUDO} systemctl enable mailhog
+    ${SUDO} systemctl start mailhog
+    ${SUDO} systemctl status mailhog
+fi
+
+mhsendmail test@localhost <<EOF
+From: Setup <setup@mailhog.local>
+To: Test <test@localhost>
+Subject: Mailhog installed
+
+Setup completed successfully!
+EOF

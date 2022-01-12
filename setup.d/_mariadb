@@ -6,4 +6,4 @@ echo "deb [arch=amd64,i386,arm64,ppc64el] https://mirror.rackspace.com/mariadb/r
 ${SUDO} apt update
 ${SUDO} apt -y install mariadb-server
 
-${SUDO} cp -rv $SCRIPT_DIR/etc/mysql/* /etc/mysql/
+${SUDO} cp -rbv $SCRIPT_DIR/etc/mysql/* /etc/mysql/

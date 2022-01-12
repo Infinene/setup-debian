@@ -10,7 +10,7 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-${SUDO} cp -rv $SCRIPT_DIR/etc/nginx/* /etc/nginx
+${SUDO} cp -rbv $SCRIPT_DIR/etc/nginx/* /etc/nginx
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/local

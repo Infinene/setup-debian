@@ -9,4 +9,4 @@ ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
 ${SUDO} apt -y install php${PHP_VERSION}-fpm php${PHP_VERSION}-apcu php${PHP_VERSION}-bcmath php${PHP_VERSION}-curl php${PHP_VERSION}-gd php${PHP_VERSION}-intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-soap php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-zstd
 
-${SUDO} cp -rv $SCRIPT_DIR/etc/php/${PHP_VERSION}/* /etc/php/${PHP_VERSION}
+${SUDO} cp -rbv $SCRIPT_DIR/etc/php/${PHP_VERSION}/* /etc/php/${PHP_VERSION}

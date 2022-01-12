@@ -1,2 +1,0 @@
-#!/usr/bin/bash
-for f in /etc/init.d/*; do sh "$f" start || continue; done ;
