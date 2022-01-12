@@ -1,4 +1,4 @@
 export NNN_PLUG='p:-_less -iR $nnn*;b:-_bat --paging=always $nnn*;m:-_most $nnn*'
 export NNN_COLORS='2356'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-if [ -f /usr/bin/screenfetch ]; then screenfetch; fi
+if [ -f /usr/bin/neofetch ]; then neofetch; fi
