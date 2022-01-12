@@ -76,8 +76,11 @@ ${SUDO} systemctl restart php${PHP_VERSION}-fpm
 ${SUDO} systemctl restart nginx
 
 echo
-echo 'reload ~/.bashrc to refresh shell.'
+echo 'reload ~/.profile to refresh shell.'
 echo 'run zsh to laucnch zsh shell or chsh to switch to zsh.'
+echo 'run setup_mailhog to install a mail catcher'
+echo 'run setup_sama to install samba'
+echo 'run setup_lego to install letsencrypt client'
 echo
 
 
