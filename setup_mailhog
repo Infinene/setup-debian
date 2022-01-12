@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-set -x
+# set -x
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
