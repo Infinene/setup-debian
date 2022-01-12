@@ -7,6 +7,8 @@ PHP_VERSION='8.0'
 if [[ $EUID -eq 0 ]]; then
     echo "Do not run as root! Launch as a user belonging to sudo group."
     exit 1
+else
+    SUDO=sudo
 fi
 
 echo '**********************************************************'
@@ -43,10 +45,6 @@ do
 done
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
-if [ ! $UID = 0 ]; then
-    SUDO=sudo
-fi
 
 source $SCRIPT_DIR/setup.d/_system
 
