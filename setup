@@ -76,9 +76,8 @@ ${SUDO} systemctl restart php${PHP_VERSION}-fpm
 ${SUDO} systemctl restart nginx
 
 echo
-echo 'To install zsh:'
-echo '> sudo apt install zsh'
 echo 'reload ~/.bashrc to refresh shell.'
+echo 'run zsh to laucnch zsh shell or chsh to switch to zsh.'
 echo
 
 
