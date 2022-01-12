@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+    SUDO=sudo
+else
+    echo "Do not run as root! Launch as a user belonging to sudo group."
+    exit 1
+fi
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+${SUDO} apt -y install samba
+
+${SUDO} cp -bv $SCRIPT_DIR/etc/samba/* /etc/samba/
+
+echo
+echo 'Edit /etc/samba/smb.conf for user names and shares'
+echo "Add users with: smbpasswd -a $USER"
+echo "Restart nmbd and smbd services"
