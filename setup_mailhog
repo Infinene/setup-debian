@@ -7,8 +7,6 @@ fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-
-
 ### install mailhog ###
 MAILHOG_VER="$(curl -s "https://github.com/mailhog/MailHog/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 curl -Ls -O "https://github.com/mailhog/MailHog/releases/download/v${MAILHOG_VER}/MailHog_linux_amd64"
