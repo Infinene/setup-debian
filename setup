@@ -59,7 +59,7 @@ if [ ${SELECTION[0]} = "true" ]; then
     echo "Configuring system (shell utils etc.)"
     echo "-------------------------------------"
     read -p "Press enter to continue"
-    # source $SCRIPT_DIR/setup.d/_system
+    source $SCRIPT_DIR/setup.d/_system
 fi
 
 if [ ${SELECTION[1]} = "true" ]; then
@@ -67,7 +67,7 @@ if [ ${SELECTION[1]} = "true" ]; then
     echo "Installing and configuring MariaDB ${MARIADB_VERSION}"
     echo "---------------------------------------"
     read -p "Press enter to continue"
-    # source $SCRIPT_DIR/setup.d/_mariadb
+    source $SCRIPT_DIR/setup.d/_mariadb
 fi
 
 if [ ${SELECTION[2]} = "true" ]; then
@@ -75,7 +75,7 @@ if [ ${SELECTION[2]} = "true" ]; then
     echo "Installing and configuring PHP ${PHP_VERSION}"
     echo "----------------------------------"
     read -p "Press enter to continue"
-    # source $SCRIPT_DIR/setup.d/_php
+    source $SCRIPT_DIR/setup.d/_php
 fi
 
 if [ ${SELECTION[3]} = "true" ]; then
@@ -83,7 +83,7 @@ if [ ${SELECTION[3]} = "true" ]; then
     echo "Installing and configuring latest NginX"
     echo "---------------------------------------"
     read -p "Press enter to continue"
-    # source $SCRIPT_DIR/setup.d/_nginx
+    source $SCRIPT_DIR/setup.d/_nginx
 fi
 
 echo
