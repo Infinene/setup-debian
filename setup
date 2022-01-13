@@ -13,7 +13,7 @@ PHP_VERSION='8.0'
 
 if [[ $EUID -eq 0 ]]; then
     tput setaf 1;
-    echo "Please launch as a user belonging to sudo group, and not as root."
+    echo "! Please launch as a user belonging to sudo group, and not as root. !"
     exit 1
 else
     SUDO=sudo
