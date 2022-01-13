@@ -19,7 +19,7 @@ ${SUDO} mv ./micro /usr/local/bin/
 ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micro 50
 
 ### backports ###
-grep -e "^deb.*backports" /etc/apt/sources>/dev/null || \
+grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
     echo -e "\ndeb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free" \
     | ${SUDO} tee -a /etc/apt/sources.list
 echo -e "Package: *\nPin: release a=$(lsb_release -sc)-backports\nPin-Priority: 500\n" \
