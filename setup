@@ -2,19 +2,29 @@
 # set -x
 
 echo
-echo '               DEBIAN SETUP WEB                             '
-echo '               ----------------                             '
-echo '  This will setup basic shell environment and install php   '
-echo '  MariaDB and nginx to create a web server.                 '
-echo
+echo '               Debian Web Server Setup                     '
+echo '               -----------------------                     '
+echo '  This will setup basic shell environment and install php  '
+echo '  MariaDB and nginx to create a web server.                '
 
 MARIADB_VERSION='10.7'
 PHP_VERSION='8.0'
 
 if [[ $EUID -eq 0 ]]; then
     tput setaf 1;
-    echo "! Please launch as a user belonging to sudo group, and not as root. !"
-    exit 1
+    echo -e "\n!Running as root! User environment and utilities will not be setup."
+    tput init
+    echo "Launch as a user in sudo group for complete setup."
+    while true
+    do
+        read -p "Continue (y/n)? " choice
+        case "$choice" in
+        y|Y )   break;;
+        n|N )   exit
+                break;;
+        * )     echo "invalid";;
+        esac
+    done
 else
     SUDO=sudo
 fi
@@ -23,7 +33,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 echo
 echo "Select / unselect options to install:"
-echo
+echo '-------------------------------------'
 
 source $SCRIPT_DIR/misc/multiselect
 INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX" )
@@ -33,15 +43,12 @@ multiselect SELECTION INSTALL_OPTIONS PRE_SELECTIONS
 if [ ${SELECTION[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
-    echo "-------------------------------------"
-    read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_system
 fi
 
 if [ ${SELECTION[1]} = "true" ]; then
     echo
     echo "Installing and configuring MariaDB ${MARIADB_VERSION}"
-    echo "---------------------------------------"
     read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_mariadb
 fi
@@ -49,7 +56,6 @@ fi
 if [ ${SELECTION[2]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${PHP_VERSION}"
-    echo "----------------------------------"
     read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_php
 fi
@@ -57,7 +63,6 @@ fi
 if [ ${SELECTION[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
-    echo "---------------------------------------"
     read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_nginx
 fi
