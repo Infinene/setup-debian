@@ -25,7 +25,8 @@ DAEMONIZE_BIN=/usr/bin/daemonize
 case "$1" in
   start)
     echo "Starting mailhog."
-    $DAEMONIZE_BIN -p $PID -l $LOCK -u $USER $BIN -hostname mail.localhost -storage maildir -maildir-path /home/am/Maildir
+    $DAEMONIZE_BIN -p $PID -l $LOCK -u $USER $BIN -hostname mail.localhost
+    # $DAEMONIZE_BIN -p $PID -l $LOCK -u $USER $BIN -hostname mail.localhost -storage maildir -maildir-path /home/am/Maildir
     ;;
   stop)
     if [ -f $PID ]; then
