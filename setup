@@ -36,7 +36,9 @@ while true
 do
 	read -p "Continue (y/n)? " choice
 	case "$choice" in
-    y|Y )   echo "Starting basic setup ...."
+    y|Y )   echo
+            echo "Select / unselect options to install:"
+            echo
 		    break;;
     n|N )   exit
 			break;;
@@ -46,32 +48,49 @@ done
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-source $SCRIPT_DIR/setup.d/_system
 
-echo
-echo "Installing and setting up MariaDB ${MARIADB_VERSION}..."
-read -p "Press enter to continue"
-source $SCRIPT_DIR/setup.d/_mariadb
+source $SCRIPT_DIR/misc/multiselect
+INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX" )
+PRE_SELECTIONS=("true" "true" "true" "true")
+multiselect SELECTION INSTALL_OPTIONS PRE_SELECTIONS
 
-echo
-echo "Installing and setting up php ${PHP_VERSION}..."
-read -p "Press enter to continue"
-source $SCRIPT_DIR/setup.d/_php
+if [ ${SELECTION[0]} = "true" ]; then
+    echo
+    echo "Configuring system (shell utils etc.)"
+    echo "-------------------------------------"
+    read -p "Press enter to continue"
+    # source $SCRIPT_DIR/setup.d/_system
+fi
 
-echo
-echo "Installing and setting up nginx..."
-read -p "Press enter to continue"
-source $SCRIPT_DIR/setup.d/_nginx
+if [ ${SELECTION[1]} = "true" ]; then
+    echo
+    echo "Installing and configuring MariaDB ${MARIADB_VERSION}"
+    echo "---------------------------------------"
+    read -p "Press enter to continue"
+    # source $SCRIPT_DIR/setup.d/_mariadb
+fi
 
-echo
-echo "Installing utils..."
-. $HOME/bin/update_utils
+if [ ${SELECTION[2]} = "true" ]; then
+    echo
+    echo "Installing and configuring PHP ${PHP_VERSION}"
+    echo "----------------------------------"
+    read -p "Press enter to continue"
+    # source $SCRIPT_DIR/setup.d/_php
+fi
+
+if [ ${SELECTION[3]} = "true" ]; then
+    echo
+    echo "Installing and configuring latest NginX"
+    echo "---------------------------------------"
+    read -p "Press enter to continue"
+    # source $SCRIPT_DIR/setup.d/_nginx
+fi
 
 echo
 echo "Restarting services ..."
-${SUDO} systemctl restart mariadb
-${SUDO} systemctl restart php${PHP_VERSION}-fpm
-${SUDO} systemctl restart nginx
+[ ${SELECTION[1]} = true ] && ${SUDO} systemctl restart mariadb
+[ ${SELECTION[2]} = true ] && echo ${SUDO} systemctl restart php${PHP_VERSION}-fpm
+[ ${SELECTION[3]} = true ] && echo ${SUDO} systemctl restart nginx
 
 echo
 echo 'reload ~/.profile to refresh shell.'
@@ -80,7 +99,3 @@ echo 'run setup_mailhog to install a mail catcher'
 echo 'run setup_sama to install samba'
 echo 'run setup_lego to install letsencrypt client'
 echo
-
-
-
-

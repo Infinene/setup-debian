@@ -21,7 +21,7 @@ alias bat='bat --style=plain'
 
 f() {
   local dir=$(dirname "${1}")
-  [ ! -w "${dir}" ] && sudo -E nnn -dUuie $1 || nnn -dUuie $1
+  [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
 }
 
 ll() {

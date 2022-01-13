@@ -19,9 +19,11 @@ ${SUDO} mv ./micro /usr/local/bin/
 ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micro 50
 
 ### backports ###
-echo "deb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free" | ${SUDO} tee /etc/apt/sources.list.d/debian-backports.list
+grep -e "^deb.*backports" $FILE>/dev/null || \
+    echo -e "\ndeb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free" \
+    | ${SUDO} tee -a $FILE
 echo -e "Package: *\nPin: release a=$(lsb_release -sc)-backports\nPin-Priority: 500\n" \
-    | ${SUDO} tee /etc/apt/preferences.d/50backports
+    | ${SUDO} tee /etc/apt/preferences.d/backports
 
 ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
@@ -29,3 +31,7 @@ ${SUDO} apt -y full-upgrade
 ${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
 ${SUDO} apt -y install zsh zstd ncdu git unzip neofetch
+
+echo
+echo "Installing utils..."
+$HOME/bin/update_utils
