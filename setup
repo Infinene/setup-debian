@@ -89,8 +89,8 @@ fi
 echo
 echo "Restarting services ..."
 [ ${SELECTION[1]} = true ] && ${SUDO} systemctl restart mariadb
-[ ${SELECTION[2]} = true ] && echo ${SUDO} systemctl restart php${PHP_VERSION}-fpm
-[ ${SELECTION[3]} = true ] && echo ${SUDO} systemctl restart nginx
+[ ${SELECTION[2]} = true ] && ${SUDO} systemctl restart php${PHP_VERSION}-fpm
+[ ${SELECTION[3]} = true ] && ${SUDO} systemctl restart nginx
 
 echo
 echo 'reload ~/.profile to refresh shell.'
