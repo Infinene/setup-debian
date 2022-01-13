@@ -1,53 +1,29 @@
 #!/bin/bash
 # set -x
 
+echo
+echo '               DEBIAN SETUP WEB                             '
+echo '               ----------------                             '
+echo '  This will setup basic shell environment and install php   '
+echo '  MariaDB and nginx to create a web server.                 '
+echo
+
 MARIADB_VERSION='10.7'
 PHP_VERSION='8.0'
 
 if [[ $EUID -eq 0 ]]; then
-    echo "Do not run as root! Launch as a user belonging to sudo group."
+    tput setaf 1;
+    echo "Please launch as a user belonging to sudo group, and not as root."
     exit 1
 else
     SUDO=sudo
 fi
 
-echo '**********************************************************'
-echo '*               DEBIAN SERVER SETUP                      *'
-echo '**********************************************************'
-echo '*                                                        *'
-echo '*  This script will setup basic shell environment and    *'
-echo '*  install MariaDB, php and nginx.                       *'
-echo '*                                                        *'
-echo '*  Before running this script, make sure sudo and curl   *'
-echo '*  are installed.                                        *'
-echo '*                                                        *'
-echo '*  Sign in as root then type:                            *'
-echo '*  > apt update && apt install curl sudo                 *'
-echo '*                                                        *'
-echo '*  Then add primary user account to sudo group           *'
-echo '*  > usermod -a -G sudo username                         *'
-echo '*                                                        *'
-echo '*  Sign in again to the user account then run this       *'
-echo '*  script.                                               *'
-echo '*                                                        *'
-echo '**********************************************************'
-
-while true
-do
-	read -p "Continue (y/n)? " choice
-	case "$choice" in
-    y|Y )   echo
-            echo "Select / unselect options to install:"
-            echo
-		    break;;
-    n|N )   exit
-			break;;
-    * )     echo "invalid";;
-	esac
-done
-
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+echo
+echo "Select / unselect options to install:"
+echo
 
 source $SCRIPT_DIR/misc/multiselect
 INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX" )
