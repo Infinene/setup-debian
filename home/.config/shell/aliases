@@ -1,18 +1,17 @@
 alias ls='ls -v --g --color=auto'
-# alias ll='ls -Alhv --g --color'
+alias ll='ls -Alhv --g --color=auto'
 alias l='ls -ACv --g --color=auto'
 alias e='micro'
 alias ping='ping -c 4'
-alias p='less -XFx4'
 alias lps='ps -elf | grep'
 # alias f='nnn -dH'
-alias sc-start='sudo systemctl start'
-alias sc-restart='sudo systemctl restart'
-alias sc-reload='sudo systemctl reload'
-alias sc-stop='sudo systemctl stop'
-alias sc-status='sudo systemctl status'
+alias sstart='sudo systemctl start'
+alias srestart='sudo systemctl restart'
+alias sreload='sudo systemctl reload'
+alias sstop='sudo systemctl stop'
+alias sstatus='sudo systemctl status'
 
-alias aptupdate='sudo apt update && sudo apt full-upgrade -y'
+alias aptup='sudo apt update && sudo apt full-upgrade -y'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
 alias apt='sudo apt'
@@ -22,10 +21,6 @@ alias bat='bat --style=plain'
 f() {
   local dir=$(dirname "${1}")
   [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
-}
-
-ll() {
- ls -Alh --g --color $1 | less -RXFx4
 }
 
 cdw() {

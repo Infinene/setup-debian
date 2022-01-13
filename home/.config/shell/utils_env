@@ -1,3 +1,4 @@
+export LESS='RXFx4'
 export NNN_PLUG='p:-_less -iR $nnn*;b:-_bat --paging=always $nnn*;m:-_most $nnn*'
 export NNN_COLORS='2356'
 export NNN_OPTS='dUue'

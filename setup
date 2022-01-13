@@ -37,7 +37,7 @@ echo "Select / unselect options to install:"
 echo '-------------------------------------'
 
 source $SCRIPT_DIR/misc/multiselect
-INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX" )
+INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX (mainline)" )
 PRE_SELECTIONS=("true" "true" "true" "true")
 multiselect SELECTION INSTALL_OPTIONS PRE_SELECTIONS
 
