@@ -32,6 +32,4 @@ ${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl soft
 ### extras ###
 ${SUDO} apt -y install zsh zstd ncdu git unzip neofetch
 
-echo
-echo "Installing utils..."
-$HOME/bin/update_utils
+[ ${SUDO} ] && echo -e "\nInstalling utils..." && $HOME/bin/update_utils

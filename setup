@@ -17,12 +17,13 @@ if [[ $EUID -eq 0 ]]; then
     echo "Launch as a user in sudo group for complete setup."
     while true
     do
-        read -p "Continue (y/n)? " choice
+        read -p "Continue as root user (y/n)? " choice
         case "$choice" in
         y|Y )   break;;
         n|N )   exit
                 break;;
-        * )     echo "invalid";;
+        * )     echo "please enter y/Y or n/N"
+                ;;
         esac
     done
 else
