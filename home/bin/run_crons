@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 #
 # https://superuser.com/questions/636283/how-to-allow-user-to-preserve-environment-with-sudo
 # visudo

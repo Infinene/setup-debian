@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # set -x
 
 sudo nginx -t && sudo systemctl reload nginx && echo 'nginx reloaded'
