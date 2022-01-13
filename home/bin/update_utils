@@ -80,3 +80,8 @@ else
     rm -rf ripgrep_"${NEW_VERSION}"_amd64.deb
 fi
 
+### composer ###
+echo
+if [ -f /usr/local/bin/composer ]; then
+    composer selfupdate
+fi
