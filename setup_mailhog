@@ -5,6 +5,7 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
+IS_WSL=$(grep -i microsoft /proc/version)
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ### install mailhog ###
@@ -20,7 +21,7 @@ ${SUDO} mv ./MailHog_linux_amd64 /usr/local/bin/mailhog
 ${SUDO} cp -v $SCRIPT_DIR/misc/mhsendmail /usr/local/bin/
 
 
-if [ $(uname -r | sed -n 's/.*\( *microsoft *\).*/\1/ip') ]; then
+if [[ $IS_WSL ]]; then
     echo "Installing service for WSL!"
     ${SUDO} apt install daemonize
     ${SUDO} cp -v $SCRIPT_DIR/misc/wsl_mailhog_init /etc/init.d/mailhog
