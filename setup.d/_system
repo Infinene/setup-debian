@@ -32,6 +32,6 @@ ${SUDO} apt -y full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt -y install zsh zstd ncdu git unzip neofetch
+${SUDO} apt -y install zsh zsh-syntax-highlighting zstd ncdu git unzip neofetch
 
 [ ${SUDO} ] && echo -e "\nInstalling utils..." && $HOME/bin/update_utils

@@ -26,4 +26,6 @@ export EDITOR=micro
 [ -f ~/.config/shell/aliases ] && source ~/.config/shell/aliases
 [ -f ~/.config/shell/utils_env ] && source ~/.config/shell/utils_env
 
-
+# must be last line
+[ -f ~/.config/zsh/prompt ] && source ~/.config/zsh/prompt
+[ -d /usr/share/zsh-syntax-highlighting ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
