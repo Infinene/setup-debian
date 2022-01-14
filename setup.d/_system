@@ -1,14 +1,12 @@
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 
-echo | ${SUDO} tee -a $HOME/.bashrc
-echo '. ~/.config/shell/prompt' | ${SUDO} tee -a $HOME/.bashrc
+echo -e '\n. ~/.config/shell/prompt' | ${SUDO} tee -a $HOME/.bashrc
 if [ ! $UID = 0 ]; then
     cp -rTv $SCRIPT_DIR/home $HOME/
-    echo | tee -a $HOME/.bashrc
-    echo '. ~/.config/shell/prompt' | tee -a $HOME/.bashrc
-    echo | tee -a $HOME/.bashrc
-    echo '. ~/.config/shell/utils_env' | tee -a $HOME/.bashrc
+    echo -e '\n. ~/.config/shell/prompt' | tee -a $HOME/.bashrc
+    echo -e '\n. ~/.config/shell/utils_env' | tee -a $HOME/.bashrc
+    echo '. /usr/share/autojump/autojump.bash' | tee -a $HOME/.bashrc
     ln -s $HOME/.config/shell/aliases $HOME/.bash_aliases
     echo -e "\nDefaults:${USER} timestamp_timeout=90" | sudo tee -a /etc/sudoers
     [[ $IS_WSL ]] && echo -e "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
