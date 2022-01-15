@@ -16,11 +16,13 @@ compinit
 # End of lines added by compinstall
 _comp_options+=(globdots)               # Include hidden files.
 
+# Custom ZSH Binds
+bindkey '^ ' autosuggest-accept
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
-
 
 export VISUAL=micro
 export EDITOR=micro
@@ -31,5 +33,6 @@ autoload -U colors && colors
 [ -f ~/.config/shell/utils_env ] && source ~/.config/shell/utils_env
 
 source /usr/share/autojump/autojump.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # must be last line
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
