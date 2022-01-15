@@ -8,7 +8,7 @@ echo -e "Package: *\nPin: release a=$(lsb_release -sc)-backports\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
 ### required by php-mysql-nginx ###
-${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
+${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
 ${SUDO} apt -y install zsh zsh-syntax-highlighting autojump zstd ncdu git unzip neofetch
 
