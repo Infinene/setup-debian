@@ -1,6 +1,6 @@
 
 function preexec() {
-  timer=$(($(date +%s%0N)/1000000000))
+  timer=$(($(date +%s%0N)/1000000))
 }
 
 function precmd() {
