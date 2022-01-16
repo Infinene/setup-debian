@@ -19,9 +19,9 @@ function precmd() {
 			extime="$((elapsed/60000))m"
 		fi
 		
-    export RPROMPT="%F{cyan}${extime}%f"
+    export RPROMPT="%F{8}${extime}%f"
     unset timer
   fi
 }
 
-PROMPT="%(!.%F{magenta}.%F{12})%n@%m%f %F{green}%~%f"$'\n'"%(?..%F{red}%? %f)❱ "
+PROMPT="🖳%(!.%F{magenta}.%F{12})%n@%m%f %F{green}%~%f"$'\n'"%(?..%F{red}%? %f)❱ "
