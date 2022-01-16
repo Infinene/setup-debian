@@ -3,4 +3,4 @@ function _error() {
 	EXIT=$?
 	[ $EXIT -ne 0 ] && echo "$EXIT "
 }
-export PS1="$([[ ${EUID} == 0 ]] && echo '\[\e[35m\]\u@\h\[\e[m\]' || echo '\[\e[34m\]\u@\h\[\e[m\]'): \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]\`_error\`\[\e[m\]❱ "
+export PS1="$([[ ${EUID} == 0 ]] && echo '\[\e[35m\]' || echo '\[\e[34m\]')\u@\h:\[\e[m\] \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]\`_error\`\[\e[m\]❱ "

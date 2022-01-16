@@ -38,31 +38,34 @@ echo "Select / unselect options to install:"
 echo '-------------------------------------'
 
 source $SCRIPT_DIR/misc/multiselect
-INSTALL_OPTIONS=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX (mainline)" )
-PRE_SELECTIONS=("true" "true" "true" "true")
-multiselect SELECTION INSTALL_OPTIONS PRE_SELECTIONS
+MENU=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX (mainline)" )
+DEFAULT_OPTIONS=("true" "true" "true" "true")
+NOTHING=("false" "false" "false" "false")
+multiselect OPTIONS MENU DEFAULT_OPTIONS
 
-if [ ${SELECTION[0]} = "true" ]; then
+[[ "$OPTIONS[@]" ==  "$NOTHING[@]" ]] && echo "Nothing selected!" && exit
+
+if [ ${OPTIONS[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
     source $SCRIPT_DIR/setup.d/_system
 fi
 
-if [ ${SELECTION[1]} = "true" ]; then
+if [ ${OPTIONS[1]} = "true" ]; then
     echo
     echo "Installing and configuring MariaDB ${MARIADB_VERSION}"
     read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_mariadb
 fi
 
-if [ ${SELECTION[2]} = "true" ]; then
+if [ ${OPTIONS[2]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${PHP_VERSION}"
     read -p "Press enter to continue"
     source $SCRIPT_DIR/setup.d/_php
 fi
 
-if [ ${SELECTION[3]} = "true" ]; then
+if [ ${OPTIONS[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
@@ -71,9 +74,9 @@ fi
 
 echo
 echo "Restarting services ..."
-[ ${SELECTION[1]} = true ] && ${SUDO} systemctl restart mariadb
-[ ${SELECTION[2]} = true ] && ${SUDO} systemctl restart php${PHP_VERSION}-fpm
-[ ${SELECTION[3]} = true ] && ${SUDO} systemctl restart nginx
+[ ${OPTIONS[1]} = true ] && ${SUDO} systemctl restart mariadb
+[ ${OPTIONS[2]} = true ] && ${SUDO} systemctl restart php${PHP_VERSION}-fpm
+[ ${OPTIONS[3]} = true ] && ${SUDO} systemctl restart nginx
 
 echo
 echo 'Setup completed!'
@@ -85,8 +88,8 @@ echo 'run setup_sama to install samba'
 echo 'run setup_lego to install letsencrypt client'
 echo
 echo 'Consider adding mysql superuser for web based administration:'
-echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED VIA" 
-echo "mysql_native_password AS PASSWORD('password') OR unix_socket;"
+echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED VIA \\" 
+echo "mysql_native_password AS PASSWORD('password') OR unix_socket; \\"
 echo "GRANT ALL PRIVILEGES ON *.* TO $USER@'%' WITH GRANT OPTION;\""
 echo '----------------------------------------------------------------'
 echo

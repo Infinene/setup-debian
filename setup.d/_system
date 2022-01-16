@@ -21,7 +21,7 @@ ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micr
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 
-cat $SCRIPT_DIR/home $HOME/.config/shell/prompt' | ${SUDO} tee -a /root/.bashrc
+cat $SCRIPT_DIR/home $HOME/.config/shell/prompt | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
     cp -rTv $SCRIPT_DIR/home $HOME/
     echo -e '\n. ~/.config/shell/prompt' | tee -a $HOME/.bashrc
@@ -32,4 +32,4 @@ if [ ! $UID = 0 ]; then
     [[ $IS_WSL ]] && echo -e "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
 fi
 
-[ ${SUDO} ] && echo -e "\nInstalling utils..." && $HOME/bin/update_utils
+echo -e "\nInstalling utils..." && $SCRIPT_DIR/home/bin/update_utils
