@@ -19,7 +19,7 @@ function precmd() {
 			extime="$((elapsed/60000))m"
 		fi
 		
-    export RPROMPT="%F{cyan}${extime} %f"
+    export RPROMPT="%F{cyan}${extime}%f"
     unset timer
   fi
 }
