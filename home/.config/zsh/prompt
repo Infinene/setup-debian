@@ -1,3 +1,4 @@
+
 function preexec() {
   timer=$(($(date +%s%0N)/1000000000))
 }

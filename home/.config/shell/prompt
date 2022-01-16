@@ -1,3 +1,4 @@
+
 function _error() {
 	EXIT=$?
 	[ $EXIT -ne 0 ] && echo "$EXIT "
