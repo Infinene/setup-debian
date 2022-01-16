@@ -2,7 +2,6 @@
     "autoindent": false,
     "backup": false,
     "clipboard": "terminal",
-    "colorscheme": "solarized",
     "ruler": false,
     "tabmovement": true,
     "tabsize": 2,

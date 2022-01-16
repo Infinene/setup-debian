@@ -16,9 +16,6 @@ compinit
 # End of lines added by compinstall
 _comp_options+=(globdots)               # Include hidden files.
 
-# Custom ZSH Binds
-bindkey '^ ' autosuggest-accept
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
@@ -31,6 +28,11 @@ autoload -U colors && colors
 [ -f ~/.config/zsh/prompt ] && source ~/.config/zsh/prompt 
 [ -f ~/.config/shell/aliases ] && source ~/.config/shell/aliases
 [ -f ~/.config/shell/utils_env ] && source ~/.config/shell/utils_env
+
+# stop underlining when typing commands
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 source /usr/share/autojump/autojump.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
