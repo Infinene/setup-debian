@@ -22,7 +22,7 @@ ${SUDO} cp -v $SCRIPT_DIR/misc/mhsendmail /usr/local/bin/
 
 
 if [[ $IS_WSL ]]; then
-    echo "Installing service for WSL!"
+    echo "Installing in WSL!"
     ${SUDO} apt install daemonize
     ${SUDO} cp -v $SCRIPT_DIR/misc/wsl_mailhog_init /etc/init.d/mailhog
     ${SUDO} service mailhog start
