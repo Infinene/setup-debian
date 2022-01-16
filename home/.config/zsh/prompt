@@ -1,13 +1,24 @@
 function preexec() {
-  timer=$(($(date +%s%0N)/1000000))
+  timer=$(($(date +%s%0N)/1000000000))
 }
 
 function precmd() {
   if [ $timer ]; then
     now=$(($(date +%s%0N)/1000000))
-    elapsed=$(($now-$timer))
+    elapsed=$((now-timer))
+		extime=
 
-    export RPROMPT="%F{cyan}${elapsed}ms %f"
+		if [ $elapsed -lt 1000 ]; then
+			extime="${elapsed}ms"
+		fi
+		if [ $elapsed -ge 1000 ]; then
+			extime="$((elapsed/1000))s"
+		fi
+		if [ $elapsed -ge 60000 ]; then
+			extime="$((elapsed/60000))m"
+		fi
+		
+    export RPROMPT="%F{cyan}${extime} %f"
     unset timer
   fi
 }
