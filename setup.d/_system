@@ -10,7 +10,7 @@ ${SUDO} apt -y full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt -y install zstd unzip ncdu neofetch git zsh zsh-syntax-highlighting zsh-autosuggestions autojump
+${SUDO} apt -y install zstd unzip ncdu htop neofetch git zsh zsh-syntax-highlighting zsh-autosuggestions autojump tmux
 
 ### micro ###
 cd $HOME
