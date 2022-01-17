@@ -1,5 +1,5 @@
 
-function _error() {
+_error() {
 	EXIT=$?
 	[ $EXIT -ne 0 ] && echo "$EXIT "
 }
