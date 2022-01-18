@@ -1,6 +1,2 @@
 
-_error() {
-	EXIT=$?
-	[ $EXIT -ne 0 ] && echo "$EXIT "
-}
-export PS1="\[\e[34m\]\u@\h:\[\e[m\] \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]`_error`\[\e[m\]❱ "
+export PS1="\[\e[34m\]\u@\h:\[\e[m\] \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]\$(x="\$?"; if [ \$x != 0 ]; then echo \"\$x \";fi)\[\e[m\]❱ "
