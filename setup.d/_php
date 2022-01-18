@@ -7,6 +7,6 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | ${SUDO} tee 
 
 ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
-${SUDO} apt -y install php${PHP_VERSION}-fpm php${PHP_VERSION}-apcu php${PHP_VERSION}-bcmath php${PHP_VERSION}-curl php${PHP_VERSION}-gd php${PHP_VERSION}-intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-soap php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-zstd
+${SUDO} apt -y install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-zstd
 
-${SUDO} cp -rbv $SCRIPT_DIR/etc/php/${PHP_VERSION}/* /etc/php/${PHP_VERSION}
+${SUDO} cp -rbv $setup_dir/etc/php/${php_ver}/* /etc/php/${php_ver}

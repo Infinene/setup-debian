@@ -10,13 +10,13 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-${SUDO} cp -rbv $SCRIPT_DIR/etc/nginx/* /etc/nginx
+${SUDO} cp -rbv $setup_dir/etc/nginx/* /etc/nginx
 [ -f /etc/nginx/conf.d/default.conf ] ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/local
 echo $HOSTNAME | ${SUDO} tee /srv/local/index.php
-${SUDO} cp -rv $SCRIPT_DIR/www/utils /srv/www/local/
+${SUDO} cp -rv $setup_dir/www/utils /srv/www/local/
 
 ### set permissions ###
 ${SUDO} chown -R $USER:nginx /srv/www

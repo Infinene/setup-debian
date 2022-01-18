@@ -5,11 +5,11 @@ if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ${SUDO} apt -y install samba
 
-${SUDO} cp -bv $SCRIPT_DIR/etc/samba/* /etc/samba/
+${SUDO} cp -bv $setup_dir/etc/samba/* /etc/samba/
 
 echo
 echo 'Edit /etc/samba/smb.conf for user names and shares'

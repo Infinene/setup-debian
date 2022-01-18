@@ -21,15 +21,15 @@ ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micr
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 
-cat $SCRIPT_DIR/home/.config/shell/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
+cat $setup_dir/home/.config/shell/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
-    cp -rTv $SCRIPT_DIR/home $HOME/
+    cp -rTv $setup_dir/home $HOME/
     echo -e '\n. ~/.config/shell/prompt' | tee -a $HOME/.bashrc
     echo -e '\n. ~/.config/shell/utils_env' | tee -a $HOME/.bashrc
     echo '. /usr/share/autojump/autojump.bash' | tee -a $HOME/.bashrc
     ln -s $HOME/.config/shell/aliases $HOME/.bash_aliases
     echo -e "\nDefaults:${USER} timestamp_timeout=90" | sudo tee -a /etc/sudoers
-    [[ $IS_WSL ]] && echo -e "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
+    [[ $is_wsl ]] && echo -e "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
 fi
 
-echo -e "\nInstalling utils..." && $SCRIPT_DIR/home/bin/update_utils
+echo -e "\nInstalling utils..." && $setup_dir/home/bin/update_utils
