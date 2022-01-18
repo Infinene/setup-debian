@@ -43,7 +43,10 @@ default_selections=("true" "true" "true" "true")
 nothing=("false" "false" "false" "false")
 multiselect selections menu default_selections
 
-[[ "$selections[@]" ==  "$nothing[@]" ]] && echo "Nothing selected!" && exit
+if [[ ! "${selections[*]}" =~ "true" ]]; then
+    echo "Nothing selected!"
+    exit
+fi
 
 if [ ${selections[0]} = "true" ]; then
     echo
