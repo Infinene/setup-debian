@@ -15,8 +15,9 @@ ${SUDO} cp -rbv $setup_dir/etc/nginx/* /etc/nginx
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/local
-echo $HOSTNAME | ${SUDO} tee /srv/local/index.php
+echo $(hostname) | ${SUDO} tee /srv/local/index.php
 ${SUDO} cp -rv $setup_dir/www/utils /srv/www/local/
+${SUDO} chown -R ${USER}:nginx
 
 ### set permissions ###
 ${SUDO} chown -R $USER:nginx /srv/www
