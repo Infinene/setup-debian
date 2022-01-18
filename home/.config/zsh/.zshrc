@@ -39,6 +39,6 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # must be last line
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-if [[ $- =~ i ]] && [[ -z "$TMUX" ]]; then
-    tmux new -A -s default
-fi
+# if [[ $- =~ i ]] && [[ -z "$TMUX" ]]; then
+#     tmux new -A -s default
+# fi
