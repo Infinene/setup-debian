@@ -16,9 +16,9 @@ if [ -f /etc/nginx/conf.d/default.conf ]; then
 fi
 
 ### create webroot ###
-${SUDO} mkdir -p /srv/www/local
-echo $(hostname) | ${SUDO} tee /srv/www/local/index.php
-${SUDO} cp -rv $setup_dir/www/utils /srv/www/local/
+${SUDO} mkdir -p /srv/www/_local
+echo $(hostname) | ${SUDO} tee /srv/www/_local/index.php
+${SUDO} cp -rv $setup_dir/www/utils /srv/www/_local/
 
 ### set permissions ###
 ${SUDO} chown -R $USER:nginx /srv/www

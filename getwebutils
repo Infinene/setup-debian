@@ -1,0 +1,32 @@
+#!/bin/bash
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+echo -e "\nInstalling composer ..."
+if command -v php &> /dev/null
+then
+	php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+	php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+	${SUDO} php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+	php -r "unlink('composer-setup.php');"
+else
+  echo "php not installed."
+fi
+
+echo -e '\nInstalling drush ...'
+wget https://github.com/drush-ops/drush/releases/download/8.4.10/drush.phar
+mv drush.phar drush
+chmod +x drush
+${SUDO} mv drush /usr/local/bin
+
+echo -e '\nInstalling cv ...'
+${SUDO} curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv
+${SUDO} chmod +x /usr/local/bin/cv
+
+echo -e '\nInstalling cv ...'
+${SUDO} curl -LsS https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp
+${SUDO} chmod +x /usr/local/bin/wp
+wp --info
