@@ -7,8 +7,8 @@ echo '               -----------------------                     '
 echo '  This will setup basic shell environment and install php  '
 echo '  MariaDB and nginx to create a web server.                '
 
-MARIADB_VERSION='10.6'
-PHP_VERSION='7.4'
+mariadb_ver='10.6'
+php_ver='7.4'
 
 if [[ $EUID -eq 0 ]]; then
     tput setaf 1;
@@ -30,53 +30,53 @@ else
     SUDO=sudo
 fi
 
-IS_WSL=$(grep -i microsoft /proc/version)
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+is_wsl=$(grep -i microsoft /proc/version)
+setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 echo
 echo "Select / unselect options to install:"
 echo '-------------------------------------'
 
-source $SCRIPT_DIR/misc/multiselect
-MENU=("Shell setup" "MariaDB ${MARIADB_VERSION}" "PHP ${PHP_VERSION}" "NginX (mainline)" )
-DEFAULT_OPTIONS=("true" "true" "true" "true")
-NOTHING=("false" "false" "false" "false")
-multiselect OPTIONS MENU DEFAULT_OPTIONS
+source $setup_dir/misc/multiselect
+menu=("Shell setup" "MariaDB ${mariadb_ver}" "PHP ${php_ver}" "NginX (mainline)" )
+default_options=("true" "true" "true" "true")
+nothing=("false" "false" "false" "false")
+multiselect options menu default_options
 
-[[ "$OPTIONS[@]" ==  "$NOTHING[@]" ]] && echo "Nothing selected!" && exit
+[[ "$options[@]" ==  "$nothing[@]" ]] && echo "Nothing selected!" && exit
 
-if [ ${OPTIONS[0]} = "true" ]; then
+if [ ${options[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
-    source $SCRIPT_DIR/setup.d/_system
+    source $setup_dir/setup.d/_system
 fi
 
-if [ ${OPTIONS[1]} = "true" ]; then
+if [ ${options[1]} = "true" ]; then
     echo
-    echo "Installing and configuring MariaDB ${MARIADB_VERSION}"
+    echo "Installing and configuring MariaDB ${mariadb_ver}"
     read -p "Press enter to continue"
-    source $SCRIPT_DIR/setup.d/_mariadb
+    source $setup_dir/setup.d/_mariadb
 fi
 
-if [ ${OPTIONS[2]} = "true" ]; then
+if [ ${options[2]} = "true" ]; then
     echo
-    echo "Installing and configuring PHP ${PHP_VERSION}"
+    echo "Installing and configuring PHP ${php_ver}"
     read -p "Press enter to continue"
-    source $SCRIPT_DIR/setup.d/_php
+    source $setup_dir/setup.d/_php
 fi
 
-if [ ${OPTIONS[3]} = "true" ]; then
+if [ ${options[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
-    source $SCRIPT_DIR/setup.d/_nginx
+    source $setup_dir/setup.d/_nginx
 fi
 
 echo
 echo "Restarting services ..."
-[ ${OPTIONS[1]} = true ] && ${SUDO} systemctl restart mariadb
-[ ${OPTIONS[2]} = true ] && ${SUDO} systemctl restart php${PHP_VERSION}-fpm
-[ ${OPTIONS[3]} = true ] && ${SUDO} systemctl restart nginx
+[ ${options[1]} = true ] && ${SUDO} systemctl restart mariadb
+[ ${options[2]} = true ] && ${SUDO} systemctl restart php${php_ver}-fpm
+[ ${options[3]} = true ] && ${SUDO} systemctl restart nginx
 
 echo
 echo 'Setup completed!'
