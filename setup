@@ -39,33 +39,33 @@ echo '-------------------------------------'
 
 source $setup_dir/misc/multiselect
 menu=("Shell setup" "MariaDB ${mariadb_ver}" "PHP ${php_ver}" "NginX (mainline)" )
-default_options=("true" "true" "true" "true")
+default_selections=("true" "true" "true" "true")
 nothing=("false" "false" "false" "false")
-multiselect options menu default_options
+multiselect selections menu default_selections
 
-[[ "$options[@]" ==  "$nothing[@]" ]] && echo "Nothing selected!" && exit
+[[ "$selections[@]" ==  "$nothing[@]" ]] && echo "Nothing selected!" && exit
 
-if [ ${options[0]} = "true" ]; then
+if [ ${selections[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
     source $setup_dir/setup.d/_system
 fi
 
-if [ ${options[1]} = "true" ]; then
+if [ ${selections[1]} = "true" ]; then
     echo
     echo "Installing and configuring MariaDB ${mariadb_ver}"
     read -p "Press enter to continue"
     source $setup_dir/setup.d/_mariadb
 fi
 
-if [ ${options[2]} = "true" ]; then
+if [ ${selections[2]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${php_ver}"
     read -p "Press enter to continue"
     source $setup_dir/setup.d/_php
 fi
 
-if [ ${options[3]} = "true" ]; then
+if [ ${selections[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
@@ -74,9 +74,9 @@ fi
 
 echo
 echo "Restarting services ..."
-[ ${options[1]} = true ] && ${SUDO} systemctl restart mariadb
-[ ${options[2]} = true ] && ${SUDO} systemctl restart php${php_ver}-fpm
-[ ${options[3]} = true ] && ${SUDO} systemctl restart nginx
+[ ${selections[1]} = true ] && ${SUDO} systemctl restart mariadb
+[ ${selections[2]} = true ] && ${SUDO} systemctl restart php${php_ver}-fpm
+[ ${selections[3]} = true ] && ${SUDO} systemctl restart nginx
 
 echo
 echo 'Setup completed!'
