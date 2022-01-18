@@ -38,7 +38,7 @@ lc-messages                 = en_US
 skip-external-locking
 bind_address                = 127.0.0.1
 character_set_server        = utf8mb4
-collation_server            = utf8mb4_unicode_520_ci
+collation_server            = utf8mb4_general_ci
 
 # * Safety
 #
