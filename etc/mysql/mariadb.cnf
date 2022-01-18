@@ -34,8 +34,7 @@ datadir                     = /var/lib/mysql
 tmpdir                      = /tmp
 log_error                   = /var/log/mysql/error.log
 lc_messages_dir             = /usr/share/mysql
-lc-messages                 = en_US
-skip-external-locking
+lc_messages                 = en_US
 bind_address                = 127.0.0.1
 character_set_server        = utf8mb4
 collation_server            = utf8mb4_general_ci
@@ -48,10 +47,12 @@ symbolic_links              = 0
 # * Fine Tuning
 #
 # max_connections             = 300
-explicit_defaults_for_timestamp
-# Broken reverse DNS slows down connections considerably and name resolve is
-# safe to skip if there are no "host by domain name" access grants
-skip-name-resolve           = on
+explicit_defaults_for_timestamp = 1
+
+#  If set to 1, (0 is the default), the server does not listen for TCP/IP connections. 
+#  All interaction with the server will be through socket files (Unix). It's recommended 
+#  to use this option if only local clients are permitted to connect to the server.
+skip-name-resolve           = 1
 
 #
 # * MyISAM

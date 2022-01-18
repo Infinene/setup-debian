@@ -11,6 +11,7 @@ ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
 ${SUDO} cp -rbv $SCRIPT_DIR/etc/nginx/* /etc/nginx
+[ -f /etc/nginx/conf.d/default.conf ] ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/local
@@ -21,4 +22,3 @@ ${SUDO} cp -rv $SCRIPT_DIR/www/utils /srv/www/local/
 ${SUDO} chown -R $USER:nginx /srv/www
 ${SUDO} chmod -R a=rX,u+w /srv/www
 ${SUDO} find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
-

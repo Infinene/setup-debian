@@ -1,7 +1,7 @@
 export LESS='iRx4X'
 export NNN_PLUG='v:-!bat --paging=always $nnn*;p:-!less -iR $nnn*'
 export NNN_COLORS='2356'
-export NNN_OPTS='dUue'
+export NNN_OPTS='dUuie'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 if [ -f /usr/bin/neofetch ]; then neofetch; fi

@@ -1,7 +1,6 @@
 alias ls='ls -v --group --color'
 alias ll='ls -Alhv --group --color'
 alias l='ls -ACv --group --color'
-alias e='micro'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 # alias f='nnn -dH'
@@ -14,14 +13,15 @@ alias sstatus='sudo systemctl status'
 alias aptup='sudo apt update && sudo apt full-upgrade -y'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
-alias apt='sudo apt'
+alias aptget='sudo apt install'
 
 alias bat='bat --style=plain'
-
-f() {
-  local dir=$(dirname "${1}")
-  [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
-}
+alias e='micro'
+alias f='nnn'
+# f() {
+#   local dir=$(dirname "${1}")
+#   [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
+# }
 
 cdw() {
   if [ -z $1 ]; then
