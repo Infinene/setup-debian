@@ -33,6 +33,7 @@ sed -i -r "s|^// (.cfg\['Server.*i\]\['navigatio)|\1|" pma/config.inc.php
 sed -i -r "s|^// (.cfg\['Server.*i\]\['savedsear)|\1|" pma/config.inc.php
 sed -i -r "s|^// (.cfg\['Server.*i\]\['central_c)|\1|" pma/config.inc.php
 sed -i -r "s|^// (.cfg\['Server.*i\]\['designer_)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['export_te)|\1|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['MaxRows.+)50|\1250|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['QueryHistoryDB)|\1;|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['QueryHistoryMax)|\1;|" pma/config.inc.php
