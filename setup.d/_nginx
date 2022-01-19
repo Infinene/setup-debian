@@ -25,4 +25,4 @@ echo $(hostname) | ${SUDO} tee /srv/www/_local/index.php
 ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###
-$HOME/bin/webdir_permission /srv/www
+$HOME/bin/webmod /srv/www
