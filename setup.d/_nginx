@@ -25,6 +25,4 @@ echo $(hostname) | ${SUDO} tee /srv/www/_local/index.php
 ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###
-${SUDO} chown -R $USER:nginx /srv/www
-${SUDO} chmod -R a=rX,u+w /srv/www
-${SUDO} find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
+$HOME/bin/webdir_permission /srv/www
