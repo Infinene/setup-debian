@@ -83,16 +83,15 @@ echo "Restarting services ..."
 
 echo
 echo 'Setup completed!'
-echo '----------------------------------------------------------------'
+echo '----------------'
 echo 'reload ~/.profile to refresh shell.'
-echo 'run zsh to laucnch zsh shell or chsh to switch to zsh.'
-echo 'run setup_mailhog to install a mail catcher'
-echo 'run setup_sama to install samba'
+echo 'run setup_webutils to install website maintenance utils.'
+echo 'run setup_mailhog to install a local mail catcher'
+echo 'run setup_samba to install samba'
 echo 'run setup_lego to install letsencrypt client'
 echo
 echo 'Consider adding mysql superuser for web based administration:'
-echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED VIA \\" 
-echo "mysql_native_password AS PASSWORD('password') OR unix_socket; \\"
+echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
 echo "GRANT ALL PRIVILEGES ON *.* TO $USER@'%' WITH GRANT OPTION;\""
-echo '----------------------------------------------------------------'
+echo '----------------'
 echo
