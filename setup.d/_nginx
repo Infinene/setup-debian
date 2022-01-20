@@ -10,18 +10,17 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-if [[ $php_ver = '7.4' ]]; then
-    sed -i -e 's/_php80/_php74/' $setup_dir/etc/nginx/conf.d/local.conf
-fi
+ver=$(echo $php_ver | tr -d .)
 
 ${SUDO} cp -rbv $setup_dir/etc/nginx/* /etc/nginx
 if [ -f /etc/nginx/conf.d/default.conf ]; then
     ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 fi
+${SUDO} sed -i -e 's/_php<ver>/_php${ver}/' /etc/nginx/conf.d/_local.conf
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/_local
-echo $(hostname) | ${SUDO} tee /srv/www/_local/index.php
+echo $(hostname) | ${SUDO} tee /srv/www/_local/index.html
 ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###

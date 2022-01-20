@@ -2,3 +2,10 @@
 SELECT CEILING(Total_InnoDB_Bytes*1.5/POWER(1024,3)) RIBPS FROM
 (SELECT SUM(data_length+index_length) Total_InnoDB_Bytes
 FROM information_schema.tables WHERE engine='InnoDB') A;
+
+### nextcloud
+# rsync
+sudo -u nginx rsync -aP sadmin@web.soundvision.com:backups/ soundvision/
+sudo -u nginx php /srv/nextcloud/occ files:scan --all
+# webdav folder
+https://server/remote.php/dav/files/USERNAME/ 

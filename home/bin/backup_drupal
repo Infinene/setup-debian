@@ -12,7 +12,7 @@ set -x #echo commands
 log=true
 server_root=/srv/www
 backup_root=~/backup
-drushbin=/usr/local/bin
+drush_dir=/usr/local/bin
 
 #
 # Usage help
@@ -121,10 +121,10 @@ log ------------ $drupal_base backup started -------------
 #
 # Backup database
 #
-database=$($drushbin/drush -r $server_root/$drupal_base sql-connect | cut -d' ' -f 4 | cut -d '=' -f 2)
+database=$($drush_dir/drush -r $server_root/$drupal_base sql-connect | cut -d' ' -f 4 | cut -d '=' -f 2)
 dump_file="${database}_${timestamp}.sql"
 
-if ! $drushbin/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
+if ! $drush_dir/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
   log "ERROR: database dump failed ($?)"
   exit 2
 else

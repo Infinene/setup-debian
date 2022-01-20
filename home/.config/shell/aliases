@@ -17,11 +17,11 @@ alias aptget='sudo apt install'
 
 alias bat='bat --style=plain'
 alias e='micro'
-alias f='nnn'
-# f() {
-#   local dir=$(dirname "${1}")
-#   [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
-# }
+# alias f='nnn'
+f() {
+  local dir=$(dirname "${1}")
+  [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
+}
 
 cdw() {
   if [ -z $1 ]; then
