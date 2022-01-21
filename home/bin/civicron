@@ -1,0 +1,10 @@
+#!/bin/bash
+# set -x
+
+sites=('/srv/www/give.soundvision.com' '/srv/www/give.justiceforall')
+
+for site in ${sites[@]}; do
+	echo "[$(date +%Y-%m-%dT%H:%M:%S)] ${site}"
+	cd $site
+  /usr/local/bin/cv api job.execute --cwd=$site
+done

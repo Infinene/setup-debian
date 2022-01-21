@@ -7,5 +7,5 @@ create_log() {
     exec 2>&1
 }
 log() {
-    echo "[$(date --rfc-3339=seconds)] $*"
+    echo "[$(date +%Y-%m-%dT%H:%M:%S)] $*"
 }

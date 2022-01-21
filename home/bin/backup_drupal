@@ -4,15 +4,15 @@
 #   Version = 20201117
 #   Ahmed Murad
 #
-set -x #echo commands
+# set -x #echo commands
 
 #
 # Configuration
 #
 log=true
 server_root=/srv/www
-backup_root=~/backup
-drush_dir=/usr/local/bin
+backup_root=~/backups
+drushbin=/usr/local/bin
 
 #
 # Usage help
@@ -24,7 +24,7 @@ usage() {
   echo "$this <options>"
   echo
   echo 'Required options:'
-  echo '    -r <string>       Drupal base directory name'
+  echo '    -r <string>       Drupal root directory name'
   echo '    -p <string>       Backup file name prefix (site name)'
   echo '    -d <string>       Destination directory name'
   echo '    -a                Archive all files (for non-composer managed sites)'
@@ -121,10 +121,10 @@ log ------------ $drupal_base backup started -------------
 #
 # Backup database
 #
-database=$($drush_dir/drush -r $server_root/$drupal_base sql-connect | cut -d' ' -f 4 | cut -d '=' -f 2)
+database=$($drushbin/drush -r $server_root/$drupal_base sql-connect | cut -d' ' -f 4 | cut -d '=' -f 2)
 dump_file="${database}_${timestamp}.sql"
 
-if ! $drush_dir/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
+if ! $drushbin/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
   log "ERROR: database dump failed ($?)"
   exit 2
 else
