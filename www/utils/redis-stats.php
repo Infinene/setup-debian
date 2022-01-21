@@ -1,7 +1,7 @@
 <?php
 // CONFIG
 $servers = array(
-	array('Local', '10.0.0.105', 6379),
+	array('Local', '127.0.0.1', 6379),
 );
 // END CONFIG
 
