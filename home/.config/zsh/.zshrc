@@ -26,8 +26,8 @@ export EDITOR=micro
 
 autoload -U colors && colors
 [ -f ~/.config/zsh/prompt ] && source ~/.config/zsh/prompt 
-[ -f ~/.config/shell/aliases ] && source ~/.config/shell/aliases
-[ -f ~/.config/shell/utils_env ] && source ~/.config/shell/utils_env
+[ -f ~/.config/bash/aliases ] && source ~/.config/bash/aliases
+[ -f ~/.config/bash/utils_env ] && source ~/.config/bash/utils_env
 
 # stop underlining when typing commands
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
