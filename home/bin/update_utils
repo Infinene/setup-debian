@@ -7,7 +7,7 @@ fi
 
 ### nnn ###
 echo
-echo "Updating nnn filemanager..."
+echo "Updating nnn..."
 
 if command -v nnn &> /dev/null
 then
@@ -56,9 +56,34 @@ else
 fi
 
 
+### fd ###
+echo
+echo "Updating fd..."
+
+if command -v fd &> /dev/null
+then
+  CUR_VERSION="$(fd -V)"
+else
+  CUR_VERSION="0.0"
+fi
+
+NEW_VERSION="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+
+if [ "$CUR_VERSION" = "fd ${NEW_VERSION}" ]; then
+    echo "Already at latest version: ${CUR_VERSION}"
+else
+    # get the package
+    curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${NEW_VERSION}/fd_${NEW_VERSION}_amd64.deb"
+    # install it
+    ${SUDO} dpkg -i fd_"${NEW_VERSION}"_amd64.deb
+    # remove the file
+    rm -rf fd_"${NEW_VERSION}"_amd64.deb
+fi
+
+
 ### ripgrep ###
 echo
-echo "Updating nnn ripgrep..."
+echo "Updating ripgrep..."
 
 if command -v rg &> /dev/null
 then
@@ -82,6 +107,15 @@ fi
 
 ### composer ###
 echo
+echo "Updating composer..."
+
 if [ -f /usr/local/bin/composer ]; then
-    composer selfupdate
+    ${SUDO} composer selfupdate
+else
+  EXPECTED_CHECKSUM="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+  php -r "if (hash_file('sha384', 'composer-setup.php') === '${EXPECTED_CHECKSUM}') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+  ${SUDO} php composer-setup.php --filename=composer --install-dir=/usr/local/bin
+  php -r "unlink('composer-setup.php');"
 fi
+
