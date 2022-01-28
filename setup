@@ -51,7 +51,7 @@ fi
 if [ ${selections[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
-    source $setup_dir/setup.d/_system
+    source $setup_dir/setup.d/_shell
 fi
 
 if [ ${selections[1]} = "true" ]; then
