@@ -16,8 +16,8 @@ else
 		echo "Updating lf version ${NEW_VERSION}"
     # get the package
     curl -L https://github.com/gokcehan/lf/releases/latest/download/lf-linux-amd64.tar.gz | ${SUDO} tar xzC /usr/local/bin
-    if [ ! -f ~/.config/lf/lfrc ]; then
-      mkdir -p ~/.config/lf
-      curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o ~/.config/lf/lfrc
-    fi
+    # if [ ! -f ~/.config/lf/lfrc ]; then
+    #   mkdir -p ~/.config/lf
+    #   curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o ~/.config/lf/lfrc
+    # fi
 fi
