@@ -23,7 +23,8 @@ echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
-    cp -rTv $setup_dir/home $HOME
+    # cp -rTv $setup_dir/home $HOME
+    cp -rv $setup_dir/home/. $HOME
     echo -e '\n. ~/.config/bash/prompt' | tee -a $HOME/.bashrc
     echo '. ~/.config/bash/utils_env' | tee -a $HOME/.bashrc
     echo '. /usr/share/autojump/autojump.bash' | tee -a $HOME/.bashrc
