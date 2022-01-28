@@ -1,3 +1,5 @@
+${SUDO} apt -y install lsb-release
+
 ### backports ###
 grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
     echo -e "\ndeb http://deb.debian.org/debian $(lsb_release -sc)-backports main contrib non-free" \
@@ -8,7 +10,7 @@ echo -e "Package: *\nPin: release a=$(lsb_release -sc)-backports\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
 ### required by php-mysql-nginx ###
-${SUDO} apt -y install apt-transport-https lsb-release ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
+${SUDO} apt -y install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
 ${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
 

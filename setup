@@ -28,6 +28,7 @@ if [[ $EUID -eq 0 ]]; then
     done
 else
     SUDO=sudo
+    {SUDO} echo 
 fi
 
 is_wsl=$(grep -i microsoft /proc/version)
