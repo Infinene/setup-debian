@@ -5,7 +5,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 
-### nnn ###
+### nnn #########################################
 echo
 echo "Updating nnn..."
 
@@ -31,7 +31,7 @@ else
 fi
 
 
-### bat ###
+### bat #########################################
 echo
 echo "Updating bat..."
 
@@ -56,7 +56,7 @@ else
 fi
 
 
-### fd ###
+### fd ##########################################
 echo
 echo "Updating fd..."
 
@@ -81,7 +81,7 @@ else
 fi
 
 
-### ripgrep ###
+### ripgrep #####################################
 echo
 echo "Updating ripgrep..."
 
@@ -105,7 +105,8 @@ else
     rm -rf ripgrep_"${NEW_VERSION}"_amd64.deb
 fi
 
-### composer ###
+
+### composer ####################################
 echo
 echo "Updating composer..."
 

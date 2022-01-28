@@ -20,5 +20,6 @@ start mailhog
 start mariadb
 start php8.0-fpm
 start nginx
+start ssh
 
 sudo service --status-all
