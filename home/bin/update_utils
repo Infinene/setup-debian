@@ -4,113 +4,14 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
+this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-### nnn #########################################
-echo
-echo "Updating nnn..."
+# If sudo, get the password now
+${SUDO} echo
 
-if command -v nnn &> /dev/null
-then
-  CUR_VERSION="$(nnn -V)"
-else
-  CUR_VERSION="0.0"
-fi
-        
-NEW_VERSION="$(curl -s "https://github.com/jarun/nnn/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-
-if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: nnn $CUR_VERSION"
-else
-    # get the package
-    newfile="nnn-static-${NEW_VERSION}.x86_64.tar.gz"
-    curl -Ls -O "https://github.com/jarun/nnn/releases/download/v${NEW_VERSION}/${newfile}"
-    tar -xf $newfile
-    ${SUDO} mv nnn-static /usr/local/bin/nnn
-    # remove the file
-    rm -rf $newfile
-fi
-
-
-### bat #########################################
-echo
-echo "Updating bat..."
-
-if command -v bat &> /dev/null
-then
-  CUR_VERSION="$(bat -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-else
-  CUR_VERSION="0.0"
-fi
-
-NEW_VERSION="$(curl -s "https://github.com/sharkdp/bat/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-
-if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: ${CUR_VERSION}"
-else
-    # get the package
-    curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${NEW_VERSION}/bat_${NEW_VERSION}_amd64.deb"
-    # install it
-    ${SUDO} dpkg -i bat_"${NEW_VERSION}"_amd64.deb
-    # remove the file
-    rm -rf bat_"${NEW_VERSION}"_amd64.deb
-fi
-
-
-### fd ##########################################
-echo
-echo "Updating fd..."
-
-if command -v fd &> /dev/null
-then
-  CUR_VERSION="$(fd -V)"
-else
-  CUR_VERSION="0.0"
-fi
-
-NEW_VERSION="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-
-if [ "$CUR_VERSION" = "fd ${NEW_VERSION}" ]; then
-    echo "Already at latest version: ${CUR_VERSION}"
-else
-    # get the package
-    curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${NEW_VERSION}/fd_${NEW_VERSION}_amd64.deb"
-    # install it
-    ${SUDO} dpkg -i fd_"${NEW_VERSION}"_amd64.deb
-    # remove the file
-    rm -rf fd_"${NEW_VERSION}"_amd64.deb
-fi
-
-
-### ripgrep #####################################
-echo
-echo "Updating ripgrep..."
-
-if command -v rg &> /dev/null
-then
-  CUR_VERSION="$(rg -V)"
-else
-  CUR_VERSION="0.0"
-fi
-
-NEW_VERSION="$(curl -s "https://github.com/BurntSushi/ripgrep/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-
-if [ "$CUR_VERSION" = "ripgrep ${NEW_VERSION}" ]; then
-    echo "Already at latest version: ${CUR_VERSION}"
-else
-    # get the package
-    curl -Ls -O "https://github.com/BurntSushi/ripgrep/releases/download/${NEW_VERSION}/ripgrep_${NEW_VERSION}_amd64.deb"
-    # install it
-    ${SUDO} dpkg -i ripgrep_"${NEW_VERSION}"_amd64.deb
-    # remove the file
-    rm -rf ripgrep_"${NEW_VERSION}"_amd64.deb
-fi
-
-
-### composer ####################################
-echo
-
-if [ -f /usr/local/bin/composer ]; then
-  echo "Updating composer..."
-  ${SUDO} composer selfupdate
-fi
-
+# source $this_dir/src/update_nnn.sh
+source $this_dir/src/update_lf.sh
+source $this_dir/src/update_fd.sh
+source $this_dir/src/update_bat.sh
+source $this_dir/src/update_ripgrep.sh
+source $this_dir/src/update_composer.sh

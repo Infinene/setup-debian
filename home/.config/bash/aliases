@@ -1,8 +1,8 @@
-alias ls='ls -v --group --color'
-# alias ll='ls -Alhv --group --color'
-alias ll='exa -alg --group-directories-first'
-# alias l='ls -ACv --group --color'
-alias l='exa -ag --group-directories-first'
+alias ls='ls -v --group --color=auto'
+alias ll='ls -Alhv --group --color=auto'
+# alias ll='exa -alg --group-directories-first'
+alias l='ls -ACv --group --color=auto'
+# alias l='exa -ag --group-directories-first'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 # alias f='nnn -dH'
@@ -20,10 +20,10 @@ alias aptget='sudo apt install'
 alias bat='bat --style=plain'
 alias e='micro'
 # alias f='nnn'
-f() {
-  local dir=$(dirname "${1}")
-  [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
-}
+# f() {
+#   local dir=$(dirname "${1}")
+#   [ ! -w "${dir}" ] && sudo -E nnn $1 || nnn $1
+# }
 
 cdw() {
   if [ -z $1 ]; then

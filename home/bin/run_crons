@@ -7,8 +7,8 @@
 #log "drupal: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com core-cron --yes)"
 #log "civicrm: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com cvapi job.execute auth=0)"
 
-source ~/bin/log.sh
-create_log ~/log/run_crons.log
+source ~/bin/src/log.sh
+create_log ~/.cache/run_crons.log
 
 log "----- cividrupal -----"
 log "drupal: $(curl -s https://cividrupal.infinene.net/cron.php?cron_key=tdfOiINdNDNabRU2f_UD4eg-aWb_WxEV8nI37nS83DY)"

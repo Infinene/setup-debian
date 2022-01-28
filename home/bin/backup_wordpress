@@ -87,7 +87,7 @@ if [ ! -d $backup_dir ]; then
   mkdir -vp $backup_dir
 fi
 
-source ~/bin/log.sh
+source ~/bin/src/log.sh
 if [ $log = true ]; then
   create_log "${backup_dir}/${file_prefix}_backup.log"
 fi
