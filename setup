@@ -90,9 +90,11 @@ echo 'run setup_webutils to install website maintenance utils.'
 echo 'run setup_mailhog to install a local mail catcher'
 echo 'run setup_samba to install samba'
 echo 'run setup_lego to install letsencrypt client'
-echo
-echo 'Consider adding mysql superuser for web based administration:'
-echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
-echo "GRANT ALL PRIVILEGES ON *.* TO $USER@'%' WITH GRANT OPTION;\""
+if [ ${selections[1]} = "true" ]; then
+    echo
+    echo 'Consider adding mysql superuser for web based administration:'
+    echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
+    echo "GRANT ALL PRIVILEGES ON *.* TO $USER@'%' WITH GRANT OPTION;\""
+fi
 echo '----------------'
 echo
