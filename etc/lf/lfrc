@@ -1,10 +1,13 @@
 # basic settings
 set hidden
 set icons
+set ignorecase
 # set drawbox
+map e $micro $f
+map ; !bat $f
 
 # interpreter for shell commands
-set shell sh
+set shell bash
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to

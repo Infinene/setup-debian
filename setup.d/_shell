@@ -37,3 +37,4 @@ if [ ! $UID = 0 ]; then
 fi
 
 echo -e "\nInstalling utils..." && $setup_dir/home/bin/update_utils
+${SUDO} cp -rbv $setup_dir/etc/lf /etc/
