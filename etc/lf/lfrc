@@ -3,11 +3,16 @@ set hidden
 set icons
 set ignorecase
 # set drawbox
+set previewer ~/bin/lfpreview
+set info time:size
+
+# mappings
 map e $micro $f
 map ; !bat $f
 
 # interpreter for shell commands
 set shell bash
+
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
