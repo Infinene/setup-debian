@@ -17,6 +17,7 @@ ${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
 
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
+[[ $is_wsl ]] ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
 
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
@@ -25,6 +26,7 @@ if [ ! $UID = 0 ]; then
     echo -e '\n. ~/.config/bash/prompt' | tee -a $HOME/.bashrc
     echo '. ~/.config/bash/utils_env' | tee -a $HOME/.bashrc
     echo '. /usr/share/autojump/autojump.bash' | tee -a $HOME/.bashrc
+    echo 'if [ -f /usr/bin/neofetch ]; then neofetch; fi' | tee -a $HOME/.bashrc
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
     echo -e "\nDefaults:${USER} timestamp_timeout=90" | sudo tee -a /etc/sudoers

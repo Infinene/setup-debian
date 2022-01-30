@@ -4,5 +4,3 @@ export LESS='iRXx4'
 # export NNN_OPTS='dUuie'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # for exa: export TIME_STYLE='iso'
-
-if [ -f /usr/bin/neofetch ]; then neofetch; fi
