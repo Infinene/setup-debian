@@ -16,7 +16,7 @@ ${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
 
 ### micro ###
 cd $HOME
-curl https://getmic.ro | bash
+curl https://getmic.ro | GETMICRO_REGISTER=n bash
 ${SUDO} mv ./micro /usr/local/bin/
 ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micro 50
 
