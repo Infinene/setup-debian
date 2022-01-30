@@ -10,6 +10,7 @@ this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ${SUDO} echo
 
 # source $this_dir/src/update_nnn.sh
+source $this_dir/src/update_micro.sh
 source $this_dir/src/update_lf.sh
 source $this_dir/src/update_fd.sh
 source $this_dir/src/update_bat.sh

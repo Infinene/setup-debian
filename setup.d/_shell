@@ -1,3 +1,4 @@
+${SUDO} apt update
 ${SUDO} apt -y install lsb-release
 
 ### backports ###
@@ -13,12 +14,6 @@ ${SUDO} apt -y full-upgrade
 ${SUDO} apt -y install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
 ${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
-
-### micro ###
-cd $HOME
-curl https://getmic.ro | GETMICRO_REGISTER=n bash
-${SUDO} mv ./micro /usr/local/bin/
-${SUDO} update-alternatives --install /usr/bin/editor editor /usr/local/bin/micro 50
 
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
