@@ -17,7 +17,7 @@ ${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
 
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
-[[ $is_wsl ]] ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
+[[ $is_wsl ]] && ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
 
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
