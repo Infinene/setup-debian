@@ -1,34 +1,23 @@
 #!/bin/bash
-set -x
+# set -x
 
-dest_dir="$HOME/backups"
-LOG_FILE=~/.cache/log/web_backup.log
+dest_dir="/srv/nextcloud/data/__groupfolders/1"
 
-printf "\n$(date)\n-------------------------------\n" >> $LOG_FILE
+log_file=~/.cache/log/backup_rsync.log
 
-# Mount vmshare if not mounted
-#
-if ! mount | rg ThinkStation/vmshare > /dev/null; then
-    printf "Mounting vmshare ...\n" >> $LOG_FILE
-    sudo mount -t cifs //ThinkStation/vmshare /mnt/vmshare -o credentials=/home/aom/.config/cifs/vmshare,uid=1000,gid=1000,rw,iocharset=utf8,vers=3.0
+if [ ! -d ~/.cache/log ]; then
+	mkdir -p ~/.cache/log
 fi
 
-if [ ! -d $dest_dir/ ]; then
-    printf "ERROR: $dest_dir does not exist\n" >> $LOG_FILE
+source ~/bin/src/log.sh
+create_log $log_file
+
+log '-----'
+
+if [ ! -d ${dest_dir}/ ]; then
+    log "ERROR: $dest_dir does not exist"
     exit 1
 fi
 
-printf "\ninfinene.com\n----------------------------\n" >> $LOG_FILE
-rsync -a --delete --log-file=$LOG_FILE admin@ws1.infinene.com:backups/mihe $dest_dir/
-
-# printf "\nburmataskforce.org\n----------------------------\n" >> $LOG_FILE
-# rsync -a --delete --log-file=$LOG_FILE admin@ws1.infinene.com:backups/btf $dest_dir/
-
-# printf "\nsoundvision.com\n----------------------------\n" >> $LOG_FILE
-# rsync -aP --delete admin@ws1.soundvision.com:backups/soundvision ~/backups/
-
-# printf "\nradioislam.com\n----------------------------\n" >> $LOG_FILE
-# rsync -aP --delete admin@ws1.soundvision.com:backups/radioislam ~/backups/
-
-# printf "\nstopgenocide.org\n----------------------------\n" >> $LOG_FILE
-# rsync -aP --delete admin@stopgenocide.org:backups/stopgenocide ~/backups/
+rsync -a --delete --log-file=${log_file} sadmin@soundvision.com:backups/ ${dest_dir}/
+php /srv/nextcloud/occ groupfolders:scan 1
