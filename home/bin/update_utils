@@ -15,4 +15,5 @@ source $this_dir/src/update_lf.sh
 source $this_dir/src/update_fd.sh
 source $this_dir/src/update_bat.sh
 source $this_dir/src/update_ripgrep.sh
+source $this_dir/src/update_lego.sh
 source $this_dir/src/update_composer.sh
