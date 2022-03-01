@@ -1,5 +1,5 @@
 echo
-echo "Updating fd..."
+echo "Updating micro editor..."
 
 add_editor () {
   if ! update-alternatives --list editor | grep "micro" >/dev/null; then
