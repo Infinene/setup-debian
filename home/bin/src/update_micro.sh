@@ -22,9 +22,13 @@ else
     # get the package
     file=micro-${version}-${arch}.deb
     curl -Ls -O "https://github.com/zyedidia/micro/releases/download/v${version}/${file}"
-    # install it
+ 
+  if [ -f $file ]; then
     ${SUDO} dpkg -i $file
     # remove the file
-    rm -vf $file
-    add_editor
+    rm -rf $file
+  else
+    echo "ERROR: File ${file} not found."
+  fi
+  add_editor
 fi

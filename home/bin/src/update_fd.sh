@@ -13,11 +13,14 @@ version="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[
 if [ "$local_version" = "fd ${version}" ]; then
     echo "Already at latest version: ${local_version}"
 else
-    # get the package
-    file=fd_${version}_amd64.deb
-    curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${version}/${file}"
-    # install it
+  # get the package
+  file=fd_${version}_amd64.deb
+  curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${version}/${file}"
+  if [ -f $file ]; then
     ${SUDO} dpkg -i $file
     # remove the file
     rm -rf $file
+  else
+    echo "ERROR: File ${file} not found."
+  fi
 fi

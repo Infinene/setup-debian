@@ -13,11 +13,15 @@ version="$(curl -s "https://github.com/sharkdp/bat/releases/latest" | grep -Eo "
 if [ "$local_version" = "${version}" ]; then
     echo "Already at latest version: ${version}"
 else
-    # get the package
-    file=bat_${version}_${arch}.deb
-    curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${version}/${file}"
-    # install it
+  # get the package
+  file=bat_${version}_${arch}.deb
+  curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${version}/${file}"
+  # install it
+  if [ -f $file ]; then
     ${SUDO} dpkg -i $file
     # remove the file
     rm -rf $file
+  else
+    echo "ERROR: File ${file} not found."
+  fi
 fi
