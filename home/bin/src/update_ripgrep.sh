@@ -1,6 +1,11 @@
 echo
 echo "Updating ripgrep..."
 
+if [[ $arch == "arm"* ]]; then
+  echo "arm arhictecture not supported - install using apt"
+  exit
+fi
+
 if command -v rg &> /dev/null
 then
   local_version="$(rg -V)"
