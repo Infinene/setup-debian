@@ -1,6 +1,6 @@
 # basic settings
 set hidden
-set icons
+# set icons
 set ignorecase
 # set drawbox
 set previewer ~/bin/lfpreview

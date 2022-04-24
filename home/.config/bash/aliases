@@ -12,7 +12,7 @@ alias sreload='sudo systemctl reload'
 alias sstop='sudo systemctl stop'
 alias sstatus='sudo systemctl status'
 
-alias aptup='sudo apt update && sudo apt full-upgrade -y'
+alias aptup='sudo apt update && sudo apt full-upgrade'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
 alias aptget='sudo apt install'
