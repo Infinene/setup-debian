@@ -3,19 +3,20 @@ echo "Updating lf..."
 
 if command -v lf &> /dev/null
 then
-  CUR_VERSION="$(lf -version)"
+  local_version="$(lf -version)"
 else
-  CUR_VERSION="0.0"
+  local_version="0.0"
 fi
         
-NEW_VERSION="$(curl -s "https://github.com/gokcehan/lf/releases/latest" | grep -Eo "r[0-9]+")"
+version="$(curl -s "https://github.com/gokcehan/lf/releases/latest" | grep -Eo "r[0-9]+")"
 
-if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: lf $CUR_VERSION"
+if [ "$local_version" = "${version}" ]; then
+    echo "Already at latest version: lf $local_version"
 else
-		echo "Updating lf version ${NEW_VERSION}"
+		echo "Updating lf version ${version}"
     # get the package
-    curl -L https://github.com/gokcehan/lf/releases/latest/download/lf-linux-amd64.tar.gz | ${SUDO} tar xzC /usr/local/bin
+    file=lf-linux-${arch}.tar.gz
+    curl -L https://github.com/gokcehan/lf/releases/latest/download/${file} | ${SUDO} tar xzC /usr/local/bin
     # if [ ! -f ~/.config/lf/lfrc ]; then
     #   mkdir -p ~/.config/lf
     #   curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o ~/.config/lf/lfrc

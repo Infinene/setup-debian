@@ -3,20 +3,21 @@ echo "Updating fd..."
 
 if command -v fd &> /dev/null
 then
-  CUR_VERSION="$(fd -V)"
+  local_version="$(fd -V)"
 else
-  CUR_VERSION="0.0"
+  local_version="0.0"
 fi
 
-NEW_VERSION="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+version="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 
-if [ "$CUR_VERSION" = "fd ${NEW_VERSION}" ]; then
-    echo "Already at latest version: ${CUR_VERSION}"
+if [ "$local_version" = "fd ${version}" ]; then
+    echo "Already at latest version: ${local_version}"
 else
     # get the package
-    curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${NEW_VERSION}/fd_${NEW_VERSION}_amd64.deb"
+    file=fd_${version}_amd64.deb
+    curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${version}/${file}"
     # install it
-    ${SUDO} dpkg -i fd_"${NEW_VERSION}"_amd64.deb
+    ${SUDO} dpkg -i $file
     # remove the file
-    rm -rf fd_"${NEW_VERSION}"_amd64.deb
+    rm -rf $file
 fi

@@ -9,21 +9,22 @@ add_editor () {
 
 if command -v micro &> /dev/null
 then
-  CUR_VERSION="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+  local_version="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
-  CUR_VERSION="0.0"
+  local_version="0.0"
 fi
 
-NEW_VERSION="$(curl -s "https://github.com/zyedidia/micro/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+version="$(curl -s "https://github.com/zyedidia/micro/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 
-if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: ${CUR_VERSION}"
+if [ "$local_version" = "${version}" ]; then
+    echo "Already at latest version: ${local_version}"
 else
     # get the package
-    curl -Ls -O "https://github.com/zyedidia/micro/releases/download/v${NEW_VERSION}/micro-${NEW_VERSION}-amd64.deb"
+    file=micro-${version}-${arch}.deb
+    curl -Ls -O "https://github.com/zyedidia/micro/releases/download/v${version}/${file}"
     # install it
-    ${SUDO} dpkg -i micro-"${NEW_VERSION}"-amd64.deb
+    ${SUDO} dpkg -i $file
     # remove the file
-    rm -vf micro-"${NEW_VERSION}"-amd64.deb
+    rm -vf $file
     add_editor
 fi

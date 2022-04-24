@@ -3,21 +3,21 @@ echo "Updating nnn..."
 
 if command -v nnn &> /dev/null
 then
-  CUR_VERSION="$(nnn -V)"
+  local_version="$(nnn -V)"
 else
-  CUR_VERSION="0.0"
+  local_version="0.0"
 fi
         
-NEW_VERSION="$(curl -s "https://github.com/jarun/nnn/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+version="$(curl -s "https://github.com/jarun/nnn/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 
-if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: nnn $CUR_VERSION"
+if [ "$local_version" = "${version}" ]; then
+    echo "Already at latest version: nnn $local_version"
 else
     # get the package
-    newfile="nnn-static-${NEW_VERSION}.x86_64.tar.gz"
-    curl -Ls -O "https://github.com/jarun/nnn/releases/download/v${NEW_VERSION}/${newfile}"
-    tar -xf $newfile
+    file="nnn-static-${version}.x86_64.tar.gz"
+    curl -Ls -O "https://github.com/jarun/nnn/releases/download/v${version}/${file}"
+    tar -xf $file
     ${SUDO} mv nnn-static /usr/local/bin/nnn
     # remove the file
-    rm -rf $newfile
+    rm -rf $file
 fi
