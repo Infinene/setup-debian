@@ -1,34 +1,35 @@
 echo
 echo "Updating micro editor..."
 
-add_editor () {
+repo="zyedidia/micro"
+
+setup_alternatives () {
   if ! update-alternatives --list editor | grep "micro" >/dev/null; then
     ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/bin/micro 50
+  else
+    sudo update-alternatives --set editor /usr/bin/micro
   fi
 }
 
 if command -v micro &> /dev/null
 then
-  local_version="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+  cur_version="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
 
-version="$(curl -s "https://github.com/zyedidia/micro/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+file=micro-"${new_version}-${arch}.deb"
 
-if [ "$local_version" = "${version}" ]; then
-    echo "Already at latest version: ${local_version}"
+if [ "$cur_version" = "${new_version}" ]; then
+    echo "Already at latest version: ${cur_version}"
 else
     # get the package
-    file=micro-${version}-${arch}.deb
-    curl -Ls -O "https://github.com/zyedidia/micro/releases/download/v${version}/${file}"
- 
-  if [ -f $file ]; then
+    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
+    # install it
     ${SUDO} dpkg -i $file
     # remove the file
-    rm -rf $file
-  else
-    echo "ERROR: File ${file} not found."
-  fi
-  add_editor
+    rm -vf $file
+    setup_alternatives
 fi
+

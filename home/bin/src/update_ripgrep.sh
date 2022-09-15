@@ -1,32 +1,25 @@
 echo
 echo "Updating ripgrep..."
 
-if [[ $arch == "arm"* ]]; then
-  echo "arm arhictecture not supported - install using apt"
-  exit
-fi
+repo="BurntSushi/ripgrep"
 
 if command -v rg &> /dev/null
 then
-  local_version="$(rg -V)"
+  cur_version="$(rg -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
 
-version="$(curl -s "https://github.com/BurntSushi/ripgrep/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name )"
+file="ripgrep_${new_version}_${arch}.deb"
 
-if [ "$local_version" = "ripgrep ${version}" ]; then
-  echo "Already at latest version: ${local_version}"
+if [ "$cur_version" = "${new_version}" ]; then
+    echo "Already at latest version: ${cur_version}"
 else
-  # get the package
-  file=ripgrep_${version}_${arch}.deb
-  curl -Ls -O "https://github.com/BurntSushi/ripgrep/releases/download/${version}/${file}"
-  # install it
-  if [ -f $file ]; then
+    # get the package
+    wget -nv --show-progress "https://github.com/${repo}/releases/download/${new_version}/${file}"
+    # install it
     ${SUDO} dpkg -i $file
     # remove the file
-    rm -rf $file
-  else
-    echo "ERROR: File ${file} not found."
-  fi
+    rm -vf $file
 fi

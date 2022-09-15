@@ -1,19 +1,21 @@
 echo
 echo "Updating lego..."
 
+repo="go-acme/lego"
+
 if command -v lego &> /dev/null
 then
-  local_version="$(lego -v | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+  cur_version="v$(lego -v | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
 
-version="$(curl -s "https://github.com/go-acme/lego/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name )"
+file="lego_${new_version}_linux_amd64.tar.gz"
 
-if [ "$local_version" = "${version}" ]; then
-    echo "Already at latest version: ${local_version}"
+if [ "$cur_version" = "${new_version}" ]; then
+    echo "Already at latest version: ${cur_version}"
 else
     # get the package
-    file=lego_v${version}_linux_${arch}.tar.gz
-    curl -Ls https://github.com/go-acme/lego/releases/download/v${version}/${file} | ${SUDO} tar xzC /usr/local/bin
+    curl -Ls https://github.com/${repo}/releases/download/${new_version}/${file} | ${SUDO} tar xzC /usr/local/bin
 fi

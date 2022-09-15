@@ -3,22 +3,24 @@ echo "Updating lf..."
 
 if command -v lf &> /dev/null
 then
-  local_version="$(lf -version)"
+  cur_version="$(lf -version)"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
-        
-version="$(curl -s "https://github.com/gokcehan/lf/releases/latest" | grep -Eo "r[0-9]+")"
 
-if [ "$local_version" = "${version}" ]; then
-    echo "Already at latest version: lf $local_version"
+repo="gokcehan/lf"
+file="lf-linux-${arch}.tar.gz"    
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name)"
+
+if [ "$cur_version" = "${new_version}" ]; then
+    echo "Already at latest version: lf $cur_version"
 else
-		echo "Updating lf version ${version}"
+		echo "Updating lf version ${new_version}"
     # get the package
-    file=lf-linux-${arch}.tar.gz
-    curl -L https://github.com/gokcehan/lf/releases/latest/download/${file} | ${SUDO} tar xzC /usr/local/bin
-    # if [ ! -f ~/.config/lf/lfrc ]; then
-    #   mkdir -p ~/.config/lf
-    #   curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o ~/.config/lf/lfrc
-    # fi
+    curl -L https://github.com/${repo}/releases/latest/download/lf-linux-amd64.tar.gz | ${SUDO} tar xzC /usr/local/bin
+    if [ ! -f ~/.config/lf/lfrc ]; then
+      echo "Copying sample lfrc in ~/.config/lf/ ..."
+      mkdir -p ~/.config/lf
+      curl https://raw.githubusercontent.com/${repo}/master/etc/lfrc.example -o ~/.config/lf/lfrc
+    fi
 fi

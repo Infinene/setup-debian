@@ -1,26 +1,25 @@
 echo
 echo "Updating fd..."
 
+repo="sharkdp/fd"
+
 if command -v fd &> /dev/null
 then
-  local_version="$(fd -V)"
+  cur_version="$(fd -V)"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
 
-version="$(curl -s "https://github.com/sharkdp/fd/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+file="fd_${new_version}_${arch}.deb"
 
-if [ "$local_version" = "fd ${version}" ]; then
-    echo "Already at latest version: ${local_version}"
+if [ "$cur_version" = "fd ${new_version}" ]; then
+    echo "Already at latest version: ${cur_version}"
 else
-  # get the package
-  file=fd_${version}_amd64.deb
-  curl -Ls -O "https://github.com/sharkdp/fd/releases/download/v${version}/${file}"
-  if [ -f $file ]; then
+    # get the package
+    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
+    # install it
     ${SUDO} dpkg -i $file
     # remove the file
-    rm -rf $file
-  else
-    echo "ERROR: File ${file} not found."
-  fi
+    rm -vf $file
 fi

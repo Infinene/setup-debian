@@ -1,27 +1,25 @@
 echo
 echo "Updating bat..."
 
+repo="sharkdp/bat"
+
 if command -v bat &> /dev/null
 then
-  local_version="$(bat -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+  cur_version="$(bat -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
-  local_version="0.0"
+  cur_version="0.0"
 fi
 
-version="$(curl -s "https://github.com/sharkdp/bat/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+file="bat_${new_version}_${arch}.deb"
 
-if [ "$local_version" = "${version}" ]; then
-    echo "Already at latest version: ${version}"
+if [ "$cur_version" = "${new_version}" ]; then
+    echo "Already at latest version: ${cur_version}"
 else
-  # get the package
-  file=bat_${version}_${arch}.deb
-  curl -Ls -O "https://github.com/sharkdp/bat/releases/download/v${version}/${file}"
-  # install it
-  if [ -f $file ]; then
+    # get the package
+    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
+    # install it
     ${SUDO} dpkg -i $file
     # remove the file
-    rm -rf $file
-  else
-    echo "ERROR: File ${file} not found."
-  fi
+    rm -vf $file
 fi
