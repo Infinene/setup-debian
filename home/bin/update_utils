@@ -1,14 +1,8 @@
 #!/usr/bin/bash
-set -x
+# set -x
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
-fi
-
-if ! command -v jq &> /dev/null
-then
-  echo 'Installing jq ...'
-  ${SUDO} apt -y install jq
 fi
 
 this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -16,6 +10,8 @@ arch=$(dpkg --print-architecture)
 
 # If sudo, get the password now
 ${SUDO} echo
+
+. $this_dir/src/get_latest.sh
 
 # source $this_dir/src/update_nnn.sh
 . $this_dir/src/update_micro.sh
