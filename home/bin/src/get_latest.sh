@@ -1,9 +1,12 @@
 get_latest_release() {
-  # curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
-  #   grep '"tag_name":' |                                            # Get tag line
-  #   sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
-  curl -Ls -o /dev/null -w %{url_effective} https://github.com/$1/releases/latest | 
-    grep -o "tag/.*" | cut -d '/' -f 2
+  # api based (rate limited to 60/hr, but fastest)
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+
+  # web url based
+  # curl -Ls -o /dev/null -w %{url_effective} https://github.com/$1/releases/latest | 
+  #   grep -o "tag/.*" | cut -d '/' -f 2
 }
 
 get_latest_release_num() {

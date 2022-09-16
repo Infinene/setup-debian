@@ -5,6 +5,12 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
+# if ! command -v jq &> /dev/null
+# then
+#   echo 'Installing jq ...'
+#   ${SUDO} apt -y install jq
+# fi
+
 this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 arch=$(dpkg --print-architecture)
 
