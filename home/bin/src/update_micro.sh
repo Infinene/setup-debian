@@ -18,7 +18,6 @@ else
   cur_version="0.0"
 fi
 
-# new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 new_version="$(get_latest_release_num $repo)"
 file=micro-"${new_version}-${arch}.deb"
 

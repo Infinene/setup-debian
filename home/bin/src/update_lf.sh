@@ -10,7 +10,6 @@ fi
 
 repo="gokcehan/lf"
 file="lf-linux-${arch}.tar.gz"    
-# new_version="$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq -r .tag_name)"
 new_version="$(get_latest_release $repo)"
 
 if [ "$cur_version" = "${new_version}" ]; then
