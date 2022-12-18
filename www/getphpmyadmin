@@ -8,9 +8,9 @@ then
 fi
 composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev pma
 
-randomBlowfishSecret=$(openssl rand -base64 32)
+blowfishSecret=$(openssl rand -base64 22)
 pass=$(openssl rand -base64 8)
-sed -e "s|cfg\['blowfish_secret'\] = '|cfg['blowfish_secret'] = '$randomBlowfishSecret|" pma/config.sample.inc.php >pma/config.inc.php
+sed -e "s|cfg\['blowfish_secret'\] = '|cfg['blowfish_secret'] = '$blowfishSecret|" pma/config.sample.inc.php >pma/config.inc.php
 sed -i -r "s|(\['controlpass'\] = ')pmapass|\1$pass|" pma/config.inc.php
 sed -i -r "s|^// (.cfg\['Server.*i\]\['controluser')|\1|" pma/config.inc.php
 sed -i -r "s|^// (.cfg\['Server.*i\]\['controlpass')|\1|" pma/config.inc.php
