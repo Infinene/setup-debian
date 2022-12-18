@@ -1,23 +1,25 @@
 #!/bin/bash
-# set -x
+set -x
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
+get_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+    grep '"tag_name":' |                                            # Get tag line
+    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+}
+
 is_wsl=$(grep -i microsoft /proc/version)
 setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ### install mailhog ###
-mailhog_ver="$(curl -s "https://github.com/mailhog/MailHog/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-curl -Ls -O "https://github.com/mailhog/MailHog/releases/download/v${mailhog_ver}/MailHog_linux_amd64"
+mailhog_ver=$(get_latest_release 'mailhog/MailHog')
+curl -Ls -O "https://github.com/mailhog/MailHog/releases/download/${mailhog_ver}/MailHog_linux_amd64"
 chmod +x ./MailHog_linux_amd64
 ${SUDO} mv ./MailHog_linux_amd64 /usr/local/bin/mailhog
 
-### install mailhog ###
-# MHSENDMAIL_VER="$(curl -s "https://github.com/mailhog/mhsendmail/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-# curl -Ls -O "https://github.com/mailhog/mhsendmail/releases/download/v${MHSENDMAIL_VER}/mhsendmail_linux_amd64"
-# chmod +x ./mhsendmail_linux_amd64
 ${SUDO} cp -v $setup_dir/misc/mhsendmail /usr/local/bin/
 
 
