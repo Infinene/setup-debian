@@ -7,7 +7,7 @@ echo '               -----------------------                     '
 echo '  This will setup basic shell environment and install php  '
 echo '  MariaDB and nginx to create a web server.                '
 
-mariadb_ver='10.6'
+mariadb_ver='10.11'
 php_ver='8.1'
 
 if [[ $EUID -eq 0 ]]; then
