@@ -62,18 +62,18 @@ if [ ${selections[1]} = "true" ]; then
     source $setup_dir/setup.d/_mariadb.sh
 fi
 
-if [ ${selections[2]} = "true" ]; then
-    echo
-    echo "Installing and configuring PHP ${php_ver}"
-    read -p "Press enter to continue"
-    source $setup_dir/setup.d/_php.sh
-fi
-
 if [ ${selections[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
     source $setup_dir/setup.d/_nginx.sh
+fi
+
+if [ ${selections[2]} = "true" ]; then
+    echo
+    echo "Installing and configuring PHP ${php_ver}"
+    read -p "Press enter to continue"
+    source $setup_dir/setup.d/_php.sh
 fi
 
 echo
