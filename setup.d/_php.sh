@@ -7,7 +7,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | ${SUDO} tee 
 
 ${SUDO} apt update
 ${SUDO} apt -y full-upgrade
-${SUDO} apt -y install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-zstd php${php_ver}-redis php${php_ver}-uploadprogress
+${SUDO} apt -y install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-zstd php${php_ver}-redis
 
 ${SUDO} cp -rbv $setup_dir/etc/php/${php_ver}/* /etc/php/${php_ver}
 
@@ -17,3 +17,12 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 ${SUDO} php composer-setup.php --filename=composer --install-dir=/usr/local/bin
 php -r "unlink('composer-setup.php');"
+
+echo "------------------------"
+echo "uploadprogress extension"
+echo "------------------------"
+echo "To install php8.1-uploadprogress extension"
+echo "copy exention file uploadprogress.so into /usr/lib/php/20210902 folder"
+echo "copy uploadprogress.ini inot mods-available folder"
+echo "symlink uploadprogress.ini to conf.d/30-uploadprogress.ini"
+echo '---'
