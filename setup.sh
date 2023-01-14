@@ -39,7 +39,7 @@ echo "Select / unselect options to install:"
 echo '-------------------------------------'
 
 source $setup_dir/misc/multiselect
-menu=("Shell setup" "MariaDB ${mariadb_ver}" "PHP ${php_ver}" "NginX (mainline)" )
+menu=("Shell setup" "MariaDB ${mariadb_ver}" "NginX (mainline)" "PHP ${php_ver}" )
 default_selections=("true" "true" "true" "true")
 nothing=("false" "false" "false" "false")
 multiselect selections menu default_selections
@@ -62,14 +62,14 @@ if [ ${selections[1]} = "true" ]; then
     source $setup_dir/setup.d/_mariadb.sh
 fi
 
-if [ ${selections[3]} = "true" ]; then
+if [ ${selections[2]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
     source $setup_dir/setup.d/_nginx.sh
 fi
 
-if [ ${selections[2]} = "true" ]; then
+if [ ${selections[3]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${php_ver}"
     read -p "Press enter to continue"
