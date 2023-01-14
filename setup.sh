@@ -52,28 +52,28 @@ fi
 if [ ${selections[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
-    source $setup_dir/setup.d/_shell
+    source $setup_dir/setup.d/_shell.sh
 fi
 
 if [ ${selections[1]} = "true" ]; then
     echo
     echo "Installing and configuring MariaDB ${mariadb_ver}"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_mariadb
+    source $setup_dir/setup.d/_mariadb.sh
 fi
 
 if [ ${selections[2]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${php_ver}"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_php
+    source $setup_dir/setup.d/_php.sh
 fi
 
 if [ ${selections[3]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_nginx
+    source $setup_dir/setup.d/_nginx.sh
 fi
 
 echo
