@@ -9,6 +9,7 @@ echo '  MariaDB and nginx to create a web server.                '
 
 mariadb_ver='10.11'
 php_ver='8.1'
+debian_ver=$(lsb_release -sc)
 
 if [[ $EUID -eq 0 ]]; then
     tput setaf 1;
