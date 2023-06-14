@@ -1,0 +1,4 @@
+#!/bin/bash
+~/bin/backup_drupal -r give.soundvision.com -p soundv_give -d soundvision -a
+~/bin/backup_drupal -r give.justiceforall -p jfa_give -d jfa -a
+

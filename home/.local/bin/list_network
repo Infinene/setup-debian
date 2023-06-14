@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo arp-scan -I enp6s18 -l
+sudo nmap -sn 10.0.0.0/24

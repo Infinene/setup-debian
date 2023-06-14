@@ -1,0 +1,5 @@
+#!/bin/bash
+# AMDesk
+wakeonlan 70:54:D2:16:B9:FA
+# ThinkStation
+wakeonlan 6C:0B:84:65:E3:02

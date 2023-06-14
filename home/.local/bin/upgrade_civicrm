@@ -1,0 +1,39 @@
+#!/bin/bash
+# set -x
+
+if [ -z "$1" ]; then
+    echo "CiviCRM version number missing"
+    exit 1
+fi
+
+echo 'Checking installation directory . . .'
+if [ ! -d ./sites ]; then
+    echo "run from site root directory"
+    exit 1
+fi
+
+download_dir=~/dev
+civicrm_file="civicrm-${1}-drupal.tar.gz"
+
+echo 'Downloading CiviCRM . . .'
+if [ ! -f $download_dir/$civicrm_file ]; then
+    wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
+    if [ $? -ne 0 ]; then
+        echo "download failed for $civicrm_file"
+        exit 1
+    fi
+fi
+
+echo 'Backing up site . . .'
+drush ard
+
+echo 'Updating CiviCRM . . .'
+drush vset maintenance_mode 1
+sudo rm -rf sites/all/modules/civicrm
+tar -xf "$download_dir/$civicrm_file" -C sites/all/modules/
+sudo sh -c 'rm -rf sites/default/files/civicrm/templates_c/*'
+chmodw -w sites/default/files
+sudo -u nginx /usr/local/bin/drush cvupdb
+drush vset maintenance_mode 0
+drush vget maintenance_mode
+chmodw -w sites/default/files/civicrm

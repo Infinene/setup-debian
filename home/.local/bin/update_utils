@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+arch=$(dpkg --print-architecture)
+
+# If sudo, get the password now
+${SUDO} echo
+
+. $this_dir/src/get_latest.sh
+
+# source $this_dir/src/update_nnn.sh
+. $this_dir/src/update_micro.sh
+. $this_dir/src/update_lf.sh
+. $this_dir/src/update_fd.sh
+. $this_dir/src/update_bat.sh
+. $this_dir/src/update_ripgrep.sh
+# . $this_dir/src/update_lego.sh
+. $this_dir/src/update_composer.sh

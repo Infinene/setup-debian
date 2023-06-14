@@ -13,7 +13,7 @@ ${SUDO} apt -y full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt -y install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux
+${SUDO} apt -y install zstd unzip ncdu htop mmv neofetch git autojump tmux ncal
 
 ### bash setup ###
 echo -e "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
@@ -33,5 +33,5 @@ if [ ! $UID = 0 ]; then
     [[ $is_wsl ]] && echo -e "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
 fi
 
-echo -e "\nInstalling utils..." && $setup_dir/home/bin/update_utils
+echo -e "\nInstalling utils..." && $HOME/.local/bin/update_utils
 ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
