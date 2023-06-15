@@ -6,7 +6,7 @@ if [ "$(whoami)" != "root" ]; then
 fi
 
 printf '%s\n' '\nInstalling drush ...'
-wget https://github.com/drush-ops/drush/releases/download/8.4.11/drush.phar
+wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
 mv drush.phar drush
 chmod +x drush
 ${SUDO} mv drush /usr/local/bin
