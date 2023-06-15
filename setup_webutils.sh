@@ -22,4 +22,4 @@ wp --info
 
 printf '%s\n' '\nInstalling acme.sh ...'
 curl https://get.acme.sh | sh -s email=my@example.com
-~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+$HOME/.acme.sh/acme.sh --set-default-ca --server letsencrypt

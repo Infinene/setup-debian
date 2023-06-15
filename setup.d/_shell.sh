@@ -33,5 +33,6 @@ if [ ! $UID = 0 ]; then
     [[ $is_wsl ]] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
-printf '%s\n' "\nInstalling utils..." && $HOME/.local/bin/update_utils
+printf "\nInstalling utils...\n" 
+$HOME/.local/bin/update_utils
 ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
