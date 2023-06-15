@@ -29,8 +29,8 @@ if [ ! $UID = 0 ]; then
     printf '%s\n' 'if [ -f /usr/bin/neofetch ]; then neofetch; fi' | tee -a $HOME/.bashrc
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
-    printf '%s\n' "\nDefaults:${USER} timestamp_timeout=90" | sudo tee -a /etc/sudoers
-    [[ $is_wsl ]] && printf '%s\n' "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service" | sudo tee -a /etc/sudoers
+    printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
+    [[ $is_wsl ]] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
 printf '%s\n' "\nInstalling utils..." && $HOME/.local/bin/update_utils

@@ -37,7 +37,7 @@ lc_messages_dir             = /usr/share/mysql
 lc_messages                 = en_US
 bind_address                = 127.0.0.1
 character_set_server        = utf8mb4
-collation_server            = uca1400_ai_ci
+collation_server            = utf8mb4_uca1400_ai_ci
 
 # * Safety
 #
