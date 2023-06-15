@@ -43,14 +43,14 @@ function max_file_upload_in_bytes()
     return min($max_upload, $max_post, $memory_limit);
 }
 
-echo '<pre>' . PHP_EOL;
+printf '%s\n' '<pre>' . PHP_EOL;
 
-echo 'upload_max_filesize: ' . ini_get('upload_max_filesize') . PHP_EOL;
-echo 'post_max_size: ' . ini_get('post_max_size') . PHP_EOL;
-echo 'memory_limit: ' . ini_get('memory_limit') . PHP_EOL;
+printf '%s\n' 'upload_max_filesize: ' . ini_get('upload_max_filesize') . PHP_EOL;
+printf '%s\n' 'post_max_size: ' . ini_get('post_max_size') . PHP_EOL;
+printf '%s\n' 'memory_limit: ' . ini_get('memory_limit') . PHP_EOL;
 
 $max_upload = max_file_upload_in_bytes();
 
-echo PHP_EOL;
-echo "Max upload filesize: " . formatBytes($max_upload) . " (" . $max_upload . " bytes)" . PHP_EOL;
-echo '</pre>';
+printf '%s\n' PHP_EOL;
+printf '%s\n' "Max upload filesize: " . formatBytes($max_upload) . " (" . $max_upload . " bytes)" . PHP_EOL;
+printf '%s\n' '</pre>';

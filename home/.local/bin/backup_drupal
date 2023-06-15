@@ -4,7 +4,7 @@
 #   Version = 20201117
 #   Ahmed Murad
 #
-# set -x #echo commands
+# set -x #printf '%s\n' commands
 
 #
 # Configuration
@@ -19,16 +19,16 @@ drushbin=/usr/local/bin
 #
 usage() {
   this=$(basename $0)
-  echo
-  echo "USAGE:"
-  echo "$this <options>"
-  echo
-  echo 'Required options:'
-  echo '    -r <string>       Drupal root directory name'
-  echo '    -p <string>       Backup file name prefix (site name)'
-  echo '    -d <string>       Destination directory name'
-  echo '    -a                Archive all files (for non-composer managed sites)'
-  echo
+  printf '%s\n'
+  printf '%s\n' "USAGE:"
+  printf '%s\n' "$this <options>"
+  printf '%s\n'
+  printf '%s\n' 'Required options:'
+  printf '%s\n' '    -r <string>       Drupal root directory name'
+  printf '%s\n' '    -p <string>       Backup file name prefix (site name)'
+  printf '%s\n' '    -d <string>       Destination directory name'
+  printf '%s\n' '    -a                Archive all files (for non-composer managed sites)'
+  printf '%s\n'
   exit 1
 }
 
@@ -50,12 +50,12 @@ while getopts ":r:p:d:a" option; do
       full_backup=true
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
+      printf '%s\n' "Invalid option: -$OPTARG" >&2
       usage
       exit 1
       ;;
     :)
-      echo "Option -$OPTARG requires an argument" >&2
+      printf '%s\n' "Option -$OPTARG requires an argument" >&2
       usage
       exit 1
       ;;
@@ -70,12 +70,12 @@ if [ -z "$drupal_base" -o -z "$file_prefix" -o -z "$dest_dirname" ]; then
 fi
 
 if [ ! -d $backup_root ]; then
-  echo "ERROR: Backup root $backup_root not found"
+  printf '%s\n' "ERROR: Backup root $backup_root not found"
   exit 2
 fi
 
 if [ ! -d $server_root/$drupal_base ]; then
-  echo "ERROR: Site root $server_root/$drupal_base not found"
+  printf '%s\n' "ERROR: Site root $server_root/$drupal_base not found"
   exit 4
 fi
 
@@ -116,7 +116,7 @@ rotate() {
   fi
 }
 
-echo
+printf '%s\n'
 log ------------ $drupal_base backup started -------------
 
 #

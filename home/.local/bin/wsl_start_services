@@ -9,10 +9,10 @@ function start()
   ${SUDO} service $1 status > /dev/null
   if [ $? != 0 ]
   then
-    echo "- starting $1 ..."
+    printf '%s\n' "- starting $1 ..."
     ${SUDO} service $1 start;
   else
-    echo "- $1 is already running";
+    printf '%s\n' "- $1 is already running";
   fi;
 }
 

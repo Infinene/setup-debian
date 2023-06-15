@@ -1,5 +1,5 @@
-echo
-echo "Updating nnn..."
+printf '%s\n'
+printf '%s\n' "Updating nnn..."
 
 if command -v nnn &> /dev/null
 then
@@ -11,7 +11,7 @@ fi
 NEW_VERSION="$(curl -s "https://github.com/jarun/nnn/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 
 if [ "$CUR_VERSION" = "${NEW_VERSION}" ]; then
-    echo "Already at latest version: nnn $CUR_VERSION"
+    printf '%s\n' "Already at latest version: nnn $CUR_VERSION"
 else
     # get the package
     newfile="nnn-static-${NEW_VERSION}.x86_64.tar.gz"

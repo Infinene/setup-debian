@@ -24,13 +24,13 @@ ${SUDO} cp -v $setup_dir/misc/mhsendmail /usr/local/bin/
 
 
 if [[ $is_wsl ]]; then
-    echo "Installing in WSL!"
+    printf '%s\n' "Installing in WSL!"
     ${SUDO} apt install daemonize
     ${SUDO} cp -v $setup_dir/misc/wsl_mailhog_init /etc/init.d/mailhog
     ${SUDO} service mailhog start
     ${SUDO} service mailhog status
 else
-    echo "Installing systemd service"
+    printf '%s\n' "Installing systemd service"
     ${SUDO} cp -v $setup_dir/misc/mailhog.service /lib/systemd/system/
     ${SUDO} systemctl enable mailhog
     ${SUDO} systemctl start mailhog

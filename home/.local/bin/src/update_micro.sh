@@ -1,5 +1,5 @@
-echo
-echo "Updating micro editor..."
+printf '%s\n'
+printf '%s\n' "Updating micro editor..."
 
 repo="zyedidia/micro"
 
@@ -22,7 +22,7 @@ new_version="$(get_latest_release_num $repo)"
 file=micro-"${new_version}-${arch}.deb"
 
 if [ "$cur_version" = "${new_version}" ]; then
-    echo "Already at latest version: micro ${cur_version}"
+    printf '%s\n' "Already at latest version: micro ${cur_version}"
 else
     # get the package
     wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"

@@ -57,7 +57,7 @@ cmd open ${{
 }}
 
 # define a custom 'rename' command without prompt for overwrite
-# cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+# cmd rename %[ -e $1 ] && printf '%s\n' "file exists" || mv $f $1
 # map r push :rename<space>
 
 # make sure trash folder exists
@@ -70,8 +70,8 @@ cmd trash %set -f; mv $fx ~/.trash
 # define a custom 'delete' command
 # cmd delete ${{
 #     set -f
-#     printf "$fx\n"
-#     printf "delete?[y/n]"
+#     printf '%s\n' "$fx\n"
+#     printf '%s\n' "delete?[y/n]"
 #     read ans
 #     [ $ans = "y" ] && rm -rf $fx
 # }}

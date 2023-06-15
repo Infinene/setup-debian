@@ -1,6 +1,6 @@
-echo
+printf '%s\n'
 
 if [ -f /usr/local/bin/composer ]; then
-  echo "Updating composer..."
+  printf '%s\n' "Updating composer..."
   ${SUDO} composer selfupdate
 fi

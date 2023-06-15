@@ -5,17 +5,17 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
-echo -e '\nInstalling drush ...'
+printf '%s\n' '\nInstalling drush ...'
 wget https://github.com/drush-ops/drush/releases/download/8.4.11/drush.phar
 mv drush.phar drush
 chmod +x drush
 ${SUDO} mv drush /usr/local/bin
 
-echo -e '\nInstalling cv ...'
+printf '%s\n' '\nInstalling cv ...'
 ${SUDO} curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv
 ${SUDO} chmod +x /usr/local/bin/cv
 
-echo -e '\nInstalling wp-cli ...'
+printf '%s\n' '\nInstalling wp-cli ...'
 ${SUDO} curl -LsS https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp
 ${SUDO} chmod +x /usr/local/bin/wp
 wp --info

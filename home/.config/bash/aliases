@@ -15,7 +15,7 @@ alias sstatus='sudo systemctl status'
 alias aptup='sudo apt update && sudo apt full-upgrade'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
-alias aptget='sudo apt install'
+alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias e='micro'

@@ -1,13 +1,13 @@
 #!/bin/bash
-echo '----- mariadb -----'
+printf '%s\n' '----- mariadb -----'
 ssh root@db.infinene.net '/usr/bin/apt-get update && /usr/bin/apt-get upgrade -y'
-echo
-echo '----- mysql -----'
+printf '%s\n'
+printf '%s\n' '----- mysql -----'
 ssh root@mysql.infinene.net '/usr/bin/apt-get update && /usr/bin/apt-get upgrade -y'
-echo
-echo '----- local -----'
+printf '%s\n'
+printf '%s\n' '----- local -----'
 # sudo apt-get update && sudo apt-get upgrade
 sudo pacman -Syyu
-echo '----- drush-launcher -----'
+printf '%s\n' '----- drush-launcher -----'
 drush self-update
 

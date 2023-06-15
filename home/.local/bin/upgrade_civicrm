@@ -2,32 +2,32 @@
 # set -x
 
 if [ -z "$1" ]; then
-    echo "CiviCRM version number missing"
+    printf '%s\n' "CiviCRM version number missing"
     exit 1
 fi
 
-echo 'Checking installation directory . . .'
+printf '%s\n' 'Checking installation directory . . .'
 if [ ! -d ./sites ]; then
-    echo "run from site root directory"
+    printf '%s\n' "run from site root directory"
     exit 1
 fi
 
 download_dir=~/dev
 civicrm_file="civicrm-${1}-drupal.tar.gz"
 
-echo 'Downloading CiviCRM . . .'
+printf '%s\n' 'Downloading CiviCRM . . .'
 if [ ! -f $download_dir/$civicrm_file ]; then
     wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
     if [ $? -ne 0 ]; then
-        echo "download failed for $civicrm_file"
+        printf '%s\n' "download failed for $civicrm_file"
         exit 1
     fi
 fi
 
-echo 'Backing up site . . .'
+printf '%s\n' 'Backing up site . . .'
 drush ard
 
-echo 'Updating CiviCRM . . .'
+printf '%s\n' 'Updating CiviCRM . . .'
 drush vset maintenance_mode 1
 sudo rm -rf sites/all/modules/civicrm
 tar -xf "$download_dir/$civicrm_file" -C sites/all/modules/

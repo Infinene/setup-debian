@@ -10,7 +10,7 @@
 # The result will be stored as an array in a variable that is passed
 # to multiselect as first argument.
 
-function multiselect {
+multiselect() {
     # little helpers for terminal print control and key input
     ESC=$( printf "\033")
     cursor_blink_on()   { printf "$ESC[?25h"; }

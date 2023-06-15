@@ -1,2 +1,2 @@
 
-export PS1="\[\e[34m\]\u@\H\[\e[m\] \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]\$(x="\$?"; if [ \$x != 0 ]; then echo \"\$x \";fi)\[\e[m\]❱ "
+export PS1="\[\e[34m\]\u@\H\[\e[m\] \[\e[32m\]\w\[\e[m\]\n\[\e[31m\]\$(x="\$?"; if [ \$x != 0 ]; then printf '%s\n' \"\$x \";fi)\[\e[m\]❱ "

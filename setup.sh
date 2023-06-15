@@ -1,21 +1,22 @@
 #!/bin/bash
-set -x
+# set -x
 
-echo
-echo '               Debian Web Server Setup                     '
-echo '               -----------------------                     '
-echo '  This will setup basic shell environment and install php  '
-echo '  MariaDB and nginx to create a web server.                '
+printf '%s\n'
+printf '%s\n' '               Debian Web Server Setup                     '
+printf '%s\n' '               -----------------------                     '
+printf '%s\n' '  This will setup basic shell environment and install php  '
+printf '%s\n' '  MariaDB and nginx to create a web server.                '
 
+userid=$(id -u)
 mariadb_ver='10.11'
-php_ver='8.1'
-debian_ver=$(lsb_release -sc)
+php_ver='8.2'
+debian_release=$(lsb_release -sc)
 
-if [[ $EUID -eq 0 ]]; then
+if [[ $userid -eq 0 ]]; then
     tput setaf 1;
-    echo -e "\n!Running as root! User environment and utilities will not be setup."
+    printf '%s\n' "\nRunning as root! User environment and utilities will not be setup."
     tput init
-    echo "Launch as a user in sudo group for complete setup."
+    printf '%s\n' "Launch as a user in sudo group for complete setup."
     while true
     do
         read -p "Continue as root user (y/n)? " choice
@@ -23,23 +24,26 @@ if [[ $EUID -eq 0 ]]; then
         y|Y )   break;;
         n|N )   exit
                 break;;
-        * )     echo "please enter y/Y or n/N"
+        * )     printf '%s\n' "please enter y/Y or n/N"
                 ;;
         esac
     done
 else
     SUDO=sudo
-    ${SUDO} echo 
+    ${SUDO} printf '%s\n' 
 fi
 
 is_wsl=$(grep -i microsoft /proc/version)
 setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-echo
-echo "Select / unselect options to install:"
-echo '-------------------------------------'
+. $setup_dir/misc/multiselect
+. $setup_dir/misc/read_secret
 
-source $setup_dir/misc/multiselect
+printf '%s\n'
+printf '%s\n' "Select / unselect options to install:"
+printf '%s\n' '-------------------------------------'
+
+
 menu=("Shell setup" "MariaDB ${mariadb_ver}" "NginX (mainline)" "PHP ${php_ver}" )
 default_selections=("true" "true" "true" "true")
 nothing=("false" "false" "false" "false")
@@ -80,22 +84,22 @@ fi
 echo
 echo "Restarting services ..."
 [ ${selections[1]} = true ] && ${SUDO} systemctl restart mariadb
-[ ${selections[2]} = true ] && ${SUDO} systemctl restart php${php_ver}-fpm
-[ ${selections[3]} = true ] && ${SUDO} systemctl restart nginx
+[ ${selections[2]} = true ] && ${SUDO} systemctl restart nginx
+[ ${selections[3]} = true ] && ${SUDO} systemctl restart php${php_ver}-fpm
 
-echo
-echo 'Setup completed!'
-echo '----------------'
-echo '. ~/.profile to reload bash config.'
-echo 'run setup_webutils to install website maintenance utils.'
-echo 'run setup_mailhog to install a local mail catcher'
-echo 'run setup_samba to install samba'
-echo 'run setup_lego to install letsencrypt client'
+printf '%s\n'
+printf '%s\n' 'Setup completed!'
+printf '%s\n' '----------------'
+printf '%s\n' '. ~/.profile to reload bash config.'
+printf '%s\n' 'run setup_webutils to install website maintenance utils.'
+printf '%s\n' 'run setup_mailhog to install a local mail catcher'
+printf '%s\n' 'run setup_samba to install samba'
+printf '%s\n' 'run setup_lego to install letsencrypt client'
 if [ ${selections[1]} = "true" ]; then
-    echo
-    echo 'Consider adding mysql superuser for web based administration:'
-    echo "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
-    echo "GRANT ALL PRIVILEGES ON *.* TO $USER@'%' WITH GRANT OPTION;\""
+    printf '%s\n'
+    printf '%s\n' 'Consider adding mysql superuser for web based administration:'
+    printf '%s\n' "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
+    printf '%s\n' "GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;\""
 fi
-echo '----------------'
-echo
+printf '%s\n' '----------------'
+printf '%s\n'

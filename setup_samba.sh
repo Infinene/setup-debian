@@ -11,7 +11,7 @@ ${SUDO} apt -y install samba
 
 ${SUDO} cp -bv $setup_dir/etc/samba/* /etc/samba/
 
-echo
-echo 'Edit /etc/samba/smb.conf for user names and shares'
-echo "Add users with: smbpasswd -a $USER"
-echo "Restart nmbd and smbd services"
+printf '%s\n'
+printf '%s\n' 'Edit /etc/samba/smb.conf for user names and shares'
+printf '%s\n' "Add users with: smbpasswd -a $USER"
+printf '%s\n' "Restart nmbd and smbd services"

@@ -2,7 +2,7 @@
 # set -x
 
 if [[ $EUID -eq 0 ]]; then
-    echo "Do not run as root!"
+    printf '%s\n' "Do not run as root!"
     exit 1
 fi
 
@@ -10,12 +10,12 @@ user=$USER
 group=nginx
 
 usage() {
-    echo "Usage:  ${0##*/} [options] dir"
-    echo "    dir  directory to set permission"
-    echo "    -w   enable group write permission (default: read only)"
-    echo "    -u   user to set as owner (default: $user)"
-    echo "    -g   group (default: $group)"
-    echo "    -h   display this help"
+    printf '%s\n' "Usage:  ${0##*/} [options] dir"
+    printf '%s\n' "    dir  directory to set permission"
+    printf '%s\n' "    -w   enable group write permission (default: read only)"
+    printf '%s\n' "    -u   user to set as owner (default: $user)"
+    printf '%s\n' "    -g   group (default: $group)"
+    printf '%s\n' "    -h   display this help"
     exit 1
 }
 
@@ -27,11 +27,11 @@ while getopts "wu:g:h" option; do
     h) usage ;;
     *) usage ;;
     \?)
-        echo "Unknown option: -$OPTARG" >&2
+        printf '%s\n' "Unknown option: -$OPTARG" >&2
         exit 1
         ;;
     :)
-        echo "Missing option argument for -$OPTARG" >&2
+        printf '%s\n' "Missing option argument for -$OPTARG" >&2
         exit 1
         ;;
     esac
@@ -46,14 +46,14 @@ fi
 if [ -d "$1" ]; then
     dir=$(realpath "$1")
 
-    echo "setting owner to: $user:$group . . ."
+    printf '%s\n' "setting owner to: $user:$group . . ."
     sudo chown -R $user:$group $1
 
-    echo "setting permissions on: ${dir} . . ."
+    printf '%s\n' "setting permissions on: ${dir} . . ."
 
     # {var+x} evaluates to nothing if variable is unset (parameter expansion)
     if [[ ${grpwrite+x} ]] && [[ $grpwrite = 1 ]]; then
-        echo " - enabling group write on: ${dir} . . ."
+        printf '%s\n' " - enabling group write on: ${dir} . . ."
         sudo chmod -R a=rX,ug+w $1
     else
         sudo chmod -R a=rX,u+w $1
@@ -62,5 +62,5 @@ if [ -d "$1" ]; then
     # https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong
     sudo find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
 else
-    echo "cannot access '${1}': No such file or directory in ${PWD}"
+    printf '%s\n' "cannot access '${1}': No such file or directory in ${PWD}"
 fi

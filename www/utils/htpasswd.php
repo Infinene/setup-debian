@@ -47,7 +47,7 @@ input {
     $user = '';
     $passwd = '';
     if (!empty($_POST)) {
-    echo '<div id="results">';
+    printf '%s\n' '<div id="results">';
 
     // The variables have not been adequately sanitized to protect against SQL Injection attacks: http://us3.php.net/mysql_real_escape_string
 
@@ -92,23 +92,23 @@ input {
     $hash = password_hash($passwd, PASSWORD_DEFAULT);
 
 
-    echo '<pre>'."\n";
-    echo '<h4>crypt</h4>';
-    echo $user . ':' . $crypt . ':' . $passwd . "\n";
-    echo '<h4>apr1</h4>';
-    echo $user . ':' . $apr1 . ':' . $passwd .  "\n";
-    echo '<h4>password_hash</h4>';
-    echo $user . ':' . $hash . ':' . $passwd .  "\n";
-    echo '</pre>'."\n";
+    printf '%s\n' '<pre>'."\n";
+    printf '%s\n' '<h4>crypt</h4>';
+    printf '%s\n' $user . ':' . $crypt . ':' . $passwd . "\n";
+    printf '%s\n' '<h4>apr1</h4>';
+    printf '%s\n' $user . ':' . $apr1 . ':' . $passwd .  "\n";
+    printf '%s\n' '<h4>password_hash</h4>';
+    printf '%s\n' $user . ':' . $hash . ':' . $passwd .  "\n";
+    printf '%s\n' '</pre>'."\n";
 
 
-    echo "</div><br>";
+    printf '%s\n' "</div><br>";
 }
 ?>
 
 
 
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="pwdt" method="post">
+<form action="<?php printf '%s\n' $_SERVER['PHP_SELF']; ?>" id="pwdt" method="post">
 
     <table cellpadding="2">
         <tr>
