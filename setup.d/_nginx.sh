@@ -24,4 +24,4 @@ printf '%s\n' $(hostname) | ${SUDO} tee /srv/www/_local/index.html
 ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###
-$HOME/bin/chmodw /srv/www
+$HOME/.local/bin/wmod /srv/www
