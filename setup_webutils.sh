@@ -19,3 +19,7 @@ printf '%s\n' '\nInstalling wp-cli ...'
 ${SUDO} curl -LsS https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp
 ${SUDO} chmod +x /usr/local/bin/wp
 wp --info
+
+printf '%s\n' '\nInstalling acme.sh ...'
+curl https://get.acme.sh | sh -s email=my@example.com
+~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
