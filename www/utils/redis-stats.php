@@ -355,7 +355,7 @@ window.createPie = createPie;
 <label for="server">Server:</label>
 <select onchange="this.form.submit()" id="server" name="s">
 <?php foreach ($servers as $i => $serv): ?>
-<option value="<?php printf '%s\n' $i ?>"<?php printf '%s\n' ($server == $i) ? ' selected="selected"' : '' ?>><?php printf '%s\n' $serv[0] ?></option>
+<option value="<?php echo $i ?>"<?php echo ($server == $i) ? ' selected="selected"' : '' ?>><?php echo $serv[0] ?></option>
 <?php endforeach; ?>
 </select>
 </form>
@@ -364,25 +364,25 @@ window.createPie = createPie;
     <h2>Hits</h2>
     <div class="grid">
     <div id="hitrate" class="col">
-    <?php $hitRate = sprintf '%s\n'('%.1f' , $data['keyspace_hits'] / ($data['keyspace_hits'] + $data['keyspace_misses']) * 100); ?>
-    <div class="key"><?php printf '%s\n' $hitRate ?>%</div>
+    <?php $hitRate = secho('%.1f' , $data['keyspace_hits'] / ($data['keyspace_hits'] + $data['keyspace_misses']) * 100); ?>
+    <div class="key"><?php echo $hitRate ?>%</div>
     </div>
     <div class="col">
     <div class="detail">
         <span class="title">Hits:</span>
-        <span><?php printf '%s\n' number_format($data['keyspace_hits']) ?></span>
+        <span><?php echo number_format($data['keyspace_hits']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Misses:</span>
-        <span><?php printf '%s\n' number_format($data['keyspace_misses']) ?></span>
+        <span><?php echo number_format($data['keyspace_misses']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Expired:</span>
-        <span><?php printf '%s\n' number_format($data['expired_keys']) ?></span>
+        <span><?php echo number_format($data['expired_keys']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Evicted:</span>
-        <span><?php printf '%s\n' number_format($data['evicted_keys']) ?></span>
+        <span><?php echo number_format($data['evicted_keys']) ?></span>
     </div>
     </div>
     </div>
@@ -390,9 +390,9 @@ window.createPie = createPie;
 
 <div class='box col'>
     <h2>Used Memory</h2>
-    <div class="key"><?php printf '%s\n' $data['used_memory_human'] ?></div>
+    <div class="key"><?php echo $data['used_memory_human'] ?></div>
     <h2>Peak Memory</h2>
-    <div class="key"><?php printf '%s\n' $data['used_memory_peak_human'] ?></div>
+    <div class="key"><?php echo $data['used_memory_peak_human'] ?></div>
 </div>
 
 </div>
@@ -400,7 +400,7 @@ window.createPie = createPie;
 
 <div class='box col'>
     <h2>Uptime</h2>
-    <p class="details"><?php printf '%s\n' time_elapsed($data['uptime_in_seconds']) ?></p>
+    <p class="details"><?php echo time_elapsed($data['uptime_in_seconds']) ?></p>
 </div>
 
 <div class='box col'>
@@ -409,19 +409,19 @@ window.createPie = createPie;
     
     <div class="detail">
         <span class="title">Received:</span>
-        <span><?php printf '%s\n' number_format($data['total_connections_received']) ?></span>
+        <span><?php echo number_format($data['total_connections_received']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Connected:</span>
-        <span><?php printf '%s\n' number_format($data['connected_clients']) ?></span>
+        <span><?php echo number_format($data['connected_clients']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Rejected:</span>
-        <span><?php printf '%s\n' number_format($data['rejected_connections']) ?></span>
+        <span><?php echo number_format($data['rejected_connections']) ?></span>
     </div>
     <div class="detail">
         <span class="title">Commands:</span>
-        <span><?php printf '%s\n' number_format($data['total_commands_processed']) ?></span>
+        <span><?php echo number_format($data['total_commands_processed']) ?></span>
     </div>
     
     </div>
@@ -429,15 +429,15 @@ window.createPie = createPie;
 
 <div class='box col'>
     <h2>Persistence</h2>
-    <p class="details">Changes since last save: <?php printf '%s\n' number_format($data['rdb_changes_since_last_save']) ?></p>
-    <p class="details">Last saved<br /><?php printf '%s\n' time_elapsed(time() - $data['rdb_last_save_time']) ?> ago.</p>
+    <p class="details">Changes since last save: <?php echo number_format($data['rdb_changes_since_last_save']) ?></p>
+    <p class="details">Last saved<br /><?php echo time_elapsed(time() - $data['rdb_last_save_time']) ?> ago.</p>
 </div>
 
 </div>
 <div class="grid">
 <?php for ($i = 0; isset($data["db$i"]); $i++): ?>
 <div class='box col'>
-    <h2>Keys in store <em><?php printf '%s\n' "db$i" ?></em></h2>
+    <h2>Keys in store <em><?php echo "db$i" ?></em></h2>
     <div class="key">
         <?php
             $values = explode(',', $data["db$i"]);
@@ -445,7 +445,7 @@ window.createPie = createPie;
                 $kv = explode('=', $value, 2);
                 $keyData[$kv[0]] = $kv[1];
             }
-            printf '%s\n' $keyData['keys'];
+            echo $keyData['keys'];
         ?>
     </div>
 </div>
@@ -454,7 +454,7 @@ window.createPie = createPie;
 </div>
 <script>
 (function() {
-var hitPie = createPie('174px',[{value: <?php printf '%s\n' $hitRate ?>, color: '#8892BF' }]);
+var hitPie = createPie('174px',[{value: <?php echo $hitRate ?>, color: '#8892BF' }]);
 document.getElementById('hitrate').appendChild(hitPie);
 }());
 </script>

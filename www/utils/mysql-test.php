@@ -44,7 +44,7 @@ input {
     <h1>PHP-MySQL Connection Test</h1>
 
 <?php if (!empty($_POST)) {
-    printf '%s\n' '<div id="results">';
+    echo '<div id="results">';
 
 // The variables have not been adequately sanitized to protect against SQL Injection attacks: http://us3.php.net/mysql_real_escape_string
 
@@ -55,51 +55,51 @@ input {
     $db = trim($_POST['database']);
 
     if (!empty($host)) {
-      printf '%s\n' "<h4>$host</h4>";
+      echo "<h4>$host</h4>";
       $mysqli = new mysqli($host, $user, $pass);
       //$mysqli = new mysqli($host, $user, $pass, $db, 3306, "/var/run/mysqld/mysqld.sock");
       if ($mysqli->connect_errno) {
-          printf '%s\n' "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span>";
+          echo "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span>";
       } else {
-          printf '%s\n' "<span class=\"green\"><b>Connected: </b>" . $mysqli->host_info . "</span><br>";
-          printf '%s\n' "<span class=\"green\"><b>Info: </b>" . mysqli_get_server_info( $mysqli ) . "</span><br>";
+          echo "<span class=\"green\"><b>Connected: </b>" . $mysqli->host_info . "</span><br>";
+          echo "<span class=\"green\"><b>Info: </b>" . mysqli_get_server_info( $mysqli ) . "</span><br>";
       }
       if (!empty($db)) {
           $mysqli = new mysqli($host, $user, $pass, $db);
           if ($mysqli->connect_errno) {
-              printf '%s\n' "<span class=\"red\">Failed to connect to " .$db.": (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span><br>";
+              echo "<span class=\"red\">Failed to connect to " .$db.": (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span><br>";
           } else {
-              printf '%s\n' "<span class=\"green\">Connected to database: ".$db . "</span><br>";
+              echo "<span class=\"green\">Connected to database: ".$db . "</span><br>";
           }
       }
     }
 
     if (!empty($host)) {
-      printf '%s\n' "<h4>$ip</h4>";
+      echo "<h4>$ip</h4>";
       $mysqli = new mysqli($ip, $user, $pass);
 
       if ($mysqli->connect_errno) {
-          printf '%s\n' "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span>";
+          echo "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span>";
       } else {
-          printf '%s\n' "<span class=\"green\"><b>Connected: </b>" . $mysqli->host_info . "</span><br>";
-          printf '%s\n' "<span class=\"green\"><b>Info: </b>" . mysqli_get_server_info( $mysqli ) . "</span><br>";
+          echo "<span class=\"green\"><b>Connected: </b>" . $mysqli->host_info . "</span><br>";
+          echo "<span class=\"green\"><b>Info: </b>" . mysqli_get_server_info( $mysqli ) . "</span><br>";
       }
       if (!empty($db)) {
           $mysqli = new mysqli($host, $user, $pass, $db);
           if ($mysqli->connect_errno) {
-              printf '%s\n' "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span><br>";
+              echo "<span class=\"red\">Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error . "</span><br>";
           } else {
-              printf '%s\n' "<span class=\"green\">Connected to database: ".$db . "</span><br>";
+              echo "<span class=\"green\">Connected to database: ".$db . "</span><br>";
           }
       }
     }
 
-    printf '%s\n' "</div><br>";
+    echo "</div><br>";
 }?>
 
 
 
-<form action="<?php printf '%s\n' $_SERVER['PHP_SELF']; ?>" id="dbtest" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="dbtest" method="post">
 
     <table cellpadding="2">
         <tr>

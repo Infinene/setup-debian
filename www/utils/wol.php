@@ -1,6 +1,6 @@
 <?php
-printf '%s\n' "<style>body {margin: 5%;}</style>";
-printf '%s\n' "Waking computers ...\n";
+echo "<style>body {margin: 5%;}</style>";
+echo "Waking computers ...\n";
 $output = shell_exec('/usr/bin/wakeonlan -f /home/aom/dev/mac.list');
-printf '%s\n' "<pre>$output</pre>";
-printf '%s\n' "Done!";
+echo "<pre>$output</pre>";
+echo "Done!";

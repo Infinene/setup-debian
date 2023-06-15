@@ -5,9 +5,9 @@ $benchmark = benchmark(function() {
     sleep(1);
 });
 
-printf '%s\n' "Calibration run: ".number_format($calibration)."/sec\n<br>";
-printf '%s\n' "Benchmark run: ".number_format($benchmark)."/sec\n<br>";
-printf '%s\n' 'Approximate code execution time (seconds): '.number_format((1/$benchmark) - (1/$calibration), 10);
+echo "Calibration run: ".number_format($calibration)."/sec\n<br>";
+echo "Benchmark run: ".number_format($benchmark)."/sec\n<br>";
+echo 'Approximate code execution time (seconds): '.number_format((1/$benchmark) - (1/$calibration), 10);
 
 function benchmark($x)
 {
