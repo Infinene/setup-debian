@@ -12,5 +12,5 @@ ${SUDO} cp -rbv $setup_dir/etc/mysql/* /etc/mysql/
 printf "Enter a password for admin user '${USER}' for mariadb: "
 read_secret dbpass
 
-sudo mysqll -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
+sudo mysql -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
 GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
