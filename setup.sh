@@ -95,11 +95,11 @@ printf '%s\n' 'run setup_webutils to install website maintenance utils.'
 printf '%s\n' 'run setup_mailhog to install a local mail catcher'
 printf '%s\n' 'run setup_samba to install samba'
 printf '%s\n' 'run setup_lego to install letsencrypt client'
-if [ ${selections[1]} = "true" ]; then
-    printf '%s\n'
-    printf '%s\n' 'Consider adding mysql superuser for web based administration:'
-    printf '%s\n' "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
-    printf '%s\n' "GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;\""
-fi
+# if [ ${selections[1]} = "true" ]; then
+#     printf '%s\n'
+#     printf '%s\n' 'Consider adding mysql superuser for web based administration:'
+#     printf '%s\n' "sudo mysql -e \"CREATE USER ${USER}@'%' IDENTIFIED BY 'passwd'; \\" 
+#     printf '%s\n' "GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;\""
+# fi
 printf '%s\n' '----------------'
 printf '%s\n'
