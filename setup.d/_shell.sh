@@ -16,17 +16,17 @@ ${SUDO} apt install apt-transport-https ca-certificates curl wget software-prope
 ${SUDO} apt install zstd unzip ncdu htop mmv neofetch git autojump tmux ncal
 
 ### bash setup ###
-printf '%s\n' "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
+printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 [[ $is_wsl ]] && ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
 
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ ! $UID = 0 ]; then
     # cp -rTv $setup_dir/home $HOME
     cp -rv $setup_dir/home/. $HOME
-    printf '%s\n' '\n. ~/.config/bash/prompt' | tee -a $HOME/.bashrc
-    printf '%s\n' '. ~/.config/bash/utils_env' | tee -a $HOME/.bashrc
-    printf '%s\n' '. /usr/share/autojump/autojump.bash' | tee -a $HOME/.bashrc
-    printf '%s\n' 'if [ -f /usr/bin/neofetch ]; then neofetch; fi' | tee -a $HOME/.bashrc
+    cat ~/.config/bash/prompt | tee -a $HOME/.bashrc
+    printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
+    printf ". /usr/share/autojump/autojump.bash\n" | tee -a $HOME/.bashrc
+    printf "if [ -f /usr/bin/neofetch ]; then\n  neofetch;\nfi\n" | tee -a $HOME/.bashrc
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
     printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers

@@ -20,7 +20,7 @@ ${SUDO} sed -i -e "s/_php<ver>/_php${ver}/" /etc/nginx/conf.d/_local.conf
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/_local
-printf '%s\n' $(hostname) | ${SUDO} tee /srv/www/_local/index.html
+printf "$(hostname)\n" | ${SUDO} tee /srv/www/_local/index.html
 ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###
