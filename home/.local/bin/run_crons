@@ -4,10 +4,10 @@
 # visudo
 # %nginx ALL=(nginx) NOPASSWD:SETENV: /usr/local/bin/drush,/home/aom/bin/drush.phar
 # set -x
-#log "drupal: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com core-cron --yes)"
-#log "civicrm: $(sudo -E -u nginx ~/bin/drush.phar --root=/srv/www/giving.soundvision.com cvapi job.execute auth=0)"
+#log "drupal: $(sudo -E -u nginx ~/.local/bin/drush.phar --root=/srv/www/giving.soundvision.com core-cron --yes)"
+#log "civicrm: $(sudo -E -u nginx ~/.local/bin/drush.phar --root=/srv/www/giving.soundvision.com cvapi job.execute auth=0)"
 
-source ~/bin/src/log.sh
+source ~/.local/bin/src/log.sh
 create_log ~/.cache/run_crons.log
 
 log "----- cividrupal -----"

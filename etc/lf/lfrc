@@ -3,7 +3,7 @@ set hidden
 # set icons
 set ignorecase
 # set drawbox
-set previewer ~/bin/lfpreview
+set previewer ~/.local/bin/lfpreview
 set info time:size
 
 # mappings

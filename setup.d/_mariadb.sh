@@ -9,10 +9,10 @@ fi
 ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/etc/mysql/* /etc/mysql/
 
-printf "Creating admin user for phpMyAdmin ...\n"
+printf "\nCreating admin user for phpMyAdmin ...\n"
 printf '%s\n' "-------------------------------------"
 printf "Enter a password for '${USER}' for mariadb: "
 read_secret dbpass
-printf "\nGrant all privileges to '${USER}' ...\n"
+printf "Granting all privileges to '${USER}' ...\n"
 sudo mysql -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
 GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"

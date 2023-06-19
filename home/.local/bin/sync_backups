@@ -9,7 +9,7 @@ if [ ! -d ~/.cache/log ]; then
 	mkdir -p ~/.cache/log
 fi
 
-source ~/bin/src/log.sh
+source ~/.local/bin/src/log.sh
 create_log $log_file
 
 log '-----'
