@@ -3,9 +3,9 @@ ${SUDO} apt install lsb-release
 
 ### backports ###
 grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
-    printf '%s\n' "\ndeb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free" \
+  printf "\ndeb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free\n" \
     | ${SUDO} tee -a /etc/apt/sources.list
-printf '%s\n' "Package: *\nPin: release a=${debian_release}-backports\nPin-Priority: 500\n" \
+printf "Package: *\nPin: release a=${debian_release}-backports\nPin-Priority: 500\n" \
     | ${SUDO} tee /etc/apt/preferences.d/backports
 
 ${SUDO} apt update

@@ -10,7 +10,7 @@ ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/etc/mysql/* /etc/mysql/
 
 printf "\nCreating admin user for phpMyAdmin ...\n"
-printf '%s\n' "-------------------------------------"
+printf -- "-------------------------------------\n"
 printf "Enter a password for '${USER}' for mariadb: "
 read_secret dbpass
 printf "Granting all privileges to '${USER}' ...\n"

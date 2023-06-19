@@ -10,13 +10,10 @@ printf "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 9
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-ver=$(printf '%s\n' $php_ver | tr -d .)
-
 ${SUDO} cp -rbv $setup_dir/etc/nginx/* /etc/nginx
 if [ -f /etc/nginx/conf.d/default.conf ]; then
     ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 fi
-${SUDO} sed -i -e "s/_php<ver>/_php${ver}/" /etc/nginx/conf.d/_local.conf
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/www/_local
