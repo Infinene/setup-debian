@@ -1,5 +1,5 @@
-printf '%s\n'
-printf '%s\n' "Updating micro editor..."
+echo
+echo "Updating micro editor..."
 
 repo="zyedidia/micro"
 bin_dir="/usr/local/bin"
@@ -17,8 +17,8 @@ if command -v micro &> /dev/null; then
 elif [ -f ~/.local/bin/micro ]; then
   cur_version="$(~/.local/bin/micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
   if [ ! -f /usr/local/bin/micro ]; then
-      printf "creating link in /usr/local/bin ...\n"
-      sudo ln -s $HOME/.local/bin/micro /usr/local/bin/
+      printf "move to /usr/local/bin ...\n"
+      sudo mv $HOME/.local/bin/micro /usr/local/bin/
       setup_alternatives
   fi
 else
@@ -38,7 +38,7 @@ else
     # remove the file
     rm -vf $file
     setup_alternatives
-    printf "remove local version from ~/.local/bin if installed ..."
+    echo "remove local version from ~/.local/bin if installed ..."
     printf "Press enter to continue "
     read key
 fi
