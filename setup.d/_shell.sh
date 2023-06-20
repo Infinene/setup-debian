@@ -38,3 +38,4 @@ fi
 printf "\nInstalling utils...\n" 
 $HOME/.local/bin/update_utils
 ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
+${SUDO} chown -R root:root /usr/local/bin/

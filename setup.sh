@@ -56,13 +56,15 @@ fi
 
 if [ ${selections[0]} = "true" ]; then
     echo
-    echo "Configuring system (shell utils etc.)"
+    echo "Continue with shell setup ..."
+    printf "Press enter to continue"
+    ready key
     . $setup_dir/setup.d/_shell.sh
 fi
 
 if [ ${selections[1]} = "true" ]; then
     echo
-    echo "Installing and configuring MariaDB ${mariadb_ver}"
+    echo "Continue with installing MariaDB ${mariadb_ver} ..."
     printf "Press enter to continue"
     ready key
     . $setup_dir/setup.d/_mariadb.sh
@@ -70,7 +72,7 @@ fi
 
 if [ ${selections[2]} = "true" ]; then
     echo
-    echo "Installing and configuring latest NginX"
+    echo "Continue with installing Nginx"
     printf "Press enter to continue"
     read key
     . $setup_dir/setup.d/_nginx.sh
@@ -78,7 +80,7 @@ fi
 
 if [ ${selections[3]} = "true" ]; then
     echo
-    echo "Installing and configuring PHP ${php_ver}"
+    echo "Continue with installing PHP ${php_ver}"
     printf "Press enter to continue"
     read key
     . $setup_dir/setup.d/_php.sh
@@ -98,6 +100,5 @@ echo 'run setup_webutils to install website maintenance utils.'
 echo 'run setup_mailhog to install a local mail catcher'
 echo 'run setup_samba to install samba'
 echo 'run setup_lego to install letsencrypt client'
-
 echo '----------------'
 echo
