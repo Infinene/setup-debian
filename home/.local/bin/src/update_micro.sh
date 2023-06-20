@@ -2,13 +2,13 @@ echo
 echo "Updating micro editor..."
 
 repo="zyedidia/micro"
-bin_dir="/usr/local/bin"
+micro_dir='/usr/local/bin'
 
 setup_alternatives () {
   if ! update-alternatives --list editor | grep "micro" >/dev/null; then
-    ${SUDO} update-alternatives --install ${bin_dir} editor ${bin_dir}/micro 50
+    ${SUDO} update-alternatives --install /usr/bin/editor editor ${micro_dir}/micro 50
   else
-    sudo update-alternatives --set editor /usr/bin/micro
+    sudo update-alternatives --set editor ${micro_dir}/micro
   fi
 }
 
