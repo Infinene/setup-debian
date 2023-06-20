@@ -14,8 +14,8 @@ setup_alternatives () {
 
 if command -v micro &> /dev/null; then
   cur_version="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-elif command -v micro &> /dev/null; then
-  cur_version="$(~/.local/micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
+elif [ ! -f /usr/local/bin/micro ] then
+  cur_version="$(~/.local/bin/micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
   cur_version="0.0"
 fi
