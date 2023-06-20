@@ -32,6 +32,7 @@ if [ ! $UID = 0 ]; then
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
     printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
+    printf "Defaults:${USER} env_keep += \"EDITOR VISUAL MANPAGER\"\n" | ${SUDO} tee -a /etc/sudoers
     [[ $is_wsl ]] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
