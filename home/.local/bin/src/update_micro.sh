@@ -2,6 +2,7 @@ printf '%s\n'
 printf '%s\n' "Updating micro editor..."
 
 repo="zyedidia/micro"
+bin_dir="/usr/local/bin"
 
 setup_alternatives () {
   if ! update-alternatives --list editor | grep "micro" >/dev/null; then
