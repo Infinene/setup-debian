@@ -10,7 +10,6 @@ printf '%s\n' '  MariaDB and nginx to create a web server.                '
 userid=$(id -u)
 mariadb_ver='10.11'
 php_ver='8.2'
-debian_release=$(lsb_release -sc)
 
 if [[ $userid -eq 0 ]]; then
     tput setaf 1;
@@ -57,28 +56,28 @@ fi
 if [ ${selections[0]} = "true" ]; then
     echo
     echo "Configuring system (shell utils etc.)"
-    source $setup_dir/setup.d/_shell.sh
+    . $setup_dir/setup.d/_shell.sh
 fi
 
 if [ ${selections[1]} = "true" ]; then
     echo
     echo "Installing and configuring MariaDB ${mariadb_ver}"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_mariadb.sh
+    . $setup_dir/setup.d/_mariadb.sh
 fi
 
 if [ ${selections[2]} = "true" ]; then
     echo
     echo "Installing and configuring latest NginX"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_nginx.sh
+    . $setup_dir/setup.d/_nginx.sh
 fi
 
 if [ ${selections[3]} = "true" ]; then
     echo
     echo "Installing and configuring PHP ${php_ver}"
     read -p "Press enter to continue"
-    source $setup_dir/setup.d/_php.sh
+    . $setup_dir/setup.d/_php.sh
 fi
 
 echo

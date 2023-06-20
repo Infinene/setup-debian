@@ -1,6 +1,8 @@
 ${SUDO} apt update
 ${SUDO} apt install lsb-release
 
+debian_release=$(lsb_release -sc)
+
 ### backports ###
 grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
   printf "\ndeb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free\n" \
