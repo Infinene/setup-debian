@@ -60,23 +60,23 @@ if [ ! "${selections[*]}" =~ "true" ]; then
 fi
 
 if [ ${selections[0]} = "true" ]; then
-    echo
+    echo "---"
     echo "Continue with shell setup ..."
     printf "Press enter to continue"
-    ready key
+    read key
     . $setup_dir/setup.d/_shell.sh
 fi
 
 if [ ${selections[1]} = "true" ]; then
-    echo
+    echo "---"
     echo "Continue with installing MariaDB ${mariadb_ver} ..."
     printf "Press enter to continue"
-    ready key
+    read key
     . $setup_dir/setup.d/_mariadb.sh
 fi
 
 if [ ${selections[2]} = "true" ]; then
-    echo
+    echo "---"
     echo "Continue with installing Nginx"
     printf "Press enter to continue"
     read key
@@ -84,7 +84,7 @@ if [ ${selections[2]} = "true" ]; then
 fi
 
 if [ ${selections[3]} = "true" ]; then
-    echo
+    echo "---"
     echo "Continue with installing PHP ${php_ver}"
     printf "Press enter to continue"
     read key
