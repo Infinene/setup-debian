@@ -25,7 +25,7 @@ cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root
 if [ ! $UID = 0 ]; then
     # cp -rTv $setup_dir/home $HOME
     cp -rv $setup_dir/home/. $HOME
-    cat ~/.config/bash/prompt | tee -a $HOME/.bashrc
+    printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
     printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
     printf ". /usr/share/autojump/autojump.bash\n" | tee -a $HOME/.bashrc
     printf "if [ -f /usr/bin/neofetch ]; then\n  neofetch;\nfi\n" | tee -a $HOME/.bashrc
