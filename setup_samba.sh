@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
     SUDO=sudo
 fi
 
-setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 ${SUDO} apt -y install samba
 

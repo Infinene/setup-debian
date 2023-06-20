@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
-setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 ### install mailhog ###
 LEGO_VER="$(curl -s "https://github.com/go-acme/lego/releases/latest" | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"

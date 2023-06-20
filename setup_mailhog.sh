@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
@@ -11,8 +11,13 @@ get_latest_release() {
     sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
 }
 
-is_wsl=$(grep -i microsoft /proc/version)
-setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+if grep -i microsoft /proc/version; then
+  is_wsl=true
+else
+  is_wsl=false
+fi
+
+setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 ### install mailhog ###
 mailhog_ver=$(get_latest_release 'mailhog/MailHog')
@@ -23,7 +28,7 @@ ${SUDO} mv ./MailHog_linux_amd64 /usr/local/bin/mailhog
 ${SUDO} cp -v $setup_dir/misc/mhsendmail /usr/local/bin/
 
 
-if [[ $is_wsl ]]; then
+if [ "$is_wsl" = true ]; then
     printf '%s\n' "Installing in WSL!"
     ${SUDO} apt install daemonize
     ${SUDO} cp -v $setup_dir/misc/wsl_mailhog_init /etc/init.d/mailhog

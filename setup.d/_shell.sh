@@ -19,10 +19,10 @@ ${SUDO} apt install zstd unzip ncdu htop mmv neofetch git autojump tmux ncal
 
 ### bash setup ###
 printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
-[[ $is_wsl ]] && ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
+[ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
 
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
-if [ ! $UID = 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
     # cp -rTv $setup_dir/home $HOME
     cp -rv $setup_dir/home/. $HOME
     printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
@@ -33,7 +33,7 @@ if [ ! $UID = 0 ]; then
     ln -s .config/bash/aliases .bash_aliases
     printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
     printf "Defaults:${USER} env_keep += \"EDITOR VISUAL MANPAGER\"\n" | ${SUDO} tee -a /etc/sudoers
-    [[ $is_wsl ]] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
+    [ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
 printf "\nInstalling utils...\n" 

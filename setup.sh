@@ -11,7 +11,7 @@ userid=$(id -u)
 mariadb_ver='10.11'
 php_ver='8.2'
 
-if [[ $userid -eq 0 ]]; then
+if [ "$(id -u)" -eq 0 ]; then
     tput setaf 1;
     printf "\nRunning as root! User environment and utilities will not be setup.\n"
     tput init
@@ -33,8 +33,13 @@ else
     ${SUDO} echo 
 fi
 
-is_wsl=$(grep -i microsoft /proc/version)
-setup_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+if grep -i microsoft /proc/version; then
+  is_wsl=true
+else
+  is_wsl=false
+fi
+
+setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 . $setup_dir/misc/multiselect
 . $setup_dir/misc/read_secret
@@ -49,7 +54,7 @@ default_selections=("true" "true" "true" "true")
 nothing=("false" "false" "false" "false")
 multiselect selections menu default_selections
 
-if [[ ! "${selections[*]}" =~ "true" ]]; then
+if [ ! "${selections[*]}" =~ "true" ]; then
     echo "Nothing selected!"
     exit
 fi
