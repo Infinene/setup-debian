@@ -24,3 +24,8 @@ else
       curl https://raw.githubusercontent.com/${repo}/master/etc/lfrc.example -o ~/.config/lf/lfrc
     fi
 fi
+
+if [ ! -f /usr/local/bin/lfpreview ]; then
+	printf "lfpreview setup ...\n"
+	sudo ln -s $HOME/.local/bin/lfpreview /usr/local/bin/
+fi

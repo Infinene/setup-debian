@@ -2,10 +2,11 @@ printf '%s\n'
 printf '%s\n' "Updating micro editor..."
 
 repo="zyedidia/micro"
+bin_dir="/usr/local/bin"
 
 setup_alternatives () {
   if ! update-alternatives --list editor | grep "micro" >/dev/null; then
-    ${SUDO} update-alternatives --install /usr/bin/editor editor /usr/bin/micro 50
+    ${SUDO} update-alternatives --install ${bin_dir} editor ${bin_dir}/micro 50
   else
     sudo update-alternatives --set editor /usr/bin/micro
   fi
@@ -21,8 +22,13 @@ fi
 new_version="$(get_latest_release_num $repo)"
 file=micro-"${new_version}-${arch}.deb"
 
-if [ "$cur_version" = "${new_version}" ]; then
+if [ "${cur_version}" \> "${new_version}" ] || [ "${cur_version}" = "${new_version}" ]; then
     printf '%s\n' "Already at latest version: micro ${cur_version}"
+    if [ ! -f /usr/local/bin/micro ]; then
+	      printf "micro setup ...\n"
+	      sudo ln -s $HOME/.local/bin/micro /usr/local/bin/
+        setup_alternatives
+    fi
 else
     # get the package
     wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
