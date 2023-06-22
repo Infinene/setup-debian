@@ -88,12 +88,9 @@ fi
 
 echo
 echo "Restarting services ..."
-echo "mariadb"
-instr "MariaDB" "$selection" && ${SUDO} systemctl restart mariadb
-echo "nginx"
-instr "Nginx" "$selection" && ${SUDO} systemctl restart nginx
-echo "php${php_ver}-fpm"
-instr "PHP" "$selection" && ${SUDO} systemctl restart php${php_ver}-fpm
+instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mariadb
+instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx
+instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restart php${php_ver}-fpm
 
 echo
 echo 'Setup completed!'
