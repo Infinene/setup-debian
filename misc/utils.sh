@@ -1,4 +1,14 @@
-read_secret()
+instr()
+{
+    case "$2" in
+       *"$1"*)
+          return 0
+       ;;
+    esac
+    return 1
+}
+
+readpwd()
 {
     # Disable echo.
     stty -echo
