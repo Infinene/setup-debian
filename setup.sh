@@ -14,22 +14,15 @@ else
 fi
 
 if [ "$(id -u)" -eq 0 ]; then
-    tput setaf 1;
-    printf "\nRunning as root! User environment and utilities will not be setup.\n"
-    tput init
-    printf "Launch as a user in sudo group for complete setup.\n"
-    while true
-    do
-        printf "Continue as root user (y/n)? "
-        read choice
-        case "$choice" in
-        y|Y )   break;;
-        n|N )   exit
-                break;;
-        * )     echo "please enter y/Y or n/N"
-                ;;
-        esac
-    done
+    msg=$(printf "Launch as a sudo user to setup environment and utilities.\nContinue as root?")
+    if (whiptail --title "Running as root user" --yesno "$msg" --defaultno 0 0 3>&2 2>&1 1>&3); then
+        echo "Running as root"
+        printf "Press enter to continue"
+        read key
+    else
+        echo "Relaunch as sudo user"
+        exit
+    fi
 else
     SUDO=sudo
     ${SUDO} echo 
