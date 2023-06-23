@@ -42,7 +42,7 @@ selection=$(
 whiptail --title "Debian Web Server Setup" --checklist \
 "$msg" 8 0 0 \
 Shell "Setup user shell environment and utilities" 1 \
-MariaDB "Install MariaDb $mariadb_ver" 1 \
+MariaDB "Install MariaDb $mariadb_ver" 0 \
 Nginx "Install latest Nginx" 0 \
 PHP "Install php $php_ver" 0 \
 3>&2 2>&1 1>&3
