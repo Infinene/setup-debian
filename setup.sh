@@ -16,7 +16,7 @@ fi
 if [ "$(id -u)" -eq 0 ]; then
     msg=$(printf "Launch as a sudo user to setup environment and utilities.\nContinue as root?")
     if (whiptail --title "Running as root user" --yesno "$msg" --defaultno 0 0 3>&2 2>&1 1>&3); then
-        echo "Running as root"
+        echo "You have selected to run as root"
         printf "Press enter to continue"
         read key
     else
