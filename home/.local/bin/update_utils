@@ -5,7 +5,7 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
-this_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+this_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 arch=$(dpkg --print-architecture)
 
 # If sudo, get the password now
