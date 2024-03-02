@@ -12,10 +12,12 @@ ${SUDO} php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 
 printf "\nInstalling drush ...\n"
-wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
-mv drush.phar drush
-chmod +x drush
-${SUDO} mv drush /usr/local/bin
+# wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
+# mv drush.phar drush
+# chmod +x drush
+# ${SUDO} mv drush /usr/local/bin
+composer global require drush/drush:8.x
+${SUDO} ln -s /home/$USER/.config/composer/vendor/bin/drush /usr/local/bin/
 
 printf "\nInstalling cv ...\n"
 ${SUDO} curl -LsS https://download.civicrm.org/cv/cv.phar -o /usr/local/bin/cv
