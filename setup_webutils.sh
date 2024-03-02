@@ -5,6 +5,12 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
+printf "\nInstalling wp-cli ...\n"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+${SUDO} php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+
 printf "\nInstalling drush ...\n"
 wget https://github.com/drush-ops/drush/releases/download/8.4.12/drush.phar
 mv drush.phar drush
