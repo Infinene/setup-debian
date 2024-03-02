@@ -17,9 +17,10 @@ if [ $# -ne 0 ]; then
 	. $this_dir/src/update_"$1".sh
 else
   . $this_dir/src/update_micro.sh
+  . $this_dir/src/update_eza.sh
   . $this_dir/src/update_lf.sh
   . $this_dir/src/update_fd.sh
   . $this_dir/src/update_bat.sh
   . $this_dir/src/update_ripgrep.sh
   . $this_dir/src/update_composer.sh
-fi 
+fi

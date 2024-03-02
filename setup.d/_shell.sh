@@ -36,7 +36,10 @@ if [ "$(id -u)" -ne 0 ]; then
     [ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
-printf "\nInstalling utils...\n" 
+printf "\nInstalling utils...\n"
 $HOME/.local/bin/update_utils
 ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
 ${SUDO} chown -R root:root /usr/local/bin/
+${SUDO} cp -rbv $setup_dir/etc/sudoers.d/* /etc/sudoers.d/
+
+${SUDO} dpkg-reconfigure console-setup
