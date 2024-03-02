@@ -11,7 +11,7 @@ else
 fi
 
 new_version="$(get_latest_release_num $repo)"
-file="ripgrep_${new_version}_${arch}.deb"
+file="ripgrep_${new_version}-1_${arch}.deb"
 
 if [ "$cur_version" = "${new_version}" ]; then
     printf '%s\n' "Already at latest version: rg ${cur_version}"
