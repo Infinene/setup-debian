@@ -25,7 +25,7 @@ if [ "$(id -u)" -eq 0 ]; then
     fi
 else
     SUDO=sudo
-    ${SUDO} echo 
+    ${SUDO} echo
 fi
 
 . $setup_dir/misc/utils.sh

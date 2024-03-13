@@ -25,6 +25,7 @@ cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root
 if [ "$(id -u)" -ne 0 ]; then
     # cp -rTv $setup_dir/home $HOME
     cp -rv $setup_dir/home/. $HOME
+    chmod -R u=rwX,og= $HOME/.ssh
     printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
     printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
     printf ". /usr/share/autojump/autojump.bash\n" | tee -a $HOME/.bashrc
