@@ -19,12 +19,14 @@ alias aptin='sudo apt install'
 alias bat='bat --style=plain'
 alias e='micro'
 
+# view a file
 v() {
   local dir=$(dirname "${1}")
   [ ! -w "${dir}" ] && local SUDO=true
   ${SUDO:+sudo} bat --style=plain $1
 }
 
+# monitor a log/text file
 m() {
   local dir=$(dirname "${1}")
   [ ! -w "${dir}" ] && local SUDO=true
