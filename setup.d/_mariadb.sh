@@ -13,7 +13,7 @@ dbpass=$(whiptail --passwordbox "Enter a password for user '${USER}' as admin fo
 exitstatus=$?
 if [ "x$dbpass" != "x" ]; then
     echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
-    ${SUDO} mysql_ -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
+    ${SUDO} mysql -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
     GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
 else
     echo "User account not created: canceled or no password entered"
