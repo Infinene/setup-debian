@@ -11,16 +11,16 @@ arch=$(dpkg --print-architecture)
 # If sudo, get the password now
 ${SUDO} echo
 
-. $this_dir/src/get_latest.sh
+. $this_dir/bin.d/get_latest.sh
 
 if [ $# -ne 0 ]; then
-	. $this_dir/src/update_"$1".sh
+	. $this_dir/bin.d/update_"$1".sh
 else
-  . $this_dir/src/update_micro.sh
-  . $this_dir/src/update_eza.sh
-  . $this_dir/src/update_lf.sh
-  . $this_dir/src/update_fd.sh
-  . $this_dir/src/update_bat.sh
-  . $this_dir/src/update_ripgrep.sh
-  . $this_dir/src/update_composer.sh
+  . $this_dir/bin.d/update_micro.sh
+  . $this_dir/bin.d/update_eza.sh
+  . $this_dir/bin.d/update_lf.sh
+  . $this_dir/bin.d/update_fd.sh
+  . $this_dir/bin.d/update_bat.sh
+  . $this_dir/bin.d/update_ripgrep.sh
+  . $this_dir/bin.d/update_composer.sh
 fi

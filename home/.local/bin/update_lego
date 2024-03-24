@@ -11,7 +11,6 @@ arch=$(dpkg --print-architecture)
 # If sudo, get the password now
 ${SUDO} echo
 
-. $this_dir/src/get_latest.sh
+. $this_dir/bin.d/get_latest.sh
 
-. $this_dir/src/update_lego.sh
- 
+. $this_dir/bin.d/update_lego.sh
