@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+this_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+arch=$(dpkg --print-architecture)
+
+# If sudo, get the password now
+${SUDO} echo
+
+. $this_dir/bin.d/_get-github-version.sh
+
+if [ $# -ne 0 ]; then
+	. $this_dir/bin.d/_get-"$1".sh
+else
+  . $this_dir/bin.d/_get-micro.sh
+  . $this_dir/bin.d/_get-eza.sh
+  . $this_dir/bin.d/_get-lf.sh
+  . $this_dir/bin.d/_get-fd.sh
+  . $this_dir/bin.d/_get-bat.sh
+  . $this_dir/bin.d/_get-ripgrep.sh
+  . $this_dir/bin.d/_get-composer.sh
+  # . $this_dir/bin.d/_get-lego.sh
+fi

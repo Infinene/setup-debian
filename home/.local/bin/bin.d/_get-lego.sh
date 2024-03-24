@@ -10,7 +10,7 @@ else
   cur_version="0.0"
 fi
 
-new_version="$(get_latest_release_num $repo)"
+new_version="$(github_latest_release_num $repo)"
 file="lego_v${new_version}_linux_amd64.tar.gz"
 
 if [ "$cur_version" = "${new_version}" ]; then

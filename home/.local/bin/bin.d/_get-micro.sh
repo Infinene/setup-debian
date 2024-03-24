@@ -20,7 +20,7 @@ else
   cur_version="0.0"
 fi
 
-new_version="$(get_latest_release_num $repo)"
+new_version="$(github_latest_release_num $repo)"
 file=micro-"${new_version}-${arch}.deb"
 
 if [ "${cur_version}" \> "${new_version}" ] || [ "${cur_version}" = "${new_version}" ]; then

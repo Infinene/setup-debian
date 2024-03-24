@@ -9,8 +9,8 @@ else
 fi
 
 repo="gokcehan/lf"
-file="lf-linux-${arch}.tar.gz"    
-new_version="$(get_latest_release $repo)"
+file="lf-linux-${arch}.tar.gz"
+new_version="$(github_latest_release $repo)"
 
 if [ "$cur_version" = "${new_version}" ]; then
     printf '%s\n' "Already at latest version: lf $cur_version"

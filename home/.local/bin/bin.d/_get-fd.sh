@@ -10,7 +10,7 @@ else
   cur_version="0.0"
 fi
 
-new_version=$(get_latest_release_num $repo)
+new_version=$(github_latest_release_num $repo)
 file="fd_${new_version}_${arch}.deb"
 
 if [ "$cur_version" = "fd ${new_version}" ]; then
