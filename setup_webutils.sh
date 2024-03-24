@@ -29,5 +29,6 @@ ${SUDO} chmod +x /usr/local/bin/wp
 wp --info
 
 printf "\nInstalling acme.sh ...\n"
-curl https://get.acme.sh | sh -s email=my@example.com
+read -p "Enter email for ssl account: " email
+curl https://get.acme.sh | sh -s email=$email
 $HOME/.acme.sh/acme.sh --set-default-ca --server letsencrypt
