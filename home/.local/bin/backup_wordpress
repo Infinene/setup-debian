@@ -6,7 +6,7 @@
 #
 # set -x #printf '%s\n' commands
 
-backup_root=~/backups
+backup_root=~/backup
 wpcli=/usr/local/bin/wp
 log=true
 
