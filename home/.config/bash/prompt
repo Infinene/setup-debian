@@ -1,13 +1,21 @@
 __prompt_command() {
   local exit="$?"                # This needs to be first
 
-  PS1="\[\e[34m\]\u@\h:\[\e[m\] \[\e[32m\]\w\[\e[m\]\n"
+  # https://colors.sh/
+  local c_host="34m" #blue
+  # local c_host="1;35m" #purple
+  # local c_host="38;5;73m" #cadetblue
+	local c_dir="32m" #greem
+	local c_error="31m" #red
+	local c_date="1;30m" #gray
+
+  PS1="\[\e[${c_host}\]\u@Debian (WSL):\[\e[m\] \[\e[${c_dir}\]\w\[\e[m\]\n"
 
   if [ $exit != 0 ]; then
-    PS1+="\[\e[31m\]$exit\[\e[m\] "        # Add if exit code non 0
+    PS1+="\[\e[${c_error}\]$exit\[\e[m\] "        # Add if exit code non 0
   fi
 
-  PS1+="\[\e[1;30m\]\t\[\e[m\] ❱ "
+  PS1+="\[\e[${c_date}\]\t\[\e[m\] ❱ "
 }
 
 PROMPT_COMMAND=__prompt_command
