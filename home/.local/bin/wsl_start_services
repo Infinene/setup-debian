@@ -20,6 +20,6 @@ start mailhog
 start mariadb
 start php8.2-fpm
 start nginx
-start ssh
+# start ssh
 
 sudo service --status-all
