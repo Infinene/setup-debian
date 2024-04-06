@@ -9,7 +9,7 @@ __prompt_command() {
 	local c_error="31m" #red
 	local c_date="1;30m" #gray
 
-  PS1="\[\e[${c_host}\]\u@Debian (WSL):\[\e[m\] \[\e[${c_dir}\]\w\[\e[m\]\n"
+  PS1="\[\e[${c_host}\]\u@\h:\[\e[m\] \[\e[${c_dir}\]\w\[\e[m\]\n"
 
   if [ $exit != 0 ]; then
     PS1+="\[\e[${c_error}\]$exit\[\e[m\] "        # Add if exit code non 0
