@@ -53,8 +53,8 @@ skip-log-bin
 # max_connections             = 300
 explicit_defaults_for_timestamp = 1
 
-#  If set to 1, (0 is the default), the server does not listen for TCP/IP connections. 
-#  All interaction with the server will be through socket files (Unix). It's recommended 
+#  If set to 1, (0 is the default), the server does not listen for TCP/IP connections.
+#  All interaction with the server will be through socket files (Unix). It's recommended
 #  to use this option if only local clients are permitted to connect to the server.
 skip-name-resolve           = 1
 
@@ -68,7 +68,7 @@ myisam_sort_buffer_size     = 8M
 #
 # * InnoDB
 #
-innodb_buffer_pool_size     = 2G
+innodb_buffer_pool_size     = 1G
 innodb_flush_method         = O_DIRECT
 
 #
