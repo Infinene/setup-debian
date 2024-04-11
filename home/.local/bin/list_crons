@@ -1,4 +1,5 @@
 #!/bin/bash
-sudo crontab -l
-sudo crontab -u nginx -l
-crontab -l
+# sudo crontab -l
+# sudo crontab -u nginx -l
+# crontab -l
+sudo grep -v "#" -R /var/spool/cron/crontabs/

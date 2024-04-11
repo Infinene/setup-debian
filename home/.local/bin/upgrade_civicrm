@@ -33,7 +33,7 @@ sudo rm -rf sites/all/modules/civicrm
 tar -xf "$download_dir/$civicrm_file" -C sites/all/modules/
 sudo sh -c 'rm -rf sites/default/files/civicrm/templates_c/*'
 wmod -w sites/default/files
-sudo -u nginx /usr/local/bin/drush cvupdb
+# sudo -u nginx /usr/local/bin/drush cvupdb
 drush vset maintenance_mode 0
 drush vget maintenance_mode
 wmod -w sites/default/files/civicrm

@@ -1,4 +1,4 @@
-KEEP_LINES=4000
+KEEP_LINES=10000
 create_log() {
     if [ -f $1 ]; then
         LOG=$(tail -n $KEEP_LINES $1 2>/dev/null) && printf '%s\n' "${LOG}" >$1
@@ -7,5 +7,5 @@ create_log() {
     exec 2>&1
 }
 log() {
-    printf '%s\n' "[$(date +%Y-%m-%dT%H:%M:%S)] $*"
+    printf '%s\n' "$(date '+%Y-%m-%d %H:%M:%S') $*"
 }
