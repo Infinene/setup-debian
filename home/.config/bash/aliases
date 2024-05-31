@@ -16,7 +16,7 @@ alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias e='micro '
-alias y='yazi '
+alias lz='yazi '
 
 # view a file
 v() {
