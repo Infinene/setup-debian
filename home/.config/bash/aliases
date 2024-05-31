@@ -1,8 +1,6 @@
 alias ls='ls -v --group --color=auto'
-# alias l='ls -ACv --group --color=auto'
-# alias ll='ls -Alhv --group --color=auto'
-alias l='eza -ag --group-directories-first'
-alias ll='eza -alg --group-directories-first'
+alias ll='ls -Alhv --group --color=auto'
+alias la='ls -Alhv --group --color=auto'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 alias sstart='sudo systemctl start'
@@ -17,7 +15,8 @@ alias aptsrch='apt search --names-only'
 alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
-alias e='micro'
+alias e='micro '
+alias y='yazi '
 
 # view a file
 v() {
