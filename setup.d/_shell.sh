@@ -15,7 +15,7 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv neofetch git autojump tmux ncal
+${SUDO} apt install zstd unzip ncdu htop mmv neofetch git ncal shellcheck
 
 ### bash setup ###
 printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
@@ -28,18 +28,17 @@ if [ "$(id -u)" -ne 0 ]; then
     chmod -R u=rwX,og= $HOME/.ssh
     printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
     printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
-    printf ". /usr/share/autojump/autojump.bash\n" | tee -a $HOME/.bashrc
     printf "if [ -f /usr/bin/neofetch ]; then\n  neofetch;\nfi\n" | tee -a $HOME/.bashrc
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
-    printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
-    printf "Defaults:${USER} env_keep += \"EDITOR VISUAL MANPAGER\"\n" | ${SUDO} tee -a /etc/sudoers
+    # printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
+    # printf "Defaults:${USER} env_keep += \"EDITOR VISUAL MANPAGER\"\n" | ${SUDO} tee -a /etc/sudoers
     [ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
 printf "\nInstalling utils...\n"
 $HOME/.local/bin/get-utils
-${SUDO} cp -rbv $setup_dir/etc/lf /etc/
+# ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
 ${SUDO} chown -R root:root /usr/local/bin/
 ${SUDO} cp -rbv $setup_dir/etc/sudoers.d/* /etc/sudoers.d/
 

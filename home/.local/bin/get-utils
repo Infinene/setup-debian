@@ -17,8 +17,10 @@ if [ $# -ne 0 ]; then
 	. $this_dir/bin.d/_get-"$1".sh
 else
   . $this_dir/bin.d/_get-micro.sh
-  . $this_dir/bin.d/_get-eza.sh
-  . $this_dir/bin.d/_get-lf.sh
+  # . $this_dir/bin.d/_get-eza.sh
+  # . $this_dir/bin.d/_get-lf.sh
+  . $this_dir/bin.d/_get-fzf.sh
+  . $this_dir/bin.d/_get-zoxide.sh
   . $this_dir/bin.d/_get-fd.sh
   . $this_dir/bin.d/_get-bat.sh
   . $this_dir/bin.d/_get-ripgrep.sh
