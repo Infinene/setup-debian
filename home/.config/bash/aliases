@@ -34,7 +34,7 @@ m() {
 }
 
 yy() {
-  [ -v $1 ]; local dir=$1
+  local dir=$1
   dir=${dir:-$(pwd)}
   [ ! -w "${dir}" ] && local SUDO=true
   ${SUDO:+sudo} id
