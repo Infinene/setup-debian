@@ -22,6 +22,7 @@ else
   . $this_dir/bin.d/_get-fzf.sh
   . $this_dir/bin.d/_get-zoxide.sh
   . $this_dir/bin.d/_get-fd.sh
+  . $this_dir/bin.d/_get-yazi.sh
   . $this_dir/bin.d/_get-bat.sh
   . $this_dir/bin.d/_get-ripgrep.sh
   . $this_dir/bin.d/_get-composer.sh

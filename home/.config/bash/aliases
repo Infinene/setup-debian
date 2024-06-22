@@ -1,6 +1,5 @@
 alias ls='ls -v --group --color=auto'
 alias ll='ls -Alhv --group --color=auto'
-alias la='ls -Alhv --group --color=auto'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 alias sstart='sudo systemctl start'
@@ -9,6 +8,7 @@ alias sreload='sudo systemctl reload'
 alias sstop='sudo systemctl stop'
 alias sstatus='sudo systemctl status'
 
+alias sudo='sudo -E '	#space at the end allows expansion of aliases when used with sudo
 alias aptup='sudo apt update && sudo apt full-upgrade'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
@@ -16,11 +16,11 @@ alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias e='micro '
-alias lz='yazi '
 
 # view a file
 v() {
   local dir=$(dirname "${1}")
+  dir=${dir:-$(pwd)}
   [ ! -w "${dir}" ] && local SUDO=true
   ${SUDO:+sudo} bat --style=plain $1
 }
@@ -28,6 +28,20 @@ v() {
 # monitor a log/text file
 m() {
   local dir=$(dirname "${1}")
+  dir=${dir:-$(pwd)}
   [ ! -w "${dir}" ] && local SUDO=true
   ${SUDO:+sudo} less -N +F $1
+}
+
+yy() {
+  [ -v $1 ]; local dir=$1
+  dir=${dir:-$(pwd)}
+  [ ! -w "${dir}" ] && local SUDO=true
+  ${SUDO:+sudo} id
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  ${SUDO:+sudo} yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  ${SUDO:+sudo} rm -f -- "$tmp"
 }
