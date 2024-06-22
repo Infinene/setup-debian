@@ -37,7 +37,6 @@ yy() {
   local dir=$1
   dir=${dir:-$(pwd)}
   [ ! -w "${dir}" ] && local SUDO=true
-  ${SUDO:+sudo} id
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
   ${SUDO:+sudo} yazi "$@" --cwd-file="$tmp"
   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
