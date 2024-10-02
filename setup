@@ -4,8 +4,8 @@
 setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 userid=$(id -u)
-mariadb_ver='10.11'
-php_ver='8.2'
+mariadb_ver='11.4'
+php_ver='8.3'
 
 if grep -i microsoft /proc/version; then
   is_wsl=true
