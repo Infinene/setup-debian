@@ -25,7 +25,7 @@ new_version="$(github_latest_release_num $repo)"
 if [ "${cur_version}" \> "${new_version}" ] || [ "${cur_version}" = "${new_version}" ]; then
     printf "Already at latest version: micro ${cur_version}\n"
 else
-    if command -v micro &> /dev/null; then
+    if command -v eget &> /dev/null; then
       curl https://zyedidia.github.io/eget.sh | sh
       ${SUDO} mv eget /usr/local/bin/
     fi
