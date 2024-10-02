@@ -15,7 +15,7 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv neofetch git ncal shellcheck
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck
 
 ### bash setup ###
 printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
@@ -28,7 +28,8 @@ if [ "$(id -u)" -ne 0 ]; then
     chmod -R u=rwX,og= $HOME/.ssh
     printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
     printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
-    printf "if [ -f /usr/bin/neofetch ]; then\n  neofetch;\nfi\n" | tee -a $HOME/.bashrc
+    grep -q -e 'fastfetch' ~/.bashrc ||
+        printf "\nif [ -f /usr/bin/fastfetch ]; then fastfetch; fi\\n" | tee -a ~/.bashrc
     cd $HOME
     ln -s .config/bash/aliases .bash_aliases
     # printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers

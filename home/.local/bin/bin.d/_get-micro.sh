@@ -14,23 +14,8 @@ setup_alternatives () {
   fi
 }
 
-if command -v micro &> /dev/null; then
-  cur_version="$(micro -version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
-else
-  cur_version="0.0"
-fi
+${SUDO} eget --to=/usr/local/bin --upgrade-only zyedidia/micro
+setup_alternatives
 
-new_version="$(github_latest_release_num $repo)"
-
-if [ "${cur_version}" \> "${new_version}" ] || [ "${cur_version}" = "${new_version}" ]; then
-    printf "Already at latest version: micro ${cur_version}\n"
-else
-    if command -v eget &> /dev/null; then
-      curl https://zyedidia.github.io/eget.sh | sh
-      ${SUDO} mv eget /usr/local/bin/
-    fi
-    eget --to /usr/local/bin $repo
-    setup_alternatives
-    printf "Press enter to continue "
-    read key
-fi
+printf "Press enter to continue "
+read key

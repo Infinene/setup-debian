@@ -3,23 +3,20 @@ printf '%s\n' "Updating fd..."
 
 repo="sharkdp/fd"
 
-if command -v fd &> /dev/null
-then
-  cur_version="$(fd -V)"
+
+new_version=$(github_latest_release_num $repo)
+if command -v fd &> /dev/null; then
+  cur_version="$(fd -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
   cur_version="0.0"
 fi
-
-new_version=$(github_latest_release_num $repo)
-file="fd_${new_version}_${arch}.deb"
-
-if [ "$cur_version" = "fd ${new_version}" ]; then
-    printf '%s\n' "Already at latest version: ${cur_version}"
+if [ "${cur_version}" = "${new_version}" ]; then
+    printf '%s\n' "Already at latest version: fd $cur_version"
 else
-    # get the package
-    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
-    # install it
-    ${SUDO} dpkg -i $file
-    # remove the file
-    rm -vf $file
+  eget -a amd64.deb -d $repo
+  ${SUDO} dpkg -i fd*.deb
+  rm fd*.deb
 fi
+
+printf "Press enter to continue "
+read key

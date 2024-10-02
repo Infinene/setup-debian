@@ -3,24 +3,19 @@ printf '%s\n' "Updating zoxide..."
 
 repo="ajeetdsouza/zoxide"
 
+new_version=$(github_latest_release_num $repo)
 if command -v zoxide &> /dev/null; then
-  cur_version="$(zoxide -V | grep -Eo '[0-9]+\.[0-9]+(\.[0-9]+)?')"
+  cur_version="$(zoxide -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else
   cur_version="0.0"
 fi
-
-new_version=$(github_latest_release_num $repo)
-file="zoxide_${new_version}-1_${arch}.deb"
-
-if [ "$cur_version" = "$new_version" ]; then
-    printf '%s\n' "Already at latest version: ${cur_version}"
+if [ "${cur_version}" = "${new_version}" ]; then
+    printf '%s\n' "Already at latest version: zoxide $cur_version"
 else
-    # get the package
-    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
-    # install it
-    ${SUDO} dpkg -i $file
-    # remove the file
-    rm -vf $file
-    grep -q -e 'zoxide init' ~/.bashrc ||
-        printf "\neval \"\$(zoxide init --cmd cd bash)\"" | tee -a ~/.bashrc
+  eget -a amd64.deb -d $repo
+  ${SUDO} dpkg -i zoxide*.deb
+  rm zoxide*.deb
 fi
+
+printf "Press enter to continue "
+read key
