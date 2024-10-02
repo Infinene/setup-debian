@@ -21,17 +21,15 @@ else
 fi
 
 new_version="$(github_latest_release_num $repo)"
-file=micro-"${new_version}-${arch}.deb"
 
 if [ "${cur_version}" \> "${new_version}" ] || [ "${cur_version}" = "${new_version}" ]; then
     printf "Already at latest version: micro ${cur_version}\n"
 else
-    # get the package
-    wget -nv --show-progress "https://github.com/${repo}/releases/download/v${new_version}/${file}"
-    # install it
-    ${SUDO} dpkg -i $file
-    # remove the file
-    rm -vf $file
+    if command -v micro &> /dev/null; then
+      curl https://zyedidia.github.io/eget.sh | sh
+      ${SUDO} mv eget /usr/local/bin/
+    fi
+    eget --to /usr/local/bin $repo
     setup_alternatives
     printf "Press enter to continue "
     read key
