@@ -1,20 +1,17 @@
 ### mariadb ###
-set -x
+
 ${SUDO} apt-get install apt-transport-https curl
 ${SUDO} mkdir -p /etc/apt/keyrings
 ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 
+
 ${SUDO} tee /etc/apt/sources.list.d/mariadb.list <<EOL
-# MariaDB 11.4 repository list - created 2024-10-02 07:52 UTC
+# MariaDB ${mariadb_ver} repository list - created 2024-10-03 01:51 UTC
 # https://mariadb.org/download/
-X-Repolib-Name: MariaDB
-Types: deb
 # deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
-# URIs: https://deb.mariadb.org/${mariadb_ver}/debian
-URIs: https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/debian
-Suites: bookworm
-Components: main
-Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+# deb [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://deb.mariadb.org/${mariadb_ver}/debian bookworm main
+deb [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/debian bookworm main
+# deb-src [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/d
 EOL
 
 ${SUDO} apt update
