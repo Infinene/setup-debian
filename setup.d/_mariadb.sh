@@ -1,11 +1,10 @@
 ### mariadb ###
+set -x
+${SUDO} apt-get install apt-transport-https curl
+${SUDO} mkdir -p /etc/apt/keyrings
+${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 
-if [ "$debian_release" != "bookworm" ]; then
-    ${SUDO} apt-get install apt-transport-https curl
-    ${SUDO} mkdir -p /etc/apt/keyrings
-    ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
-
-    ${SUDO} cat > /etc/apt/sources.list.d/mariadb.lst << EOL
+${SUDO} cat > /etc/apt/sources.list.d/mariadb.lst << EOL
 # MariaDB 11.4 repository list - created 2024-10-02 07:52 UTC
 # https://mariadb.org/download/
 X-Repolib-Name: MariaDB
@@ -18,9 +17,7 @@ Components: main
 Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
 EOL
 
-    ${SUDO} apt update
-fi
-
+${SUDO} apt update
 ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/etc/mysql/* /etc/mysql/
 
