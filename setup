@@ -85,12 +85,15 @@ instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mari
 instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx
 instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restart php${php_ver}-fpm
 
-echo
-echo 'Setup completed!'
-echo '----------------'
-echo '. ~/.profile to reload bash config.'
-echo 'run setup_webutils to install website maintenance utils.'
-echo 'run get-utils mailpit to install a local mail catcher'
-echo 'run setup_samba to install samba'
-echo '----------------'
-echo
+
+cat <<_END_
+
+Setup completed!'
+----------------'
+. ~/.profile to reload bash config.
+run setup_webutils to install website maintenance utils.
+run get-utils mailpit to install a local mail catcher
+run setup_samba to install samba
+----------------
+
+_END_

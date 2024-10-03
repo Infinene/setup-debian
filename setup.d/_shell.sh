@@ -39,8 +39,12 @@ fi
 
 printf "\nInstalling utils...\n"
 $HOME/.local/bin/get-utils
-# ${SUDO} cp -rbv $setup_dir/etc/lf /etc/
 ${SUDO} chown -R root:root /usr/local/bin/
-${SUDO} cp -rbv $setup_dir/etc/sudoers.d/* /etc/sudoers.d/
+
+# increasse sudo timout for user
+tee <<EOF | ${SUDO} tee /etc/sudoers.d/${USER}
+Defaults:${USER} timestamp_timeout=120
+Defaults:${USER} env_keep += "EDITOR VISUAL MANPAGER"
+EOF
 
 ${SUDO} dpkg-reconfigure console-setup

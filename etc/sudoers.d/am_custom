@@ -1,3 +1,0 @@
-Defaults:am timestamp_timeout=120
-Defaults:am env_keep += "EDITOR VISUAL MANPAGER"
-am 		ALL=(ALL) NOPASSWD:ALL
