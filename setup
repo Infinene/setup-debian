@@ -90,7 +90,7 @@ echo 'Setup completed!'
 echo '----------------'
 echo '. ~/.profile to reload bash config.'
 echo 'run setup_webutils to install website maintenance utils.'
-echo 'run setup_mailhog to install a local mail catcher'
+echo 'run get-utils mailpit to install a local mail catcher'
 echo 'run setup_samba to install samba'
 echo '----------------'
 echo
