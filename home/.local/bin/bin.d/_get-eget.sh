@@ -14,5 +14,5 @@ if command -v eget &> /dev/null; then
 else
   cur_version="0.0"
   curl https://zyedidia.github.io/eget.sh | sh
-  ${sudo} mv eget /usr/local/bin/
+  ${SUDO} mv eget /usr/local/bin/
 fi
