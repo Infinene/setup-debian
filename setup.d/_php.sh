@@ -3,7 +3,7 @@ php_ext_dir="/usr/lib/php/20220829"
 
 # if [ "$debian_release" != "bookworm" ] || [ $php_ver != "8.2" ]; then
     ${SUDO} wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-    printf "deb https://packages.sury.org/php/ $debian_release main\n" | ${SUDO} tee /etc/apt/sources.list.d/php.list
+    printf "deb https://packages.sury.org/php/ ${debian_release} main\n" | ${SUDO} tee /etc/apt/sources.list.d/php.list
 # fi
 
 # 'Drupal/CiviCRM requirements'
