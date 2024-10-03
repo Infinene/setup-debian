@@ -3,7 +3,7 @@ echo "Updating micro editor..."
 
 repo="zyedidia/micro"
 
-setup_alternatives () {
+set_default_editor () {
   if command -v micro &> /dev/null; then
     micro_dir=$(dirname $(which micro))
     if ! update-alternatives --list editor | grep "micro" >/dev/null; then
@@ -15,7 +15,7 @@ setup_alternatives () {
 }
 
 ${SUDO} eget --to=/usr/local/bin --upgrade-only zyedidia/micro
-setup_alternatives
+set_default_editor
 
 printf "Press enter to continue "
 read key
