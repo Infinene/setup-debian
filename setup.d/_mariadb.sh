@@ -6,12 +6,16 @@ ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/maria
 
 
 ${SUDO} tee /etc/apt/sources.list.d/mariadb.list <<_END_
-# MariaDB ${mariadb_ver} repository list - created 2024-10-03 01:51 UTC
+# MariaDB 11.4 repository list - created 2024-12-10 05:14 UTC
 # https://mariadb.org/download/
+X-Repolib-Name: MariaDB
+Types: deb
 # deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
-# deb [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://deb.mariadb.org/${mariadb_ver}/debian ${debian_release} main
-deb [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/debian ${debian_release} main
-# deb-src [signed-by=/etc/apt/keyrings/mariadb-keyring.pgp] https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/d
+# URIs: https://deb.mariadb.org/11.4/debian
+URIs: https://mirror.rackspace.com/mariadb/repo/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
 _END_
 
 ${SUDO} apt update
@@ -22,7 +26,7 @@ dbpass=$(whiptail --passwordbox "Enter a password for user '${USER}' as admin fo
 exitstatus=$?
 if [ "x$dbpass" != "x" ]; then
     echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
-    ${SUDO} mysql -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
+    ${SUDO} mariadb -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
     GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
 else
     echo "User account not created: canceled or no password entered"
