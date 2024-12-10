@@ -5,7 +5,7 @@ ${SUDO} mkdir -p /etc/apt/keyrings
 ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 
 
-${SUDO} tee /etc/apt/sources.list.d/mariadb.list <<_END_
+${SUDO} tee /etc/apt/sources.list.d/mariadb.sources <<_END_
 # MariaDB 11.4 repository list - created 2024-12-10 05:14 UTC
 # https://mariadb.org/download/
 X-Repolib-Name: MariaDB

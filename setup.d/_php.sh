@@ -36,4 +36,3 @@ php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a6110855
 php composer-setup.php
 ${SUDO} php composer-setup.php --filename=composer --install-dir=/usr/local/bin
 php -r "unlink('composer-setup.php');"
-rm composer.phar

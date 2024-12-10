@@ -55,12 +55,12 @@ if instr "Shell" "$selection"; then
     . $setup_dir/setup.d/_shell.sh
 fi
 
-if instr "MariaDB" "$selection"; then
+if instr "PHP" "$selection"; then
     echo "---"
-    echo "Continue with installing MariaDB ${mariadb_ver} ..."
+    echo "Continue with installing PHP ${php_ver}"
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_mariadb.sh
+    . $setup_dir/setup.d/_php.sh
 fi
 
 if instr "Nginx" "$selection"; then
@@ -71,13 +71,14 @@ if instr "Nginx" "$selection"; then
     . $setup_dir/setup.d/_nginx.sh
 fi
 
-if instr "PHP" "$selection"; then
+if instr "MariaDB" "$selection"; then
     echo "---"
-    echo "Continue with installing PHP ${php_ver}"
+    echo "Continue with installing MariaDB ${mariadb_ver} ..."
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_php.sh
+    . $setup_dir/setup.d/_mariadb.sh
 fi
+
 
 echo
 echo "Restarting services ..."
@@ -85,7 +86,7 @@ instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mari
 instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx
 instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restart php${php_ver}-fpm
 
-
+# Final message
 cat <<_END_
 
 Setup completed!'
