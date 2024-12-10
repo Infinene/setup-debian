@@ -31,3 +31,5 @@ else
   . $this_dir/bin.d/_get-composer.sh
   # . $this_dir/bin.d/_get-lego.sh
 fi
+
+${SUDO} chown -R root:root /usr/local/bin/

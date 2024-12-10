@@ -35,9 +35,9 @@ selection=$(
 whiptail --title "Debian Web Server Setup" --checklist \
 "$msg" 8 0 0 \
 Shell "Setup user shell environment and utilities" 1 \
-MariaDB "Install MariaDb $mariadb_ver" 0 \
 Nginx "Install latest Nginx" 0 \
 PHP "Install php $php_ver" 0 \
+MariaDB "Install MariaDb $mariadb_ver" 0 \
 3>&2 2>&1 1>&3
 );
 
@@ -55,20 +55,20 @@ if instr "Shell" "$selection"; then
     . $setup_dir/setup.d/_shell.sh
 fi
 
-if instr "PHP" "$selection"; then
-    echo "---"
-    echo "Continue with installing PHP ${php_ver}"
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/setup.d/_php.sh
-fi
-
 if instr "Nginx" "$selection"; then
     echo "---"
     echo "Continue with installing Nginx"
     printf "Press enter to continue"
     read key
     . $setup_dir/setup.d/_nginx.sh
+fi
+
+if instr "PHP" "$selection"; then
+    echo "---"
+    echo "Continue with installing PHP ${php_ver}"
+    printf "Press enter to continue"
+    read key
+    . $setup_dir/setup.d/_php.sh
 fi
 
 if instr "MariaDB" "$selection"; then

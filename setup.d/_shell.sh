@@ -37,7 +37,6 @@ fi
 
 printf "\nInstalling utils...\n"
 $HOME/.local/bin/get-utils
-${SUDO} chown -R root:root /usr/local/bin/
 
 # increasse sudo timout for user
 tee <<EOF | ${SUDO} tee /etc/sudoers.d/${USER}
