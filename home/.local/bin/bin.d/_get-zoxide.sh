@@ -17,5 +17,7 @@ else
   rm zoxide*.deb
 fi
 
+grep -q -e 'zoxide' ~/.bashrc || echo 'eval "$(zoxide init bash)"' | tee -a ~/.bashrc
+
 printf "Press enter to continue "
 read key
