@@ -6,8 +6,7 @@ repo="axllent/mailpit"
 ${SUDO} eget --to=/usr/local/bin --upgrade-only $repo
 
 if [ ! -f /etc/systemd/system/mailpit.service ]; then
-
-  ${SUDO} tee /etc/systemd/system/mailpit.service <<_END_
+${SUDO} tee /etc/systemd/system/mailpit.service <<_END_
 [Unit]
 Description=Mailpit server
 

@@ -29,6 +29,7 @@ else
   . $this_dir/bin.d/_get-bat.sh
   . $this_dir/bin.d/_get-ripgrep.sh
   . $this_dir/bin.d/_get-composer.sh
+  # . $this_dir/bin.d/_get-mailpit.sh
   # . $this_dir/bin.d/_get-lego.sh
 fi
 

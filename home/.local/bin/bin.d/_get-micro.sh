@@ -7,9 +7,9 @@ set_default_editor () {
   if command -v micro &> /dev/null; then
     micro_dir=$(dirname $(which micro))
     if ! update-alternatives --list editor | grep "micro" >/dev/null; then
-      ${SUDO} update-alternatives --set editor ${micro_dir}/micro
-    else
       ${SUDO} update-alternatives --install /usr/bin/editor editor ${micro_dir}/micro 50
+    else
+      ${SUDO} update-alternatives --set editor ${micro_dir}/micro
     fi
   fi
 }
