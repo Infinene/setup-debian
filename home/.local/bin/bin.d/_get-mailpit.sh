@@ -27,11 +27,11 @@ fi
 ${SUDO} mkdir -p /var/lib/mailpit
 ${SUDO} chown mail:mail /var/lib/mailpit
 
-${SUDO} systemctl enable mailpit.service
 ${SUDO} systemctl start mailpit.service
-
+${SUDO} systemctl status mailpit.service
+${SUDO} systemctl enable mailpit.service
 # Test mail
-cat <<EOF | /usr/local/bin/mailpit sendmail -t
+cat <<EOF | /usr/local/bin/mailpit sendmail
 To: recipient@example.com
 Subject: Testing
 From: sender@example.com
