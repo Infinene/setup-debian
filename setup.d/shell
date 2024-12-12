@@ -35,6 +35,9 @@ if [ "$(id -u)" -ne 0 ]; then
     [ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
+## remove unnecessary paths ##
+sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
+
 printf "\nInstalling utils...\n"
 $HOME/.local/bin/get-utils
 
