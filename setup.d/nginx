@@ -24,3 +24,15 @@ ${SUDO} cp -rv $setup_dir/www/* /srv/www/_local/
 
 ### set permissions ###
 $HOME/.local/bin/wmod /srv/www
+
+### Generate self-signed certificate ###
+$HOME/.local/bin/gen_ssl_localhost
+
+### Optionally install certbot ###
+read -p  "Install certbot? [y/N] " certbot
+if [ ${certbot,,} = 'y' ]; then
+	echo "Installing certbot ..."
+    $HOME/.local/bin/get_certbot
+else
+	echo "certbot not installed. Use get_certbot to install."
+fi
