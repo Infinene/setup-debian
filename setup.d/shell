@@ -19,6 +19,11 @@ ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck
 printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
 [ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/etc/wsl.conf /etc/
 
+if [ ! -f /etc/sudoers.d/admin_successful_file ]; then
+    ${SUDO} cp -rbv $setup_dir/etc/sudoers.d/* /etc/sudoers.d/
+    rm $HOME/.sudo_as_admin_successful
+fi
+
 cat $setup_dir/home/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ "$(id -u)" -ne 0 ]; then
     # cp -rTv $setup_dir/home $HOME
