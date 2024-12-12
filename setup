@@ -52,7 +52,7 @@ if instr "Shell" "$selection"; then
     echo "Continue with shell setup ..."
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_shell.sh
+    . $setup_dir/setup.d/shell
 fi
 
 if instr "Nginx" "$selection"; then
@@ -60,7 +60,7 @@ if instr "Nginx" "$selection"; then
     echo "Continue with installing Nginx"
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_nginx.sh
+    . $setup_dir/setup.d/nginx
 fi
 
 if instr "PHP" "$selection"; then
@@ -68,7 +68,7 @@ if instr "PHP" "$selection"; then
     echo "Continue with installing PHP ${php_ver}"
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_php.sh
+    . $setup_dir/setup.d/php
 fi
 
 if instr "MariaDB" "$selection"; then
@@ -76,7 +76,7 @@ if instr "MariaDB" "$selection"; then
     echo "Continue with installing MariaDB ${mariadb_ver} ..."
     printf "Press enter to continue"
     read key
-    . $setup_dir/setup.d/_mariadb.sh
+    . $setup_dir/setup.d/mariadb
 fi
 
 
@@ -92,8 +92,8 @@ cat <<_END_
 Setup completed!'
 ----------------'
 . ~/.profile to reload bash config.
-run setup_webutils to install website maintenance utils.
-run get-utils mailpit to install a local mail catcher
+run get_webutils to install website maintenance utils.
+run bin/get-utils mailpit to install a local mail catcher
 run setup_samba to install samba
 ----------------
 

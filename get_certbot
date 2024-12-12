@@ -1,0 +1,9 @@
+#!/bin/sh
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+${SUDO} apt install snapd
+${SUDO} snap install --classic certbot
