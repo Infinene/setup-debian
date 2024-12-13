@@ -28,7 +28,7 @@ else
     ${SUDO} echo
 fi
 
-. $setup_dir/misc/utils.sh
+. $setup_dir/lib/utils.sh
 
 msg=$(printf "This will setup basic web servers\nSelect what to install:")
 selection=$(
