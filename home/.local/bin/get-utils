@@ -11,26 +11,26 @@ arch=$(dpkg --print-architecture)
 # If sudo, get the password now
 ${SUDO} echo
 
-. $this_dir/bin.d/_get-github-version.sh
+. $this_dir/get-utils.d/_get-github-version.sh
 
 # Get eget to download utils from github
-. $this_dir/bin.d/_get-eget.sh
+. $this_dir/get-utils.d/_get-eget.sh
 
 
 if [ $# -ne 0 ]; then
-	. $this_dir/bin.d/_get-"$1".sh
+	. $this_dir/get-utils.d/_get-"$1".sh
 else
-  . $this_dir/bin.d/_get-fastfetch.sh
-  . $this_dir/bin.d/_get-micro.sh
-  . $this_dir/bin.d/_get-fzf.sh
-  . $this_dir/bin.d/_get-zoxide.sh
-  . $this_dir/bin.d/_get-fd.sh
-  . $this_dir/bin.d/_get-yazi.sh
-  . $this_dir/bin.d/_get-bat.sh
-  . $this_dir/bin.d/_get-ripgrep.sh
-  . $this_dir/bin.d/_get-composer.sh
-  # . $this_dir/bin.d/_get-mailpit.sh
-  # . $this_dir/bin.d/_get-lego.sh
+  . $this_dir/get-utils.d/_get-fastfetch.sh
+  . $this_dir/get-utils.d/_get-micro.sh
+  . $this_dir/get-utils.d/_get-fzf.sh
+  . $this_dir/get-utils.d/_get-zoxide.sh
+  . $this_dir/get-utils.d/_get-fd.sh
+  . $this_dir/get-utils.d/_get-yazi.sh
+  . $this_dir/get-utils.d/_get-bat.sh
+  . $this_dir/get-utils.d/_get-ripgrep.sh
+  . $this_dir/get-utils.d/_get-composer.sh
+  # . $this_dir/get-utils.d/_get-mailpit.sh
+  # . $this_dir/get-utils.d/_get-lego.sh
 fi
 
 ${SUDO} chown -R root:root /usr/local/bin/
