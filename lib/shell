@@ -29,7 +29,7 @@ if [ "$(id -u)" -ne 0 ]; then
     # cp -rTv $setup_dir/home $HOME
     cp -rv $setup_dir/home/. $HOME
     chmod -R u=rwX,og= $HOME/.ssh
-    printf "\n. ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
+    printf "\n# . ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
     printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
     grep -q -e 'fastfetch' ~/.bashrc ||
         printf "\nif [ -f /usr/bin/fastfetch ]; then fastfetch; fi\\n" | tee -a ~/.bashrc
@@ -51,5 +51,9 @@ tee <<EOF | ${SUDO} tee /etc/sudoers.d/${USER}
 Defaults:${USER} timestamp_timeout=120
 Defaults:${USER} env_keep += "EDITOR VISUAL MANPAGER"
 EOF
+
+# setup starship prompt
+. $setup_dir/lib/starship
+
 
 ${SUDO} dpkg-reconfigure console-setup

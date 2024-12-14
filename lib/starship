@@ -1,0 +1,5 @@
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/EnvyCodeR.zip
+${SUDO} unzip -d /usr/share/fonts EnvyCodeR.zip
+starship preset tokyo-night -o ~/.config/starship.toml
+grep -q -e 'fastfetch' ~/.bashrc ||
+        echo 'eval "eval "$(starship init bash)"' | tee -a ~/.bashrc
