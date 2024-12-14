@@ -1,7 +1,10 @@
 https://www.linuxlinks.com/outstanding-linux-utilities-maximize-productivity/
-broot
-fkill
-lsd
-lnav
+broot   wget https://dystroy.org/broot/download/x86_64-linux/broot
+fkill   snap install fkill
+lsd     snap install lsd
+lnav    snap install lnav
 peco
 mcfly
+Rhit
+dysk
+dust    snap install dust

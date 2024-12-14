@@ -13,7 +13,7 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon
 
 ### bash setup ###
 printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment

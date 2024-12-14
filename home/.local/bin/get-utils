@@ -21,6 +21,7 @@ if [ $# -ne 0 ]; then
 	. $this_dir/get-utils.d/_get-"$1".sh
 else
   . $this_dir/get-utils.d/_get-fastfetch.sh
+  . $this_dir/get-utils.d/_get-mcfly.sh
   . $this_dir/get-utils.d/_get-micro.sh
   . $this_dir/get-utils.d/_get-fzf.sh
   . $this_dir/get-utils.d/_get-zoxide.sh
