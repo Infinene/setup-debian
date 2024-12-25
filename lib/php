@@ -27,7 +27,7 @@ else
     printf "uploadprogress extension not installed for php version ${php_ver}"
 fi
 
-${SUDO} cp -rbv $setup_dir/etc/php/${php_ver}/* /etc/php/${php_ver}
+${SUDO} cp -rbv $setup_dir/root/etc/php/${php_ver}/* /etc/php/${php_ver}
 
 
 $HOME/.local/bin/get-utils composer

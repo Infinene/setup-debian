@@ -12,7 +12,7 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-${SUDO} cp -rbv $setup_dir/etc/nginx/* /etc/nginx
+${SUDO} cp -rbv $setup_dir/root/etc/nginx/* /etc/nginx
 if [ -f /etc/nginx/conf.d/default.conf ]; then
     ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 fi
