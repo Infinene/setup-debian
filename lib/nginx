@@ -37,6 +37,3 @@ if [ ${certbot,,} = 'y' ]; then
 else
 	echo "certbot not installed. Use get-certbot to install later."
 fi
-
-# Check localhost access
-curl -k https://localhost
