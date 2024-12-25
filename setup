@@ -88,7 +88,6 @@ if instr "MariaDB" "$selection"; then
     . $setup_dir/lib/mariadb
 fi
 
-
 echo
 echo "Restarting services ..."
 instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mariadb
@@ -97,7 +96,7 @@ instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restar
 instr "Apache" "$selection" && echo "Apache2" && ${SUDO} systemctl restart apache2
 
 # Final message
-cat <<_END_
+cat <<EOF
 
 Setup completed!'
 ----------------'
@@ -107,4 +106,4 @@ run bin/get-utils mailpit to install a local mail catcher
 run setup-samba to install samba
 ----------------
 
-_END_
+EOF
