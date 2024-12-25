@@ -26,16 +26,16 @@ ${SUDO} cp -rv $setup_dir/root/http/* /srv/http/localhost/
 $HOME/.local/bin/wmod /srv/http
 
 ### Generate self-signed certificate ###
-$HOME/.local/bin/gen_ssl_localhost
+$HOME/.local/bin/gen-ssl-localhost
 
 ### Optionally install certbot ###
 read -p  "Install certbot? [y/N] " certbot
 if [ ${certbot,,} = 'y' ]; then
 	echo "Installing certbot ..."
-    $HOME/.local/bin/get_certbot
+    $HOME/.local/bin/get-certbot
     grep -q -e '/snap/bin' $HOME/.profile || append-path-in-profile "/snap/bin"
 else
-	echo "certbot not installed. Use get_certbot to install later."
+	echo "certbot not installed. Use get-certbot to install later."
 fi
 
 curl -k https://localhost
