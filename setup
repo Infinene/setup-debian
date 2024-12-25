@@ -36,7 +36,7 @@ whiptail --title "Debian Web Server Setup" --checklist \
 "$msg" 8 0 0 \
 Shell "Setup user shell environment and utilities" 1 \
 Nginx "Install latest Nginx web server" 0 \
-Apache "Install Apache2 web server"
+Apache "Install Apache2 web server" 0 \
 PHP "Install php $php_ver" 0 \
 MariaDB "Install MariaDb $mariadb_ver" 0 \
 3>&2 2>&1 1>&3
