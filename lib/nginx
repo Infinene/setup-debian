@@ -19,7 +19,7 @@ fi
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/http/localhost
-printf "$(hostname)\n" | ${SUDO} tee /srv/http/localhost/index.html
+printf "$(hostname) $(~/.local/bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
 ${SUDO} cp -rv $setup_dir/root/http/* /srv/http/localhost/
 
 ### set permissions ###
@@ -36,3 +36,5 @@ if [ ${certbot,,} = 'y' ]; then
 else
 	echo "certbot not installed. Use get_certbot to install."
 fi
+
+curl -k https://localhost
