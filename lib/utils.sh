@@ -38,7 +38,7 @@ cat <<- EOF | tee -a $HOME/.profile
 
 # set PATH so it includes snap bin
 if [ -d "$1" ]; then
- PATH="$PATH:$1"
+ PATH="\$PATH:$1"
 fi
 
 EOF
