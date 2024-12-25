@@ -13,7 +13,7 @@ fi
 if [ "${cur_version}" = "${new_version}" ]; then
     printf '%s\n' "Already at latest version: bat $cur_version"
 else
-  eget -a amd64.deb -d $repo
+  eget -a amd64.deb -a ^musl -d $repo
   ${SUDO} dpkg -i bat*.deb
   rm bat*.deb
 fi

@@ -14,7 +14,7 @@ set_default_editor () {
   fi
 }
 
-${SUDO} eget --to=/usr/local/bin --upgrade-only zyedidia/micro
+${SUDO} eget -a linux64.tgz -a ^sha --to=/usr/local/bin --upgrade-only zyedidia/micro
 set_default_editor
 
 printf "Press enter to continue "
