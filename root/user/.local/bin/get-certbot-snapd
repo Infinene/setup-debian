@@ -1,0 +1,13 @@
+#!/bin/sh
+# set -x
+
+if [ "$(whoami)" != "root" ]; then
+  SUDO=sudo
+fi
+
+${SUDO} apt install snapd
+${SUDO} snap install --classic certbot
+${SUDO} ln -s /snap/bin/certbot /usr/bin/certbot
+${SUDO} snap set certbot trust-plugin-with-root=ok
+${SUDO} sudo snap install certbot-dns-linode
+${SUDO} sudo snap install certbot-dns-porkbun

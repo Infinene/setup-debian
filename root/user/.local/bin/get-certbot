@@ -5,5 +5,12 @@ if [ "$(whoami)" != "root" ]; then
   SUDO=sudo
 fi
 
-${SUDO} apt install snapd
-${SUDO} snap install --classic certbot
+${SUDO} apt update
+${SUDO} install python3 python3-venv libaugeas
+${SUDO} python3 -m venv /opt/certbot/
+${SUDO} /opt/certbot/bin/pip install --upgrade pip
+${SUDO} /opt/certbot/bin/pip install certbot
+${SUDO} ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+${SUDO} /opt/certbot/bin/pip install certbot-dns-linode
+${SUDO} /opt/certbot/bin/pip install certbot-dns-porkbun
+${SUDO} /opt/certbot/bin/pip install certbot-dns-godaddy
