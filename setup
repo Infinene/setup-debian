@@ -35,7 +35,8 @@ selection=$(
 whiptail --title "Debian Web Server Setup" --checklist \
 "$msg" 8 0 0 \
 Shell "Setup user shell environment and utilities" 1 \
-Nginx "Install latest Nginx" 0 \
+Nginx "Install latest Nginx web server" 0 \
+Apache "Install Apache2 web server"
 PHP "Install php $php_ver" 0 \
 MariaDB "Install MariaDb $mariadb_ver" 0 \
 3>&2 2>&1 1>&3
@@ -63,6 +64,14 @@ if instr "Nginx" "$selection"; then
     . $setup_dir/lib/nginx
 fi
 
+if instr "Apache" "$selection"; then
+    echo "---"
+    echo "Continue with installing Apache"
+    printf "Press enter to continue"
+    read key
+    . $setup_dir/lib/apache2
+fi
+
 if instr "PHP" "$selection"; then
     echo "---"
     echo "Continue with installing PHP ${php_ver}"
@@ -85,6 +94,7 @@ echo "Restarting services ..."
 instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mariadb
 instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx && curl -k https://localhost
 instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restart php${php_ver}-fpm
+instr "Apache" "$selection" && echo "Apache2" && ${SUDO} systemctl restart apache2
 
 # Final message
 cat <<_END_

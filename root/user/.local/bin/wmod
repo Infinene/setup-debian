@@ -8,6 +8,9 @@ fi
 
 user=$USER
 group=nginx
+if [[ `ps -acx|grep nginx|wc -l` > 0 ]]; then
+    group=www-data
+fi
 
 usage() {
     printf '%s\n' "Usage:  ${0##*/} [options] dir"
