@@ -29,3 +29,17 @@ readpwd()
     # next line of output begins at a new line.
     echo
 }
+
+
+# <<- ignores initial tabs
+append-path-in-profile()
+{
+cat <<- EOF | tee -a $HOME/.profile
+
+# set PATH so it includes snap bin
+if [ -d "$1" ]; then
+ PATH="$PATH:$1"
+fi
+
+EOF
+}

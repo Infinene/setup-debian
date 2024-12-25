@@ -33,8 +33,9 @@ read -p  "Install certbot? [y/N] " certbot
 if [ ${certbot,,} = 'y' ]; then
 	echo "Installing certbot ..."
     $HOME/.local/bin/get_certbot
+    grep -q -e '/snap/bin' $HOME/.profile || append-path-in-profile "/snap/bin"
 else
-	echo "certbot not installed. Use get_certbot to install."
+	echo "certbot not installed. Use get_certbot to install later."
 fi
 
 curl -k https://localhost
