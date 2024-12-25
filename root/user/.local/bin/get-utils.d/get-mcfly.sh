@@ -1,6 +1,6 @@
 printf '%s\n'
 printf '%s\n' "Updating mcfly..."
-set -x
+# set-x
 
 repo="cantino/mcfly"
 
