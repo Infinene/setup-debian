@@ -5,6 +5,6 @@ if [ ! -d /usr/share/fonts/EnvyCodeR ]; then
     rm EnvyCodeR.zip
 fi
 ${SUDO} curl -sS https://starship.rs/install.sh | sh
-starship preset tokyo-night -o ~/.config/starship.toml
+# starship preset tokyo-night -o ~/.config/starship.toml
 grep -q -e 'starship' ~/.bashrc ||
         echo 'eval "$(starship init bash)"' | tee -a ~/.bashrc
