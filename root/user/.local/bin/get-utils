@@ -29,9 +29,9 @@ else
   . $this_dir/get-utils.d/get-yazi.sh
   . $this_dir/get-utils.d/get-bat.sh
   . $this_dir/get-utils.d/get-ripgrep.sh
+  . $this_dir/get-utils.d/get-peco.sh
   . $this_dir/get-utils.d/get-composer.sh
   # . $this_dir/get-utils.d/get-mailpit.sh
-  # . $this_dir/get-utils.d/get-lego.sh
 fi
 
 ${SUDO} chown -R root:root /usr/local/bin/
