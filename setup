@@ -1,18 +1,6 @@
 #!/bin/bash
 # set -x
 
-setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-debian_release=$(lsb_release -sc)
-userid=$(id -u)
-mariadb_ver='11.4'
-php_ver='8.3'
-
-if grep -i microsoft /proc/version; then
-  is_wsl=true
-else
-  is_wsl=false
-fi
-
 if [ "$(id -u)" -eq 0 ]; then
     msg=$(printf "Launch as a sudo user to setup environment and utilities.\nContinue as root?")
     if (whiptail --title "Running as root user" --yesno "$msg" --defaultno 0 0 3>&2 2>&1 1>&3); then
@@ -27,6 +15,23 @@ else
     SUDO=sudo
     ${SUDO} echo
 fi
+
+if ! command -v lsb_release &> /dev/null; then
+    ${SUDO} apt install lsb_release
+fi
+
+setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+debian_release=$(lsb_release -sc)
+userid=$(id -u)
+mariadb_ver='11.4'
+php_ver='8.3'
+
+if grep -i microsoft /proc/version; then
+  is_wsl=true
+else
+  is_wsl=false
+fi
+
 
 . $setup_dir/lib/utils.sh
 
