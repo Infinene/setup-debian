@@ -3,7 +3,9 @@
 ${SUDO} apt update
 ${SUDO} apt -y install apache2 apache2-doc
 
-${SUDO} cp -rbv $setup_dir/root/etc/apache2* /etc/apache2
+${SUDO} cp -rbv $setup_dir/root/etc/apache2/* /etc/apache2/
+${SUDO} a2enmod rewrite headers env dir mime setenvif ssl proxy proxy_fcgi
+
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/http/localhost
