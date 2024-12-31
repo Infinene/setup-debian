@@ -18,5 +18,4 @@ else
 	rm fd*.deb
 fi
 
-printf "Press enter to continue "
-read key
+read -rsn1 -p "Press any key to continue ... ";echo

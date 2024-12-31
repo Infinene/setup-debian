@@ -6,5 +6,4 @@ repo="peco/peco"
 
 ${SUDO} eget -a linux_amd64 --upgrade-only --to=/usr/local/bin $repo
 
-printf "Press enter to continue "
-read key
+read -rsn1 -p "Press any key to continue ... ";echo

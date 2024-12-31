@@ -39,5 +39,4 @@ From: sender@example.com
 This is a test message
 EOF
 
-printf "Press enter to continue "
-read key
+read -rsn1 -p "Press any key to continue ... ";echo

@@ -19,5 +19,4 @@ else
 	rm -r yazi*
 fi
 
-printf "Press enter to continue "
-read key
+read -rsn1 -p "Press any key to continue ... ";echo

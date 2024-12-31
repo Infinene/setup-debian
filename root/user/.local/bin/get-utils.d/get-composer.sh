@@ -10,3 +10,5 @@ else
 	${SUDO} php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 	php -r "unlink('composer-setup.php');"
 fi
+
+read -rsn1 -p "Press any key to continue ... ";echo

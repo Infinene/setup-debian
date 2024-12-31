@@ -15,5 +15,4 @@ else
 	${SUDO} eget -a amd64.tar.gz --to=/usr/local/bin $repo
 fi
 
-printf "Press enter to continue "
-read key
+read -rsn1 -p "Press any key to continue ... ";echo
