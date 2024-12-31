@@ -17,41 +17,52 @@ ${SUDO} apt install apt-transport-https ca-certificates curl wget software-prope
 ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon
 
 ### bash setup ###
-printf "EDITOR=micro\nVISUAL=micro\n" | ${SUDO} tee -a /etc/environment
-[ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/root/etc/wsl.conf /etc/
-
-if [ ! -f /etc/sudoers.d/admin_flag ]; then
-    ${SUDO} cp -rbv $setup_dir/root/etc/sudoers.d/* /etc/sudoers.d/
-    rm $HOME/.sudo_as_admin_successful
-fi
+# Global enviroment variables
 
 cat $setup_dir/root/user/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
 if [ "$(id -u)" -ne 0 ]; then
-    # cp -rTv $setup_dir/root/user $HOME
+    # copy all user file to ~/
     cp -rv $setup_dir/root/user/. $HOME
-    chmod -R u=rwX,og= $HOME/.ssh
-    printf "\n# . ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
-    printf ". ~/.config/bash/utils_env\n" | tee -a $HOME/.bashrc
+
+    # setup global aliases
+    ${SUDO} mkdir -p /etc/profile.d
+    sudo ln -s $HOME/.config/bash/aliases.sh /etc/profile.d
+
+    # setup prompt if not using starship
+    # printf "\n# . ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
+
+    # Fix .ssh permission
+    chmod -R a-x,u+rwX,go-rwx $HOME/.ssh
+
+    # sudoers config
+    {
+        echo "# Disable ~/.sudo_as_admin_successful file"
+        echo "Defaults !admin_flag"
+        echo "Defaults:${USER} timestamp_timeout=120"
+        echo
+    } | ${SUDO} tee -a /etc/sudoers.d/${USER}
+
+    # setup utils
+    printf "\nInstalling utils...\n"
+    $HOME/.local/bin/get-utils
+
+    ${SUDO} mkdir -p /etc/lf
+    ${SUDO} ln -s $HOME/.config/lf/lfrc /etc/lf/
+
     grep -q -e 'fastfetch' ~/.bashrc ||
-        printf "\nif [ -f /usr/bin/fastfetch ]; then fastfetch; fi\\n" | tee -a ~/.bashrc
-    cd $HOME
-    ln -s .config/bash/aliases .bash_aliases
-    # printf "Defaults:${USER} timestamp_timeout=90\n" | ${SUDO} tee -a /etc/sudoers
-    # printf "Defaults:${USER} env_keep += \"EDITOR VISUAL MANPAGER\"\n" | ${SUDO} tee -a /etc/sudoers
+    printf "\nif [ -f /usr/bin/fastfetch ]; then fastfetch; fi\\n" | tee -a ~/.bashrc
+
+
+    # if setting up WSL
+    [ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/root/etc/wsl.conf /etc/
     [ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 
-## remove unnecessary paths ##
+## global environment variables ##
+grep -q -e 'fastfetch' /etc/environment || echo "$(< $setup_dir/environment)" | $SUDO -a /etc/environment
 sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
 
-printf "\nInstalling utils...\n"
-$HOME/.local/bin/get-utils
 
-# increasse sudo timout for user
-tee <<EOF | ${SUDO} tee /etc/sudoers.d/${USER}
-Defaults:${USER} timestamp_timeout=120
-Defaults:${USER} env_keep += "EDITOR VISUAL MANPAGER"
-EOF
 
 # setup starship prompt
 . $setup_dir/lib/starship

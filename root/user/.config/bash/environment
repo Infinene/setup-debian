@@ -1,0 +1,4 @@
+EDITOR=micro
+VISUAL=micro
+LESS='iRXx4'
+MANPAGER="sh -c 'col -bx | bat -l man -p'"

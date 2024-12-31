@@ -23,10 +23,10 @@ else
   . $this_dir/get-utils.d/get-fastfetch.sh
   . $this_dir/get-utils.d/get-mcfly.sh
   . $this_dir/get-utils.d/get-micro.sh
+  . $this_dir/get-utils.d/get-lf.sh
   . $this_dir/get-utils.d/get-fzf.sh
   . $this_dir/get-utils.d/get-zoxide.sh
   . $this_dir/get-utils.d/get-fd.sh
-  . $this_dir/get-utils.d/get-yazi.sh
   . $this_dir/get-utils.d/get-bat.sh
   . $this_dir/get-utils.d/get-ripgrep.sh
   . $this_dir/get-utils.d/get-peco.sh
