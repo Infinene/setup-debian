@@ -25,9 +25,9 @@ ${SUDO} cp -rbv $setup_dir/root/etc/mysql/* /etc/mysql/
 dbpass=$(whiptail --passwordbox "Enter a password for user '${USER}' as admin for MariaDB: " 8 0 --title "Create MariaDB admin account"  3>&1 1>&2 2>&3)
 exitstatus=$?
 if [ "x$dbpass" != "x" ]; then
-    echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
-    ${SUDO} mariadb -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
-    GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
+	echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
+	${SUDO} mariadb -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
+	GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
 else
-    echo "User account not created: canceled or no password entered"
+	echo "User account not created: canceled or no password entered"
 fi

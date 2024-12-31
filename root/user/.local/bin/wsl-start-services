@@ -1,19 +1,18 @@
 #!/bin/bash
 
 if [[ $EUID > 0 ]]; then
-  SUDO=sudo
+	SUDO=sudo
 fi
 
 function start()
 {
-  ${SUDO} service $1 status > /dev/null
-  if [ $? != 0 ]
-  then
-    printf '%s\n' "- starting $1 ..."
-    ${SUDO} service $1 start;
-  else
-    printf '%s\n' "- $1 is already running";
-  fi;
+	${SUDO} service $1 status > /dev/null
+	if [ $? != 0 ]; then
+		printf '%s\n' "- starting $1 ..."
+		${SUDO} service $1 start;
+	else
+		printf '%s\n' "- $1 is already running";
+	fi;
 }
 
 start mailhog

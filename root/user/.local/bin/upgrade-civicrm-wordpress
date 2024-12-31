@@ -2,24 +2,24 @@
 set -x
 
 if [ -z "$1" ]; then
-    printf '%s\n' "CiviCRM version number missing"
-    exit 1
+	printf '%s\n' "CiviCRM version number missing"
+	exit 1
 fi
 
 download_dir=~/dev
 civicrm_file="civicrm-${1}-wordpress.zip"
 
 if [ ! -d ./wp-content ]; then
-    printf '%s\n' "run from site root directory"
-    exit 1
+	printf '%s\n' "run from site root directory"
+	exit 1
 fi
 
 if [ ! -f $download_dir/$civicrm_file ]; then
-    wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
-    if [ $? -ne 0 ]; then
-        printf '%s\n' "download failed for $civicrm_file"
-        exit 1
-    fi
+	wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
+	if [ $? -ne 0 ]; then
+		printf '%s\n' "download failed for $civicrm_file"
+		exit 1
+	fi
 fi
 
 sudo rm -rf wp-content/plugins/civicrm

@@ -15,8 +15,8 @@ create_log $log_file
 log '-----'
 
 if [ ! -d ${dest_dir}/ ]; then
-    log "ERROR: $dest_dir does not exist"
-    exit 1
+	log "ERROR: $dest_dir does not exist"
+	exit 1
 fi
 
 rsync -a --delete --log-file=${log_file} sadmin@soundvision.com:backups/ ${dest_dir}/

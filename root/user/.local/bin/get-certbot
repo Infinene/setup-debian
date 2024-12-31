@@ -2,20 +2,20 @@
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
-  SUDO=sudo
+	SUDO=sudo
 fi
 
 if [ ! -d /opt/certbot ]; then
-  ${SUDO} apt update
-  ${SUDO} apt install python3 python3-venv libaugeas0
-  ${SUDO} python3 -m venv /opt/certbot/
-  ${SUDO} /opt/certbot/bin/pip install --upgrade pip
-  ${SUDO} /opt/certbot/bin/pip install certbot
-  ${SUDO} ln -s /opt/certbot/bin/certbot /usr/bin/certbot
-  ${SUDO} /opt/certbot/bin/pip install certbot-dns-linode
-  ${SUDO} /opt/certbot/bin/pip install certbot-dns-porkbun
-  ${SUDO} /opt/certbot/bin/pip install certbot-dns-godaddy
+	${SUDO} apt update
+	${SUDO} apt install python3 python3-venv libaugeas0
+	${SUDO} python3 -m venv /opt/certbot/
+	${SUDO} /opt/certbot/bin/pip install --upgrade pip
+	${SUDO} /opt/certbot/bin/pip install certbot
+	${SUDO} ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+	${SUDO} /opt/certbot/bin/pip install certbot-dns-linode
+	${SUDO} /opt/certbot/bin/pip install certbot-dns-porkbun
+	${SUDO} /opt/certbot/bin/pip install certbot-dns-godaddy
 else
-  # upgrade if already installed
-  ${SUDO} /opt/certbot/bin/pip install --upgrade certbot certbot-dns-linode certbot-dns-porkbun certbot-dns-godaddy
+	# upgrade if already installed
+	${SUDO} /opt/certbot/bin/pip install --upgrade certbot certbot-dns-linode certbot-dns-porkbun certbot-dns-godaddy
 fi

@@ -2,7 +2,7 @@
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
-  SUDO=sudo
+	SUDO=sudo
 fi
 
 this_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
@@ -20,18 +20,18 @@ ${SUDO} echo
 if [ $# -ne 0 ]; then
 	. $this_dir/get-utils.d/get-"$1".sh
 else
-  . $this_dir/get-utils.d/get-fastfetch.sh
-  . $this_dir/get-utils.d/get-mcfly.sh
-  . $this_dir/get-utils.d/get-micro.sh
-  . $this_dir/get-utils.d/get-lf.sh
-  . $this_dir/get-utils.d/get-fzf.sh
-  . $this_dir/get-utils.d/get-zoxide.sh
-  . $this_dir/get-utils.d/get-fd.sh
-  . $this_dir/get-utils.d/get-bat.sh
-  . $this_dir/get-utils.d/get-ripgrep.sh
-  . $this_dir/get-utils.d/get-peco.sh
-  . $this_dir/get-utils.d/get-composer.sh
-  # . $this_dir/get-utils.d/get-mailpit.sh
+	. $this_dir/get-utils.d/get-fastfetch.sh
+	. $this_dir/get-utils.d/get-mcfly.sh
+	. $this_dir/get-utils.d/get-micro.sh
+	. $this_dir/get-utils.d/get-lf.sh
+	. $this_dir/get-utils.d/get-fzf.sh
+	. $this_dir/get-utils.d/get-zoxide.sh
+	. $this_dir/get-utils.d/get-fd.sh
+	. $this_dir/get-utils.d/get-bat.sh
+	. $this_dir/get-utils.d/get-ripgrep.sh
+	. $this_dir/get-utils.d/get-peco.sh
+	. $this_dir/get-utils.d/get-composer.sh
+	# . $this_dir/get-utils.d/get-mailpit.sh
 fi
 
 ${SUDO} chown -R root:root /usr/local/bin/

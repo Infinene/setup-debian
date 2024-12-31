@@ -16,9 +16,9 @@ ${SUDO} cp -rbv $setup_dir/root/etc/php/${php_ver}/* /etc/php/${php_ver}
 
 # Change php-fpm user/group if running apache
 if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then
-    if [ -f /etc/php/$php_ver/fpm/php-fpm.conf ]; then
-        ${SUDO} sed -i 's/nginx/www-data/g' /etc/php/$php_ver/fpm/php-fpm.conf
-    fi
+	if [ -f /etc/php/$php_ver/fpm/php-fpm.conf ]; then
+		${SUDO} sed -i 's/nginx/www-data/g' /etc/php/$php_ver/fpm/php-fpm.conf
+	fi
 fi
 
 $HOME/.local/bin/get-utils composer

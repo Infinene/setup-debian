@@ -18,18 +18,18 @@ drushbin=/usr/local/bin
 # Usage help
 #
 usage() {
-  this=$(basename $0)
-  printf '%s\n'
-  printf '%s\n' "USAGE:"
-  printf '%s\n' "$this <options>"
-  printf '%s\n'
-  printf '%s\n' 'Required options:'
-  printf '%s\n' '    -r <string>       Drupal root directory name'
-  printf '%s\n' '    -p <string>       Backup file name prefix (site name)'
-  printf '%s\n' '    -d <string>       Destination directory name'
-  printf '%s\n' '    -a                Archive all files (for non-composer managed sites)'
-  printf '%s\n'
-  exit 1
+	this=$(basename $0)
+	printf '%s\n'
+	printf '%s\n' "USAGE:"
+	printf '%s\n' "$this <options>"
+	printf '%s\n'
+	printf '%s\n' 'Required options:'
+	printf '%s\n' '    -r <string>       Drupal root directory name'
+	printf '%s\n' '    -p <string>       Backup file name prefix (site name)'
+	printf '%s\n' '    -d <string>       Destination directory name'
+	printf '%s\n' '    -a                Archive all files (for non-composer managed sites)'
+	printf '%s\n'
+	exit 1
 }
 
 #
@@ -37,28 +37,28 @@ usage() {
 #
 while getopts ":r:p:d:a" option; do
   case $option in
-    r)
-      drupal_base="$OPTARG"
-      ;;
-    p)
-      file_prefix="$OPTARG"
-      ;;
-    d)
-      dest_dirname="$OPTARG"
-      ;;
-    a)
-      full_backup=true
-      ;;
-    \?)
-      printf '%s\n' "Invalid option: -$OPTARG" >&2
-      usage
-      exit 1
-      ;;
-    :)
-      printf '%s\n' "Option -$OPTARG requires an argument" >&2
-      usage
-      exit 1
-      ;;
+	r)
+		drupal_base="$OPTARG"
+		;;
+	p)
+		file_prefix="$OPTARG"
+		;;
+	d)
+		dest_dirname="$OPTARG"
+		;;
+	a)
+		full_backup=true
+		;;
+	\?)
+		printf '%s\n' "Invalid option: -$OPTARG" >&2
+		usage
+		exit 1
+		;;
+	:)
+		printf '%s\n' "Option -$OPTARG requires an argument" >&2
+		usage
+		exit 1
+		;;
   esac
 done
 
@@ -66,17 +66,17 @@ done
 # Verify options
 #
 if [ -z "$drupal_base" -o -z "$file_prefix" -o -z "$dest_dirname" ]; then
-  usage
+	usage
 fi
 
 if [ ! -d $backup_root ]; then
-  printf '%s\n' "ERROR: Backup root $backup_root not found"
-  exit 2
+	printf '%s\n' "ERROR: Backup root $backup_root not found"
+	exit 2
 fi
 
 if [ ! -d $server_root/$drupal_base ]; then
-  printf '%s\n' "ERROR: Site root $server_root/$drupal_base not found"
-  exit 4
+	printf '%s\n' "ERROR: Site root $server_root/$drupal_base not found"
+	exit 4
 fi
 
 #
@@ -91,29 +91,29 @@ backup_file="${file_prefix}_${timestamp}.tar.zst"
 # Setup log file
 #
 if [ ! -d $backup_dir ]; then
-  mkdir -pv $backup_dir
+	mkdir -pv $backup_dir
 fi
 
 source ~/.local/lib/log.sh
 if [ $log = true ]; then
-  create_log "${backup_dir}/${file_prefix}_backup.log"
+	create_log "${backup_dir}/${file_prefix}_backup.log"
 fi
 
 #
 # Setup rotation function
 #
 rotate() {
-  # delete daily file from 7 days ago and monthly file from  4 months ago
-  olddate_daily=$(date +%Y-%m-%d --date '7 day ago')
-  olddate_daily_day=$(date +%d --date '7 day ago')
-  olddate_monthly=$(date +%Y-%m --date '92 days ago')
-  if [ ! "$olddate_daily_day" == "01" ]; then
-    log "Rotating daily: ${backup_dir}/${file_prefix}_${olddate_daily}*.* ..."
-    find $backup_dir -type f -name "${file_prefix}_${olddate_daily}*.*" -print0 | xargs -0 -n 10 -r rm -v
-  else
-    log "Rotating monthly: ${backup_dir}/${file_prefix}_${olddate_monthly}*.* ..."
-    find $backup_dir -type f -name "${file_prefix}_${olddate_monthly}*.*" -print0 | xargs -0 -n 10 -r rm -v
-  fi
+	# delete daily file from 7 days ago and monthly file from  4 months ago
+	olddate_daily=$(date +%Y-%m-%d --date '7 day ago')
+	olddate_daily_day=$(date +%d --date '7 day ago')
+	olddate_monthly=$(date +%Y-%m --date '92 days ago')
+	if [ ! "$olddate_daily_day" == "01" ]; then
+		log "Rotating daily: ${backup_dir}/${file_prefix}_${olddate_daily}*.* ..."
+		find $backup_dir -type f -name "${file_prefix}_${olddate_daily}*.*" -print0 | xargs -0 -n 10 -r rm -v
+	else
+		log "Rotating monthly: ${backup_dir}/${file_prefix}_${olddate_monthly}*.* ..."
+		find $backup_dir -type f -name "${file_prefix}_${olddate_monthly}*.*" -print0 | xargs -0 -n 10 -r rm -v
+	fi
 }
 
 printf '%s\n'
@@ -126,44 +126,44 @@ database=$($drushbin/drush -r $server_root/$drupal_base sql-connect | cut -d' ' 
 dump_file="${database}_${timestamp}.sql"
 
 if ! $drushbin/drush -r $server_root/$drupal_base sql-dump >$server_root/$dump_file; then
-  log "ERROR: database dump failed ($?)"
-  exit 2
+	log "ERROR: database dump failed ($?)"
+	exit 2
 else
-  log "database dump created: ${server_root}/${dump_file}"
+	log "database dump created: ${server_root}/${dump_file}"
 fi
 
 #
 # Backup files
 #
 if [ "$full_backup" = true ]; then
-  log "archiving all files to: $backup_file"
-  tar --zstd -cf $backup_dir/$backup_file -C $server_root $drupal_base $dump_file
-  status=$?
+	log "archiving all files to: $backup_file"
+	tar --zstd -cf $backup_dir/$backup_file -C $server_root $drupal_base $dump_file
+	status=$?
 else
-  log "archiving site files (excluding core files managed by composer)"
-  tar --zstd -cf $backup_dir/$backup_file --anchored \
-      --exclude=$drupal_base/vendor \
-      --exclude=$drupal_base/web/core \
-      --exclude=$drupal_base/web/modules/contrib \
-      --exclude=$drupal_base/web/profiles \
-      --exclude=$drupal_base/web/themes/contrib \
-      --exclude=$drupal_base/web/.* \
-      --exclude=$drupal_base/web/auto*.php \
-      --exclude=$drupal_base/web/index.php \
-      --exclude=$drupal_base/web/update.php \
-      --exclude=$drupal_base/web/README.txt \
-      -C $server_root $drupal_base $dump_file
-    status=$?
+	log "archiving site files (excluding core files managed by composer)"
+	tar --zstd -cf $backup_dir/$backup_file --anchored \
+		--exclude=$drupal_base/vendor \
+		--exclude=$drupal_base/web/core \
+		--exclude=$drupal_base/web/modules/contrib \
+		--exclude=$drupal_base/web/profiles \
+		--exclude=$drupal_base/web/themes/contrib \
+		--exclude=$drupal_base/web/.* \
+		--exclude=$drupal_base/web/auto*.php \
+		--exclude=$drupal_base/web/index.php \
+		--exclude=$drupal_base/web/update.php \
+		--exclude=$drupal_base/web/README.txt \
+		-C $server_root $drupal_base $dump_file
+	status=$?
 fi
 
 if [ $status -eq 0 ]; then
-  log "archive created: $backup_dir/$backup_file"
-  rotate
+	log "archive created: $backup_dir/$backup_file"
+	rotate
 else
-  log "ERROR: archive failed"
-  exit $status
+	log "ERROR: archive failed"
+	exit $status
 fi
 
 if [ -f $server_root/$dump_file ]; then
-  rm -v $server_root/$dump_file
+	rm -v $server_root/$dump_file
 fi

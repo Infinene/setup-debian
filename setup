@@ -2,22 +2,22 @@
 # set -x
 
 if [ "$(id -u)" -eq 0 ]; then
-    msg=$(printf "Launch as a sudo user to setup environment and utilities.\nContinue as root?")
-    if (whiptail --title "Running as root user" --yesno "$msg" --defaultno 0 0 3>&2 2>&1 1>&3); then
-        echo "You have selected to run as root"
-        printf "Press enter to continue"
-        read key
-    else
-        echo "Relaunch as sudo user"
-        exit
-    fi
+	msg=$(printf "Launch as a sudo user to setup environment and utilities.\nContinue as root?")
+	if (whiptail --title "Running as root user" --yesno "$msg" --defaultno 0 0 3>&2 2>&1 1>&3); then
+		echo "You have selected to run as root"
+		printf "Press enter to continue"
+		read key
+	else
+		echo "Relaunch as sudo user"
+		exit
+	fi
 else
-    SUDO=sudo
-    ${SUDO} echo
+	SUDO=sudo
+	${SUDO} echo
 fi
 
 if ! command -v lsb_release &> /dev/null; then
-    ${SUDO} apt install lsb_release
+	${SUDO} apt install lsb_release
 fi
 
 setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
@@ -27,9 +27,9 @@ mariadb_ver='11.4'
 php_ver='8.3'
 
 if grep -i microsoft /proc/version; then
-  is_wsl=true
+	is_wsl=true
 else
-  is_wsl=false
+	is_wsl=false
 fi
 
 
@@ -49,48 +49,48 @@ MariaDB "Install MariaDb $mariadb_ver" 0 \
 
 exitstatus=$?
 if [ $exitstatus != 0 ] || [ "x$selection" = "x" ]; then
-    echo "Nothing selected!"
-    exit
+	echo "Nothing selected!"
+	exit
 fi
 
 if instr "Shell" "$selection"; then
-    echo "---"
-    echo "Continue with shell setup ..."
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/lib/shell
+	echo "---"
+	echo "Continue with shell setup ..."
+	printf "Press enter to continue"
+	read key
+	. $setup_dir/lib/shell
 fi
 
 if instr "Nginx" "$selection"; then
-    echo "---"
-    echo "Continue with installing Nginx"
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/lib/nginx
+	echo "---"
+	echo "Continue with installing Nginx"
+	printf "Press enter to continue"
+	read key
+	. $setup_dir/lib/nginx
 fi
 
 if instr "Apache" "$selection"; then
-    echo "---"
-    echo "Continue with installing Apache"
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/lib/apache2
+	echo "---"
+	echo "Continue with installing Apache"
+	printf "Press enter to continue"
+	read key
+	. $setup_dir/lib/apache2
 fi
 
 if instr "PHP" "$selection"; then
-    echo "---"
-    echo "Continue with installing PHP ${php_ver}"
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/lib/php
+	echo "---"
+	echo "Continue with installing PHP ${php_ver}"
+	printf "Press enter to continue"
+	read key
+	. $setup_dir/lib/php
 fi
 
 if instr "MariaDB" "$selection"; then
-    echo "---"
-    echo "Continue with installing MariaDB ${mariadb_ver} ..."
-    printf "Press enter to continue"
-    read key
-    . $setup_dir/lib/mariadb
+	echo "---"
+	echo "Continue with installing MariaDB ${mariadb_ver} ..."
+	printf "Press enter to continue"
+	read key
+	. $setup_dir/lib/mariadb
 fi
 
 echo

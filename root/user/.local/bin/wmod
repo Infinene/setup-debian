@@ -2,69 +2,69 @@
 # set -x
 
 if [[ $EUID -eq 0 ]]; then
-    printf '%s\n' "Do not run as root!"
-    exit 1
+	printf '%s\n' "Do not run as root!"
+	exit 1
 fi
 
 user=$USER
 group=nginx
 if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then
-    group=www-data
+	group=www-data
 fi
 
 
 usage() {
-    printf '%s\n' "Usage:  ${0##*/} [options] dir"
-    printf '%s\n' "    dir  directory to set permission"
-    printf '%s\n' "    -w   enable group write permission (default: read only)"
-    printf '%s\n' "    -u   user to set as owner (default: $user)"
-    printf '%s\n' "    -g   group (default: $group)"
-    printf '%s\n' "    -h   display this help"
-    exit 1
+	printf '%s\n' "Usage:  ${0##*/} [options] dir"
+	printf '%s\n' "    dir  directory to set permission"
+	printf '%s\n' "    -w   enable group write permission (default: read only)"
+	printf '%s\n' "    -u   user to set as owner (default: $user)"
+	printf '%s\n' "    -g   group (default: $group)"
+	printf '%s\n' "    -h   display this help"
+	exit 1
 }
 
 while getopts "wu:g:h" option; do
-    case "$option" in
-    w) grpwrite=1 ;;
-    u) user=${OPTARG} ;;
-    g) group=${OPTARG} ;;
-    h) usage ;;
-    *) usage ;;
-    \?)
-        printf '%s\n' "Unknown option: -$OPTARG" >&2
-        exit 1
-        ;;
-    :)
-        printf '%s\n' "Missing option argument for -$OPTARG" >&2
-        exit 1
-        ;;
-    esac
+	case "$option" in
+	w) grpwrite=1 ;;
+	u) user=${OPTARG} ;;
+	g) group=${OPTARG} ;;
+	h) usage ;;
+	*) usage ;;
+	\?)
+		printf '%s\n' "Unknown option: -$OPTARG" >&2
+		exit 1
+		;;
+	:)
+		printf '%s\n' "Missing option argument for -$OPTARG" >&2
+		exit 1
+		;;
+	esac
 done
 shift $((OPTIND - 1))
 
 if [ -z "$1" ]; then
-    usage
-    exit 0
+	usage
+	exit 0
 fi
 
 if [ -d "$1" ]; then
-    dir=$(realpath "$1")
+	dir=$(realpath "$1")
 
-    printf '%s\n' "setting owner to: $user:$group . . ."
-    sudo chown -R $user:$group $1
+	printf '%s\n' "setting owner to: $user:$group . . ."
+	sudo chown -R $user:$group $1
 
-    printf '%s\n' "setting permissions on: ${dir} . . ."
+	printf '%s\n' "setting permissions on: ${dir} . . ."
 
-    # {var+x} evaluates to nothing if variable is unset (parameter expansion)
-    if [[ ${grpwrite+x} ]] && [[ $grpwrite = 1 ]]; then
-        printf '%s\n' " - enabling group write on: ${dir} . . ."
-        sudo chmod -R a=rX,ug+w $1
-    else
-        sudo chmod -R a=rX,u+w $1
-    fi
-    # find $dir -type d -exec sudo chmod g+s {} \+      #sometimes gives argument too long error
-    # https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong
-    sudo find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
+	# {var+x} evaluates to nothing if variable is unset (parameter expansion)
+	if [[ ${grpwrite+x} ]] && [[ $grpwrite = 1 ]]; then
+		printf '%s\n' " - enabling group write on: ${dir} . . ."
+		sudo chmod -R a=rX,ug+w $1
+	else
+		sudo chmod -R a=rX,u+w $1
+	fi
+	# find $dir -type d -exec sudo chmod g+s {} \+      #sometimes gives argument too long error
+	# https://wiki.debian.org/CommonErrorMessages/ArgumentListTooLong
+	sudo find $dir -type d -print0 | xargs -0 -n 10 sudo chmod g+s
 else
-    printf '%s\n' "cannot access '${1}': No such file or directory in ${PWD}"
+	printf '%s\n' "cannot access '${1}': No such file or directory in ${PWD}"
 fi

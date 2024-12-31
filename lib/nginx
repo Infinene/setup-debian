@@ -1,20 +1,20 @@
 ### nginx ###
 curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-    | ${SUDO} tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+	| ${SUDO} tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
 http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \
-    | ${SUDO} tee /etc/apt/sources.list.d/nginx.list
+	| ${SUDO} tee /etc/apt/sources.list.d/nginx.list
 
 echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | ${SUDO} tee /etc/apt/preferences.d/99nginx
+	| ${SUDO} tee /etc/apt/preferences.d/99nginx
 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
 ${SUDO} cp -rbv $setup_dir/root/etc/nginx/* /etc/nginx
 if [ -f /etc/nginx/conf.d/default.conf ]; then
-    ${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
+	${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 fi
 
 ### create webroot ###
@@ -32,7 +32,7 @@ $HOME/.local/bin/gen-ssl-localhost
 read -p  "Install certbot? [y/N] " certbot
 if [ ${certbot,,} = 'y' ]; then
 	echo "Installing certbot ..."
-    $HOME/.local/bin/get-certbot
+	$HOME/.local/bin/get-certbot
 else
 	echo "certbot not installed. Use get-certbot to install later."
 fi

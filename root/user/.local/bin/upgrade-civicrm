@@ -2,14 +2,14 @@
 # set -x
 
 if [ -z "$1" ]; then
-    printf '%s\n' "CiviCRM version number missing"
-    exit 1
+	printf '%s\n' "CiviCRM version number missing"
+	exit 1
 fi
 
 printf '%s\n' 'Checking installation directory . . .'
 if [ ! -d ./sites ]; then
-    printf '%s\n' "run from site root directory"
-    exit 1
+	printf '%s\n' "run from site root directory"
+	exit 1
 fi
 
 download_dir=~/dev
@@ -17,11 +17,11 @@ civicrm_file="civicrm-${1}-drupal.tar.gz"
 
 printf '%s\n' 'Downloading CiviCRM . . .'
 if [ ! -f $download_dir/$civicrm_file ]; then
-    wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
-    if [ $? -ne 0 ]; then
-        printf '%s\n' "download failed for $civicrm_file"
-        exit 1
-    fi
+	wget -q https://download.civicrm.org/$civicrm_file -P "$download_dir/"
+	if [ $? -ne 0 ]; then
+		printf '%s\n' "download failed for $civicrm_file"
+		exit 1
+	fi
 fi
 
 printf '%s\n' 'Backing up site . . .'

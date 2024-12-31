@@ -1,10 +1,10 @@
 if [ ! -d /usr/share/fonts/EnvyCodeR ]; then
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/EnvyCodeR.zip
-    unzip -d /tmp/EnvyCodeR EnvyCodeR.zip
-    ${SUDO} mv /tmp/EnvyCodeR /usr/share/fonts
-    rm EnvyCodeR.zip
+	wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/EnvyCodeR.zip
+	unzip -d /tmp/EnvyCodeR EnvyCodeR.zip
+	${SUDO} mv /tmp/EnvyCodeR /usr/share/fonts
+	rm EnvyCodeR.zip
 fi
 ${SUDO} curl -sS https://starship.rs/install.sh | sh
 # starship preset tokyo-night -o ~/.config/starship.toml
 grep -q -e 'starship' ~/.bashrc ||
-        echo 'eval "$(starship init bash)"' | tee -a ~/.bashrc
+		echo 'eval "$(starship init bash)"' | tee -a ~/.bashrc

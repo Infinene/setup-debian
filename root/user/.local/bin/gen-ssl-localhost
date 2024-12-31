@@ -3,17 +3,17 @@
 path="/etc/ssl"
 
 if [ "$(whoami)" != "root" ]; then
-  SUDO=sudo
+	SUDO=sudo
 fi
 
 openssl req -x509 -out localhost.crt -keyout localhost.key \
-  -newkey ec:<(openssl ecparam -name secp384r1) -nodes -days 1460\
-  -subj '/CN=localhost' -extensions EXT -config <( \
-   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+	-newkey ec:<(openssl ecparam -name secp384r1) -nodes -days 1460\
+	-subj '/CN=localhost' -extensions EXT -config <( \
+	printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
 if [ $? -ne 0 ] ; then
-   echo "ERROR: Failed to generate certificate"
-   exit 1
+	echo "ERROR: Failed to generate certificate"
+	exit 1
 fi
 
 ${SUDO} mv localhost.* $path

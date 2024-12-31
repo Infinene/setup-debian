@@ -2,7 +2,7 @@
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
-    SUDO=sudo
+	SUDO=sudo
 fi
 
 setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
