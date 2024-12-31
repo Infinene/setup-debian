@@ -1,12 +1,11 @@
 # basic settings
 # set hidden
-# set icons
+set icons
 set ignorecase
-# set drawbox
 set preview
 set previewer ~/.local/bin/lfpreview
 set info size:time
-set ratios 2:4:5
+set ratios 1:3:4
 set statfmt "\033[36m%p\033[0m| %c| %u:%g| %S| %t| -> %l"
 # infotimefmtnew "Jan _2 15:04"
 set infotimefmtnew "01/02 15:04"
@@ -18,6 +17,8 @@ set infotimefmtold "01/_2/2006"
 map e $micro $f
 map ; !bat $f
 map . set hidden!
+map <c-q> quit
+
 
 cmd z %{{
     result="$(zoxide query --exclude "$PWD" "$@" | sed 's/\\/\\\\/g;s/"/\\"/g')"
