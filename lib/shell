@@ -1,12 +1,17 @@
 ### backports ###
 read -p  "Addd backport to apt sources? [y/N] " response
 if [ ${response,,} = 'y' ]; then
-	echo "Adding backport to apt sources ..."
+	echo "Add backports to sources..."
 	grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
-	printf "\ndeb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free\n" \
-		| ${SUDO} tee -a /etc/apt/sources.list
-	printf "Package: *\nPin: release a=${debian_release}-backports\nPin-Priority: 500\n" \
-		| ${SUDO} tee /etc/apt/preferences.d/backports
+	${SUDO} tee /etc/apt/preferences.d/backports <<-EOF
+		deb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free
+		EOF
+
+	[ -f /etc/apt/preferences.d/backports ] || ${SUDO} tee -a /etc/apt/preferences.d/backports <<-EOF
+		Package: *
+		Pin: release a=${debian_release}-backports
+		Pin-Priority: 500
+		EOF
 fi
 
 ${SUDO} apt update
@@ -62,10 +67,7 @@ fi
 grep -q -e 'micro' /etc/environment || echo "$(< $HOME/.config/bash/environment)" | ${SUDO} tee -a /etc/environment
 sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
 
-
-
 # setup starship prompt
 . $setup_dir/lib/starship
-
 
 ${SUDO} dpkg-reconfigure console-setup

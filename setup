@@ -103,12 +103,11 @@ instr "Apache" "$selection" && echo "Apache2" && ${SUDO} systemctl restart apach
 # Final message
 cat <<EOF
 
-Setup completed!'
-----------------'
-. ~/.profile to reload bash config.
-run get-webutils to install website maintenance utils.
-run bin/get-utils mailpit to install a local mail catcher
-run setup-samba to install samba
-----------------
+  Setup completed!'
+  ----------------'
+  . ~/.profile to reload bash config.
+  run get-webutils to install website maintenance utils.
+  run bin/get-utils mailpit to install a local mail catcher
+  run setup-samba to install samba
 
 EOF
