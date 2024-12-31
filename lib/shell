@@ -41,6 +41,7 @@ if [ "$(id -u)" -ne 0 ]; then
         echo "Defaults:${USER} timestamp_timeout=120"
         echo
     } | ${SUDO} tee -a /etc/sudoers.d/${USER}
+    rm ~/.sudo_as_admin_successful
 
     # setup utils
     printf "\nInstalling utils...\n"
@@ -59,7 +60,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 ## global environment variables ##
-grep -q -e 'fastfetch' /etc/environment || echo "$(< $setup_dir/environment)" | $SUDO -a /etc/environment
+grep -q -e 'micro' /etc/environment || echo "$(< $HOME/.config/bash/environment)" | ${SUDO} tee -a /etc/environment
 sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
 
 

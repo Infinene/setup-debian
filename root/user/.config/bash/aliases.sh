@@ -1,4 +1,4 @@
-alias ls='ls -v --group --color=auto'
+alias ls='ls -Av --group --color=auto'
 alias ll='lf'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
