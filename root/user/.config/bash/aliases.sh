@@ -1,5 +1,5 @@
 alias ls='ls -v --group --color=auto'
-alias ll='ls -Alhv --group --color=auto'
+alias ll='lf'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 alias sysctl-start='sudo systemctl start'
@@ -34,16 +34,4 @@ m() {
   dir=${dir:-$(pwd)}
   [ ! -w "${dir}" ] && local SUDO=true
   ${SUDO:+sudo} less -N +F $1
-}
-
-yy() {
-  local dir=$1
-  dir=${dir:-$(pwd)}
-  [ ! -w "${dir}" ] && local SUDO=true
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-  ${SUDO:+sudo} yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    cd -- "$cwd"
-  fi
-  ${SUDO:+sudo} rm -f -- "$tmp"
 }
