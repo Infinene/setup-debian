@@ -17,4 +17,4 @@ set_default_editor () {
 ${SUDO} eget -a linux64.tgz -a ^sha --to=/usr/local/bin --upgrade-only zyedidia/micro
 set_default_editor
 
-read -rsn1 -p "Press any key to continue ... ";echo
+read -rsn1 -p "Press any key to continue... ";echo

@@ -39,4 +39,4 @@ From: sender@example.com
 This is a test message
 EOF
 
-read -rsn1 -p "Press any key to continue ... ";echo
+read -rsn1 -p "Press any key to continue... ";echo

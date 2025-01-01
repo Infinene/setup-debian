@@ -19,4 +19,4 @@ fi
 
 grep -q -e 'zoxide' ~/.bashrc || echo 'eval "$(zoxide init --cmd cd bash)"' | tee -a ~/.bashrc
 
-read -rsn1 -p "Press any key to continue ... ";echo
+read -rsn1 -p "Press any key to continue... ";echo

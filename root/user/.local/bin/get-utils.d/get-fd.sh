@@ -18,4 +18,4 @@ else
 	rm fd*.deb
 fi
 
-read -rsn1 -p "Press any key to continue ... ";echo
+read -rsn1 -p "Press any key to continue... ";echo

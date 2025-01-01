@@ -11,4 +11,4 @@ else
 	php -r "unlink('composer-setup.php');"
 fi
 
-read -rsn1 -p "Press any key to continue ... ";echo
+read -rsn1 -p "Press any key to continue... ";echo
