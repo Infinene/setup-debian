@@ -1,3 +1,5 @@
 {
-	"editor.fontFamily": "Fira Code Nerd"
+	"editor.fontFamily": "Fira Code Nerd",
+	"editor.fontSize": 16,
+	"editor.fontWeight": "200"
 }
