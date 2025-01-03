@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # set -x
 
 if [ "$(whoami)" != "root" ]; then
@@ -22,11 +22,14 @@ fi
 
 
 ### setup auto renewal ###
-read -p  "Install auto-renewalt? [y/N] " renewal
-if [ ${renewal,,} = 'y' ]; then
-	echo "Installing auto renewal to run every week on Sunday..."
-	echo "5 0 * * 0 root /opt/certbot/bin/pip install --upgrade certbot certbot-dns-linode certbot-dns-porkbun certbot-dns-godaddy" | ${SUDO} tee -a /etc/crontab > /dev/null
-	echo "30 0 * * 0 root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && sudo certbot renew -q" | ${SUDO} tee -a /etc/crontab > /dev/null
-else
-	echo "Certificates will not renew automatically."
+if ! grep 'certbot.*renew' /etc/crontab >/dev/null; then
+	echo
+	read -n1 -p  "Install auto-renewalt? [y/N] " renewal;echo
+	if [ "${renewal,,}" = 'y' ]; then
+		echo "Installing auto renewal to run every week on Sunday..."
+		echo "5 0 * * 0 root /opt/certbot/bin/pip install --upgrade certbot certbot-dns-linode certbot-dns-porkbun certbot-dns-godaddy" | ${SUDO} tee -a /etc/crontab > /dev/null
+		echo "30 0 * * 0 root /opt/certbot/bin/python -c 'import random; import time; time.sleep(random.random() * 3600)' && sudo certbot renew -q" | ${SUDO} tee -a /etc/crontab > /dev/null
+	else
+		echo "Certificates will not renew automatically."
+	fi
 fi
