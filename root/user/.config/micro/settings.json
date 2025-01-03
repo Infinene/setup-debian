@@ -1,9 +1,12 @@
 {
-    "autoindent": false,
+    "autoindent": true,
     "backup": false,
     "clipboard": "terminal",
-    "ruler": false,
+	"hlsearch": true,
+	"hltaberrors": true,
+    "ruler": true,
+	"softwrap": true,
     "tabmovement": true,
-    "tabsize": 2,
-    "tabtospaces": true
+    "tabsize": 4,
+    "tabtospaces": false
 }

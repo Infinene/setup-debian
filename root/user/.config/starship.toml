@@ -77,7 +77,7 @@ format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
 [cmd_duration]
 min_time = 300
-show_milliseconds = true
+show_milliseconds = false
 format = '[$duration ](blue)'
 
 [status]
