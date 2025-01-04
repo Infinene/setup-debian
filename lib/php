@@ -12,7 +12,7 @@ ${SUDO} apt full-upgrade
 ${SUDO} apt install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-redis
 ${SUDO} apt install php${php_ver}-zstd
 
-${SUDO} cp -rbv $setup_dir/root/etc/php/${php_ver}/* /etc/php/${php_ver}
+${SUDO} cp -rbv $setup_dir/src/etc/php/${php_ver}/* /etc/php/${php_ver}
 
 # Change php-fpm user/group if running apache
 if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then

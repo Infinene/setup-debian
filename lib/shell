@@ -23,10 +23,10 @@ ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree
 
 ### bash setup ###
 
-cat $setup_dir/root/user/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /root/.bashrc
+cat $setup_dir/src/user/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /src/.bashrc
 if [ "$(id -u)" -ne 0 ]; then
 	# copy all user file to ~/
-	cp -rv $setup_dir/root/user/. $HOME
+	cp -rv $setup_dir/src/user/. $HOME
 
 	# setup global aliases
 	${SUDO} mkdir -p /etc/profile.d
@@ -59,7 +59,7 @@ if [ "$(id -u)" -ne 0 ]; then
 
 
 	# if setting up WSL
-	[ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/root/etc/wsl.conf /etc/
+	[ "$is_wsl" = true ] && ${SUDO} cp $setup_dir/src/etc/wsl.conf /etc/
 	[ "$is_wsl" = true ] && printf "${USER} ALL=(ALL) NOPASSWD:/usr/sbin/service\n" | ${SUDO} tee -a /etc/sudoers
 fi
 

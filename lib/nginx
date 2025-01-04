@@ -12,7 +12,7 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 ${SUDO} apt update
 ${SUDO} apt -y install nginx
 
-${SUDO} cp -rbv $setup_dir/root/etc/nginx/* /etc/nginx
+${SUDO} cp -rbv $setup_dir/src/etc/nginx/* /etc/nginx
 if [ -f /etc/nginx/conf.d/default.conf ]; then
 	${SUDO} mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf~
 fi
@@ -20,7 +20,7 @@ fi
 ### create webroot ###
 ${SUDO} mkdir -p /srv/http/localhost
 printf "$(hostname) $(~/.local/bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
-${SUDO} cp -rv $setup_dir/root/http/* /srv/http/localhost/
+${SUDO} cp -rv $setup_dir/src/http/* /srv/http/localhost/
 
 ### set permissions ###
 $HOME/.local/bin/wmod /srv/http

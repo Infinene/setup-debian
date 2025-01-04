@@ -9,7 +9,7 @@ setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 ${SUDO} apt -y install samba
 
-${SUDO} cp -bv $setup_dir/root/etc/samba/* /etc/samba/
+${SUDO} cp -bv $setup_dir/src/etc/samba/* /etc/samba/
 
 cat <<-EOF
 
