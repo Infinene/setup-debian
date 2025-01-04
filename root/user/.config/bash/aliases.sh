@@ -1,5 +1,5 @@
-alias ls='ls --group --color=auto'
-alias ll='lf'
+alias ls='ls -Ah --group --color=auto'
+alias ll='ls -Alh --group --color=auto'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 alias sysctl-start='sudo systemctl start'
