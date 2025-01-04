@@ -1,12 +1,14 @@
 {
-    "autoindent": true,
-    "backup": false,
-    "clipboard": "terminal",
+	"autoindent": true,
+	"backup": false,
+	"clipboard": "terminal",
+	"colorscheme": "atom-dark",
 	"hlsearch": true,
 	"hltaberrors": true,
-    "ruler": true,
+	"indentchar": "→",
+	"ruler": true,
 	"softwrap": true,
-    "tabmovement": true,
-    "tabsize": 4,
-    "tabtospaces": false
+	"tabmovement": true,
+	"tabsize": 4,
+	"tabtospaces": false
 }
