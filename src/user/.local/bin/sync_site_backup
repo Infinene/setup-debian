@@ -1,0 +1,21 @@
+#!/bin/bash
+# set -x
+
+rsync_src="sadmin@soundvision.com:backups/"
+dest_dir="/srv/nextcloud/data/__groupfolders/1"
+logfile="~/.cache/log/sync_site_backup.log"
+scan_cmd="sudo -u www-data php /srv/nextcloud/occ groupfolders:scan 1"
+
+source ~/.local/lib/logging.sh
+
+start_logging $log_file
+
+log 'Starting rsync...'
+
+if [ ! -d ${dest_dir}/ ]; then
+	log "ERROR: $dest_dir does not exist"
+	exit 1
+fi
+
+rsync -a --delete --log-file=${log_file} ${rsync_src}/ ${dest_dir}/
+$scan_cmd

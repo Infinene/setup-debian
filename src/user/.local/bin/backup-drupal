@@ -94,9 +94,10 @@ if [ ! -d $backup_dir ]; then
 	mkdir -pv $backup_dir
 fi
 
-source ~/.local/lib/log.sh
+source ~/.local/lib/logging.sh
 if [ $log = true ]; then
-	create_log "${backup_dir}/${file_prefix}_backup.log"
+	logfile="${backup_dir}/${file_prefix}_backup.log"
+	start_logging $logfile
 fi
 
 #
