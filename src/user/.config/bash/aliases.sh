@@ -22,16 +22,16 @@ alias e='micro '
 
 # view a file
 v() {
-  local dir=$(dirname "${1}")
-  dir=${dir:-$(pwd)}
-  [ ! -w "${dir}" ] && local SUDO=true
-  ${SUDO:+sudo} bat --style=plain $1
+	local dir=$(dirname "${1}")
+	dir=${dir:-$(pwd)}
+	[ ! -w "${dir}" ] && local SUDO=true
+	${SUDO:+sudo} bat --style=plain $1
 }
 
 # monitor a log/text file
 m() {
-  local dir=$(dirname "${1}")
-  dir=${dir:-$(pwd)}
-  [ ! -w "${dir}" ] && local SUDO=true
-  ${SUDO:+sudo} less -N +F $1
+	local dir=$(dirname "${1}")
+	dir=${dir:-$(pwd)}
+	[ ! -w "${dir}" ] && local SUDO=true
+	${SUDO:+sudo} less -N +F $1
 }
