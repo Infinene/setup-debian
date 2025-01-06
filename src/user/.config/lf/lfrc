@@ -1,6 +1,6 @@
 # basic settings
 # set hidden
-set icons
+# set icons
 set ignorecase
 set preview
 set previewer ~/.local/bin/lfpreview
@@ -21,17 +21,17 @@ map <c-q> quit
 
 
 cmd z %{{
-    result="$(zoxide query --exclude "$PWD" "$@" | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    lf -remote "send $id cd \"$result\""
+	result="$(zoxide query --exclude "$PWD" "$@" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
 }}
 
 cmd zi ${{
-    result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    lf -remote "send $id cd \"$result\""
+	result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	lf -remote "send $id cd \"$result\""
 }}
 
 cmd on-cd &{{
-    zoxide add "$PWD"
+	zoxide add "$PWD"
 }}
 
 
@@ -79,10 +79,10 @@ map O $mimeopen --ask $f
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-    esac
+	case $(file --mime-type -Lb $f) in
+		text/*) lf -remote "send $id \$$EDITOR \$fx";;
+		*) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+	esac
 }}
 
 # mkdir command. See wiki if you want it to select created dir
@@ -101,12 +101,12 @@ cmd trash %set -f; mv $fx ~/.trash
 
 # define a custom 'delete' command
 # cmd delete ${{
-#     set -f
-#     printf "$fx\n"
-#     printf "delete?[y/n]"
-#     read ans
-#     [ "$ans" = "y" ] && rm -rf $fx
-# }}
+#	set -f
+#	printf "$fx\n"
+#	printf "delete?[y/n]"
+#	read ans
+#	[ "$ans" = "y" ] && rm -rf $fx
+#}}
 
 # use '<delete>' key for either 'trash' or 'delete' command
 # map <delete> trash
@@ -115,31 +115,31 @@ cmd trash %set -f; mv $fx ~/.trash
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
 cmd extract ${{
-    set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
-    esac
+	set -f
+	case $f in
+		*.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+		*.tar.gz|*.tgz) tar xzvf $f;;
+		*.tar.xz|*.txz) tar xJvf $f;;
+		*.zip) unzip $f;;
+		*.rar) unrar x $f;;
+		*.7z) 7z x $f;;
+	esac
 }}
 
 # compress current file or selected files with tar and gunzip
 cmd tar ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
-    rm -rf $1
+	set -f
+	mkdir $1
+	cp -r $fx $1
+	tar czf $1.tar.gz $1
+	rm -rf $1
 }}
 
 # compress current file or selected files with zip
 cmd zip ${{
-    set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
-    rm -rf $1
+	set -f
+	mkdir $1
+	cp -r $fx $1
+	zip -r $1.zip $1
+	rm -rf $1
 }}
