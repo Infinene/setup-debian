@@ -29,3 +29,5 @@ fi
 
 ${SUDO} rsync -a --delete -og --chown www-data:www-data ${sync_src}/ ${sync_dest}/
 ${SUDOU} ${scan_cmd}
+
+log "Done"
