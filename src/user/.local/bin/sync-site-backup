@@ -22,6 +22,10 @@ if [ ! -d ${dest_dir}/ ]; then
 	exit 1
 fi
 
+if [ ! "$USER" = "$nextcloud_user" ]; then
+	SUDO="sudo"
+	SUDOU="sudo -u ${nextcloud_user}"
+fi
 
-sudo rsync -a --delete -og --chown www-data:www-data ${sync_src}/ ${sync_dest}/
-sudo -u ${nextcloud_user} ${scan_cmd}
+${SUDO} rsync -a --delete -og --chown www-data:www-data ${sync_src}/ ${sync_dest}/
+${SUDOU} ${scan_cmd}
