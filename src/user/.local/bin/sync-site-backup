@@ -15,7 +15,7 @@ source ~/.local/lib/logging.sh
 
 start_logging $logfile
 
-log "Starting rsync from: $rsync_src"
+log "Starting rsync from: $sync_src"
 
 if [ ! -d ${dest_dir}/ ]; then
 	log "ERROR: $dest_dir does not exist"
