@@ -2,7 +2,7 @@
 
 $calibration = benchmark(function() { });
 $benchmark = benchmark(function() {
-    sleep(1);
+	sleep(1);
 });
 
 echo "Calibration run: ".number_format($calibration)."/sec\n<br>";
@@ -11,22 +11,22 @@ echo 'Approximate code execution time (seconds): '.number_format((1/$benchmark) 
 
 function benchmark($x)
 {
-    $start = $t = microtime(true);
-    $total = $c = $loop = 0;
+	$start = $t = microtime(true);
+	$total = $c = $loop = 0;
 
-    while (true) {
-        $x();
-        $c++;
+	while (true) {
+		$x();
+		$c++;
 
-        $now = microtime(true);
-        if ($now - $t > 1) {
-            $loop++;
-            $total += $c;
-            list($t, $c) = array(microtime(true), 0);
-        }
+		$now = microtime(true);
+		if ($now - $t > 1) {
+			$loop++;
+			$total += $c;
+			list($t, $c) = array(microtime(true), 0);
+		}
 
-        if ($now - $start > 2) {
-            return round($total / $loop);
-        }
-    }
+		if ($now - $start > 2) {
+			return round($total / $loop);
+		}
+	}
 }

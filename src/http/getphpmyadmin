@@ -3,8 +3,8 @@
 
 if ! command -v composer &> /dev/null
 then
-    "Install composer first"
-    exit
+	"Install composer first"
+	exit
 fi
 composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev pma
 
@@ -47,4 +47,4 @@ $HOME/.local/bin/wmod pma
 chmod g+w pma/tmp
 
 sudo mysql -e "CREATE USER pma@localhost IDENTIFIED BY '$pass'"
-sudo mysql < pma/sql/create_tables.sql   
+sudo mysql < pma/sql/create_tables.sql
