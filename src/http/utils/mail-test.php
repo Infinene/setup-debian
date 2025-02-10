@@ -1,25 +1,25 @@
 <?php
-if(isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"])){
+if (isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"])) {
 
-	$data       = array();
-	$boundary 	= md5( uniqid() . microtime() );
+	$data		= array();
+	$boundary	= md5(uniqid() . microtime());
 
-	$from      	= strip_tags($_POST["myemail"]);
-	$to      	= strip_tags($_POST["email"]);
-	$subject 	= strip_tags($_POST["subject"]) ." - ". date('Y-m-d H:i:s');
+	$from		= strip_tags($_POST["myemail"]);
+	$to			= strip_tags($_POST["email"]);
+	$subject	= strip_tags($_POST["subject"]) . " - " . date('Y-m-d H:i:s');
 	$message	= $_POST["mail"];
 
 	// Plain text version of message
-	$body = "--$boundary" .PHP_EOL .
-	   "Content-Type: text/plain; charset=utf-8".PHP_EOL .
-	   "Content-Transfer-Encoding: base64" . PHP_EOL . PHP_EOL;
-	$body .= chunk_split( base64_encode( strip_tags($message) ) );
+	$body = "--$boundary" . PHP_EOL .
+		"Content-Type: text/plain; charset=utf-8" . PHP_EOL .
+		"Content-Transfer-Encoding: base64" . PHP_EOL . PHP_EOL;
+	$body .= chunk_split(base64_encode(strip_tags($message)));
 
 	// HTML version of message
-	$body .= "--$boundary". PHP_EOL .
-	   "Content-Type: text/html; charset=utf-8". PHP_EOL .
-	   "Content-Transfer-Encoding: base64". PHP_EOL . PHP_EOL ;
-	$message ='<!DOCTYPE html>
+	$body .= "--$boundary" . PHP_EOL .
+		"Content-Type: text/html; charset=utf-8" . PHP_EOL .
+		"Content-Transfer-Encoding: base64" . PHP_EOL . PHP_EOL;
+	$message = '<!DOCTYPE html>
 		<html>
 			<head>
 				<meta charset="UTF-8" />
@@ -27,23 +27,23 @@ if(isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"]))
 				<title>MailHog email example</title>
 			</head>
 			<body>
-				'.$_POST["mail"].'
+				' . $_POST["mail"] . '
 			</body>
 		</html>';
-	$body .= chunk_split( base64_encode( $message ) );
+	$body .= chunk_split(base64_encode($message));
 	$body .= "--$boundary";
 
 
-	$headers = 'From: PHP <'.$from.'>'.PHP_EOL;
-	$headers.= 'Reply-To: PHP <'.$from.'>'.PHP_EOL;
-	$headers.= 'CC: '.$from.''.PHP_EOL;
-	$headers.= 'MIME-Version: 1.0'.PHP_EOL;
-	$headers.= 'Content-Type: multipart/alternative;boundary="'.$boundary.'"'.PHP_EOL;
+	$headers = 'From: PHP <' . $from . '>' . PHP_EOL;
+	$headers .= 'Reply-To: PHP <' . $from . '>' . PHP_EOL;
+	$headers .= 'CC: ' . $from . '' . PHP_EOL;
+	$headers .= 'MIME-Version: 1.0' . PHP_EOL;
+	$headers .= 'Content-Type: multipart/alternative;boundary="' . $boundary . '"' . PHP_EOL;
 
-	if(mail($to, $subject, $body, $headers)){
+	if (mail($to, $subject, $body, $headers)) {
 		$data["success"] = true;
 		$data["text"] 	 = "Mail was sent successfully.";
-	}else{
+	} else {
 		$data["success"] = false;
 		$data["text"] = "Mail was not sent.";
 	}
@@ -52,6 +52,7 @@ if(isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"]))
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,6 +60,7 @@ if(isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"]))
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
 		type="text/css" rel="stylesheet" />
 </head>
+
 <body>
 	<div class="container">
 		<h2>Send an email from localhost</h2>
@@ -89,40 +91,41 @@ if(isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"]))
 		</form>
 	</div>
 	<script>
-	function sendmail(event){
-		event.preventDefault();
-		var mail = document.getElementById("mail").value;
-		var email = document.getElementById("email").value;
-		var myemail = document.getElementById("myemail").value;
-		var subject = document.getElementById("subject").value;
-		const toSend = {
-			method : 'post',
-			headers: {
-				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-			},
-			body : "email="+encodeURIComponent(email)+
-					"&subject="+encodeURIComponent(subject)+
-					"&mail="+encodeURIComponent(mail)+
-					"&myemail="+encodeURIComponent(myemail)
-		};
-		fetch('<?=$_SERVER["REQUEST_URI"]?>', toSend)
-		.then(function(response) {
-			return response.json();
-		})
-		.then(function(data) {
-			document.getElementById("response").innerHTML = data.text;
-			if(data.success){
-				document.getElementById("help-parent").classList.add("has-success");
-				document.getElementById("help-parent").classList.remove("has-error");
-			}else{
-				document.getElementById("help-parent").classList.remove("has-success");
-				document.getElementById("help-parent").classList.add("has-error");
-			}
-		}).catch(function(err){
-			alert("The request resulted in an error.");
-			console.warn(err);
-		});
-	}
+		function sendmail(event) {
+			event.preventDefault();
+			var mail = document.getElementById("mail").value;
+			var email = document.getElementById("email").value;
+			var myemail = document.getElementById("myemail").value;
+			var subject = document.getElementById("subject").value;
+			const toSend = {
+				method: 'post',
+				headers: {
+					"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+				},
+				body: "email=" + encodeURIComponent(email) +
+					"&subject=" + encodeURIComponent(subject) +
+					"&mail=" + encodeURIComponent(mail) +
+					"&myemail=" + encodeURIComponent(myemail)
+			};
+			fetch('<?= $_SERVER["REQUEST_URI"] ?>', toSend)
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(data) {
+					document.getElementById("response").innerHTML = data.text;
+					if (data.success) {
+						document.getElementById("help-parent").classList.add("has-success");
+						document.getElementById("help-parent").classList.remove("has-error");
+					} else {
+						document.getElementById("help-parent").classList.remove("has-success");
+						document.getElementById("help-parent").classList.add("has-error");
+					}
+				}).catch(function(err) {
+					alert("The request resulted in an error.");
+					console.warn(err);
+				});
+		}
 	</script>
 </body>
+
 </html>
