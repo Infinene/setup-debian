@@ -87,7 +87,7 @@ ngx_edit_site() {
 	[[ ! -e "$NGINX_SITES_AVAILABLE/$SELECTED_SITE" ]] &&
 		ngx_error "Site does not appear to exist."
 
-	nano "$NGINX_SITES_AVAILABLE/$SELECTED_SITE"
+	editor "$NGINX_SITES_AVAILABLE/$SELECTED_SITE"
 }
 
 ngx_list_site() {
