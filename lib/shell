@@ -27,6 +27,7 @@ cat $setup_dir/src/user/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /
 if [ "$(id -u)" -ne 0 ]; then
 	# copy all user file to ~/
 	cp -rv $setup_dir/src/user/. $HOME
+	${SUDO} ln -s $HOME/.local/bin/ngxmod /usr/local/sbin/
 
 	# setup global aliases
 	${SUDO} mkdir -p /etc/profile.d
