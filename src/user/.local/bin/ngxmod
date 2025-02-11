@@ -64,6 +64,7 @@ ngx_enable_site() {
 		ngx_error "Site appears to already be enabled"
 
 	ln -sf "$NGINX_SITES_AVAILABLE/$SELECTED_SITE" "$NGINX_SITES_ENABLED/$SELECTED_SITE"
+	nginx -t
 	ngx_reload
 }
 
@@ -88,6 +89,7 @@ ngx_edit_site() {
 		ngx_error "Site does not appear to exist."
 
 	editor "$NGINX_SITES_AVAILABLE/$SELECTED_SITE"
+	nginx -t
 }
 
 ngx_list_site() {
@@ -158,11 +160,11 @@ ngx_error() {
 ngx_help() {
 	echo "Usage: ${0##*/} [options]"
 	echo "Options:"
-	echo -e "\t<-e|--enable> <site>\tEnable site"
-	echo -e "\t<-d|--disable> <site>\tDisable site"
-	echo -e "\t<-x|--edit>\t\tEdit site"
-	echo -e "\t<-l|--list>\t\tList sites"
-	echo -e "\t<-h|--help>\t\tDisplay help"
+	echo -e "\t-e|--enable> <site>\tEnable site"
+	echo -e "\t-d|--disable> <site>\tDisable site"
+	echo -e "\t-x|--edit>\t\tEdit site"
+	echo -e "\t-l|--list>\t\tList sites"
+	echo -e "\t-h|--help>\t\tDisplay help"
 	echo -e "\n\tIf <site> is left out a selection of options will be presented."
 	echo -e "\tIt is assumed you are using the default sites-enabled and"
 	echo -e "\tsites-disabled located at $NGINX_CONF_DIR."
