@@ -20,6 +20,7 @@ alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias e='micro '
+alias nginxmod='sudo nginxmod'
 
 # view a file
 v() {
