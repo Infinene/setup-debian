@@ -10,7 +10,7 @@ server {
 	listen [::]:443 ssl default_server;
 	http2 on;
 	root   /srv/http/localhost;
-	include nginx.d/php.conf;
+	include snippets/php.conf;
 
 	location /utils {
 		autoindex on;
