@@ -18,9 +18,11 @@ if [ -f /etc/nginx/conf.d/default.conf ]; then
 fi
 
 ### create webroot ###
-${SUDO} mkdir -p /srv/http/localhost
-printf "$(hostname) $(~/.local/bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
-${SUDO} cp -rv $setup_dir/src/http/* /srv/http/localhost/
+${SUDO} mkdir -p /srv/http/localsite
+# printf "$(hostname) $(~/.local/bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
+${SUDO} cp -rv $setup_dir/src/http/* /srv/http/localsite/
+${SUDO} ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
 
 ### set permissions ###
 $HOME/.local/bin/wmod /srv/http
