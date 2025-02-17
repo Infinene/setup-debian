@@ -11,7 +11,7 @@
 <body class="bg-dark text-light">
 	<div class="container">
 		<div class="row p-5">
-			<div class="col offset-lg-3">
+			<div class="col-lg-6 mx-auto">
 				<div class="card bg-dark text-white-50 border-0 shadow-lg rounded-4 mt-5">
 					<div class="card-body p-5">
 						<h2 class="fw-bold"><?php echo $_SERVER['HTTP_HOST']; ?></h2>
