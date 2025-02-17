@@ -9,7 +9,7 @@ printf "deb https://packages.sury.org/php/ ${debian_release} main\n" | ${SUDO} t
 
 ${SUDO} apt update
 ${SUDO} apt full-upgrade
-${SUDO} apt install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-redis
+${SUDO} apt install php${php_ver}-fpm php${php_ver}-apcu php${php_ver}-bcmath php${php_ver}-curl php${php_ver}-gd php${php_ver}-intl php${php_ver}-mbstring php${php_ver}-mysql php${php_ver}-soap php${php_ver}-xml php${php_ver}-zip php${php_ver}-redis php${php_ver}-imagick
 ${SUDO} apt install php${php_ver}-zstd
 
 ${SUDO} cp -rbv $setup_dir/src/etc/php/${php_ver}/* /etc/php/${php_ver}
