@@ -4,5 +4,5 @@ server {
 	listen [::]:443 ssl;
 	http2 on;
 	root /srv/http/civicrm/web;
-	include snippets/civicrm.conf;
+	include snippets/civicrm-standalone.conf;
 }
