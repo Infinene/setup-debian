@@ -1,5 +1,5 @@
 server {
-	server_name pve.infinene.net;
+	server_name pve.example.com;
 	# listen 80;
 
 	listen 443 ssl;

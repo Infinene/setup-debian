@@ -1,6 +1,6 @@
 
 server {
-	server_name pm.infinene.net;
+	server_name pm.example.com;
 	listen 443 ssl;
 	listen [::]:443 ssl;
 	http2 on;

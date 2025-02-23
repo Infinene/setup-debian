@@ -1,5 +1,5 @@
 server {
-	server_name cloud.infinene.net;
+	server_name cloud.example.com;
 
 	listen 443 ssl;
 	listen [::]:443 ssl;
