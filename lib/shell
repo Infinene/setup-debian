@@ -3,7 +3,7 @@ read -p  "Addd backport to apt sources? [y/N] " response
 if [ ${response,,} = 'y' ]; then
 	echo "Add backports to sources..."
 	grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
-	${SUDO} tee /etc/apt/preferences.d/backports <<-EOF
+	 tee /etc/apt/preferences.d/backports <<-EOF
 		deb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free
 		EOF
 
@@ -12,6 +12,10 @@ if [ ${response,,} = 'y' ]; then
 		Pin: release a=${debian_release}-backports
 		Pin-Priority: 500
 		EOF
+
+		# rhit and other utils https://packages.azlux.fr/
+		echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | ${SUDO} tee /etc/apt/sources.list.d/azlux.list
+		${SUDO} wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
 fi
 
 ${SUDO} apt update
