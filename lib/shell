@@ -1,18 +1,16 @@
 ### backports ###
-read -p  "Addd backport to apt sources? [y/N] " response
+read -p  "Change backports priority in apt sources? [y/N] " response
 if [ ${response,,} = 'y' ]; then
-	echo "Add backports to sources..."
-	grep -e "^deb.*backports" /etc/apt/sources.list >/dev/null || \
-	 tee /etc/apt/preferences.d/backports <<-EOF
-		deb http://deb.debian.org/debian ${debian_release}-backports main contrib non-free
-		EOF
 
 	[ -f /etc/apt/preferences.d/backports ] || ${SUDO} tee -a /etc/apt/preferences.d/backports <<-EOF
 		Package: *
 		Pin: release a=${debian_release}-backports
 		Pin-Priority: 500
 		EOF
-
+fi
+### backports ###
+read -p  "Add azlux packages to apt sources? [y/N] " response
+if [ ${response,,} = 'y' ]; then
 		# rhit and other utils https://packages.azlux.fr/
 		echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | ${SUDO} tee /etc/apt/sources.list.d/azlux.list
 		${SUDO} wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
@@ -23,7 +21,7 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
 
 ### bash setup ###
 
