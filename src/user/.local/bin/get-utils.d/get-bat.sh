@@ -4,7 +4,7 @@ printf '%s\n'
 printf '%s\n' "Updating bat..."
 
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v bat &> /dev/null; then
 	cur_version="$(bat -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else

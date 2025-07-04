@@ -3,7 +3,7 @@ printf '%s\n' "Updating zoxide..."
 
 repo="ajeetdsouza/zoxide"
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v zoxide &> /dev/null; then
 	cur_version="$(zoxide -V | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else

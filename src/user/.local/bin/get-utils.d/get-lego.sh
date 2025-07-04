@@ -3,7 +3,7 @@ printf '%s\n' "Updating lego..."
 
 repo="go-acme/lego"
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v lego &> /dev/null; then
 	cur_version="$(lego -v | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else

@@ -4,7 +4,7 @@ printf '%s\n' "Updating fzf..."
 repo="junegunn/fzf"
 
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v fzf &> /dev/null; then
 	cur_version="$(fzf --version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else

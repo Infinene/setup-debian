@@ -3,7 +3,7 @@ printf '%s\n' "Updating yazi..."
 
 repo="sxyazi/yazi"
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v yazi &> /dev/null; then
 	cur_version="$(yazi --version | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 else

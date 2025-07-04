@@ -3,7 +3,7 @@ printf '%s\n' "Updating eget..."
 
 repo="zyedidia/eget"
 
-new_version=$(github_latest_release_num $repo)
+new_version=$(github_latest_version_num $repo)
 if command -v eget &> /dev/null; then
 	cur_version="$(eget -v | grep -Eo "[0-9]+\.[0-9]+(\.[0-9]+)?")"
 	if [ "$cur_version" = "${new_version}" ]; then
