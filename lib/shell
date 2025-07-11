@@ -21,7 +21,8 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install apt-transport-https ca-certificates curl wget software-properties-common dirmngr gnupg2 debian-archive-keyring sudo rsync
 ### extras ###
-${SUDO} apt install vim zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
+${SUDO} apt install vim vim-doc vim-tabular vim-autopairs #vim-airline
 
 ### bash setup ###
 
