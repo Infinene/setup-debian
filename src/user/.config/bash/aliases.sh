@@ -19,8 +19,7 @@ alias aptsrch='apt search --names-only'
 alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
-alias e='micro '
-alias nginxmod='sudo nginxmod'
+alias ngxmod='sudo ngxmod'
 
 # view a file
 v() {
