@@ -19,7 +19,6 @@ set tabstop=4
 set shiftwidth=4
 "set softtabstop=0
 set nomodeline
-filetype plugin indent on
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -27,4 +26,4 @@ map Q gq
 " When doing tab completion, give the following files lower priority.
 set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 
-command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W silent execute 'write !sudo tee ' . shellescape(@%, 1) . ' >/dev/null' | | :edit!
