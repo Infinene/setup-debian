@@ -26,4 +26,4 @@ map Q gq
 " When doing tab completion, give the following files lower priority.
 set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 
-command! W silent execute 'write !sudo tee ' . shellescape(@%, 1) . ' >/dev/null' | | :edit!
+command! W silent execute 'write !sudo tee ' . shellescape(@%, 1) . ' >/dev/null' | :edit!
