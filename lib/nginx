@@ -25,7 +25,7 @@ ${SUDO} ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 
 ### set permissions ###
-$HOME//bin/wmod /srv/http
+$HOME//bin/chmodw /srv/http
 
 ### Generate self-signed certificate ###
 $HOME//bin/gen-ssl-localhost

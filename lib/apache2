@@ -13,7 +13,7 @@ printf "$(hostname) $(~//bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.
 ${SUDO} cp -rv $setup_dir/src/http/* /srv/http/localhost/
 
 ### set permissions ###
-$HOME//bin/wmod /srv/http
+$HOME//bin/chmodw /srv/http
 
 ### Generate self-signed certificate ###
 echo "Generating self-signed certificate"

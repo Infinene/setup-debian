@@ -7,10 +7,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 user=$USER
-group=nginx
-if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then
-	group=www-data
-fi
+group='www-data'
 
 
 usage() {

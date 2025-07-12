@@ -43,7 +43,7 @@ sed -i -r "s|^--\s(GRANT SELECT)|\1|" pma/sql/create_tables.sql
 sed -i -r "s|^--\s+('pma'@localhost)|\1|"  pma/sql/create_tables.sql
 
 mkdir pma/tmp
-$HOME//bin/wmod pma
+$HOME//bin/chmodw pma
 chmod g+w pma/tmp
 
 sudo mysql -e "CREATE USER pma@localhost IDENTIFIED BY '$pass'"
