@@ -23,7 +23,7 @@ fi
 setup_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 debian_release=$(lsb_release -sc)
 userid=$(id -u)
-mariadb_ver='11.4'
+mariadb_ver='11.8'
 php_ver='8.3'
 
 if grep -i microsoft /proc/version; then
