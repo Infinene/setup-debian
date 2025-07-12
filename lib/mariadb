@@ -1,23 +1,29 @@
 ### mariadb ###
-
+# Setup Repository
 ${SUDO} apt-get install apt-transport-https curl
 ${SUDO} mkdir -p /etc/apt/keyrings
 ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 
-
+declare dist
+if curl -s https://mirror.mariadb.org/repo/${mariadb_ver}/debian/dists/ | grep $debian_release > /dev/null; then
+	dist=$debian_release
+else
+	dist='sid'
+fi
 ${SUDO} tee /etc/apt/sources.list.d/mariadb.sources <<_END_
-# MariaDB 11.4 repository list - created 2024-12-10 05:14 UTC
+# MariaDB 11.8 repository list - created 2025-07-12 01:47 UTC
 # https://mariadb.org/download/
 X-Repolib-Name: MariaDB
 Types: deb
 # deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
-# URIs: https://deb.mariadb.org/11.4/debian
-URIs: https://mirror.rackspace.com/mariadb/repo/11.4/debian
-Suites: bookworm
+# URIs: https://deb.mariadb.org/${mariadb_ver}/debian
+URIs: https://mirrors.gigenet.com/mariadb/repo/${mariadb_ver}/debian
+Suites: ${dist}
 Components: main
 Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
 _END_
 
+# Install
 ${SUDO} apt update
 ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/src/etc/mysql/* /etc/mysql/
