@@ -19,9 +19,15 @@ set tabstop=4
 set shiftwidth=4
 "set softtabstop=0
 set nomodeline
+set listchars=eol:⬎,tab:›\ ,trail:~,extends:›,precedes:‹,space:・
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+" key maps
+" --------
+map Q gq							" Don't use Ex mode, use Q for formatting
+noremap <F3> :set list!<CR>
+inoremap <F3> <C-o>:set list!<CR>
+
 
 " Custom commands
+" ---------------
 command! W silent execute 'write !sudo tee ' . shellescape(@%, 1) . ' >/dev/null' | :edit!
