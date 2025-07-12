@@ -1,6 +1,6 @@
 syntax on
-set background=dark
 filetype plugin indent on
+set background=dark
 set nocompatible	" Use Vim defaults (much better!)
 set showcmd			" Show (partial) command in status line.
 set showmatch		" Show matching brackets.
@@ -23,7 +23,5 @@ set nomodeline
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" When doing tab completion, give the following files lower priority.
-set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
-
+" Custom commands
 command! W silent execute 'write !sudo tee ' . shellescape(@%, 1) . ' >/dev/null' | :edit!
