@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$(whoami)" != "root" ]; then
-	echo "Please run as root"
-	exit 1
+	sudo bash $0 "$@"
+	exit $?
 fi
 
 ##
@@ -181,5 +181,5 @@ case "$1" in
 	-r|--reload) ngx_reload_now;;
 	-l|--list)	ngx_list_site;;
 	-h|--help)	ngx_help;;
-	*)		ngx_error "No Options Selected" 1; ngx_help;;
+	*)	ngx_help;;
 esac

@@ -24,7 +24,7 @@ ${SUDO} apt install apt-transport-https ca-certificates curl wget software-prope
 ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
 ${SUDO} apt install vim vim-doc vim-tabular vim-autopairs #vim-airline
 if [ -d /etc/vim ]; then
-	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim
+	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
 fi
 
 ### bash setup ###
