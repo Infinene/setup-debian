@@ -49,8 +49,7 @@ if [ "$(id -u)" -ne 0 ]; then
 	{
 		echo "# Disable ~/.sudo_as_admin_successful file"
 		echo "Defaults !admin_flag"
-		echo "Defaults:${USER} timestamp_timeout=120"
-		echo
+		echo "Defaults:${USER} timestamp_timeout=480"
 	} | ${SUDO} tee -a /etc/sudoers.d/${USER}
 	rm ~/.sudo_as_admin_successful
 
