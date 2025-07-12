@@ -30,4 +30,4 @@ if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then
 	fi
 fi
 
-$HOME/.local/bin/get-utils composer
+$HOME//bin/get-utils composer

@@ -19,10 +19,10 @@ fi
 ${SUDO} apt update
 ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
-${SUDO} apt install ca-certificates curl wget software-properties-common dirmngr rsync
+${SUDO} apt install ca-certificates curl wget dirmngr rsync
 ### extras ###
 ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
-${SUDO} apt install vim vim-doc vim-tabular vim-autopairs #vim-airline
+${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
 if [ -d /etc/vim ]; then
 	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
 fi
@@ -33,7 +33,7 @@ cat $setup_dir/src/user/.config/bash/prompt | sed 's/34/35/g' | ${SUDO} tee -a /
 if [ "$(id -u)" -ne 0 ]; then
 	# copy all user file to ~/
 	cp -rv $setup_dir/src/user/. $HOME
-	${SUDO} ln -s $HOME/.local/bin/ngxmod /usr/local/sbin/
+	${SUDO} ln -s $HOME//bin/ngxmod /usr/local/sbin/
 
 	# setup global aliases
 	${SUDO} mkdir -p /etc/profile.d
@@ -56,7 +56,7 @@ if [ "$(id -u)" -ne 0 ]; then
 
 	# setup utils
 	printf "\nInstalling utils...\n"
-	$HOME/.local/bin/get-utils
+	$HOME//bin/get-utils
 
 	${SUDO} mkdir -p /etc/lf
 	${SUDO} ln -s $HOME/.config/lf/lfrc /etc/lf/

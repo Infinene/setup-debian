@@ -26,5 +26,5 @@ sudo rm -rf wp-content/plugins/civicrm
 unzip -q "$download_dir/$civicrm_file" -d wp-content/plugins/
 sudo sh -c 'rm -rf wp-content/uploads/civicrm/templates_c/*'
 set-file-permission -w wp-content/uploads/civicrm
-~/.local/bin/cv upgrade:db
+~//bin/cv upgrade:db
 set-file-permission -w wp-content/uploads/civicrm

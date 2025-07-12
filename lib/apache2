@@ -9,21 +9,21 @@ ${SUDO} a2enmod rewrite headers env dir mime setenvif ssl proxy proxy_fcgi
 
 ### create webroot ###
 ${SUDO} mkdir -p /srv/http/localhost
-printf "$(hostname) $(~/.local/bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
+printf "$(hostname) $(~//bin/get-ip)\n" | ${SUDO} tee /srv/http/localhost/index.html
 ${SUDO} cp -rv $setup_dir/src/http/* /srv/http/localhost/
 
 ### set permissions ###
-$HOME/.local/bin/wmod /srv/http
+$HOME//bin/wmod /srv/http
 
 ### Generate self-signed certificate ###
 echo "Generating self-signed certificate"
-$HOME/.local/bin/gen-ssl-localhost
+$HOME//bin/gen-ssl-localhost
 
 ### Optionally install certbot ###
 read -p  "Install certbot? [y/N] " certbot
 if [ ${certbot,,} = 'y' ]; then
 	echo "Installing certbot ..."
-	$HOME/.local/bin/get-certbot
+	$HOME//bin/get-certbot
 else
 	echo "certbot not installed. Use get-certbot to install later."
 fi
