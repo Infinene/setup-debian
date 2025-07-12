@@ -1,8 +1,17 @@
 ### php ###
 
-${SUDO} wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-printf "deb https://packages.sury.org/php/ ${debian_release} main\n" | ${SUDO} tee /etc/apt/sources.list.d/php.list
+${SUDO} curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+${SUDO} dpkg -i /tmp/debsuryorg-archive-keyring.deb
 
+${SUDO} tee /etc/apt/sources.list.d/php.sources <<_END_
+# https://deb.sury.org/
+X-Repolib-Name: php
+Types: deb
+URIs: https://packages.sury.org/php/
+Suites: ${debian_release}
+Components: main
+Signed-By: /usr/share/keyrings/debsuryorg-archive-keyring.gpg
+_END_
 
 # 'Drupal/CiviCRM requirements'
 # 'php-fpm php-apcu php-bcmath php-Curl php-gd php-Intl php-mbstring php-mysql php-soap php-xml php-Zip php-zstd'
