@@ -39,8 +39,8 @@ if [ "$(id -u)" -ne 0 ]; then
 	${SUDO} mkdir -p /etc/profile.d
 	sudo ln -s $HOME/.config/bash/aliases.sh /etc/profile.d
 
-	# setup prompt if not using starship
-	# printf "\n# . ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
+	setup prompt if not using starship
+	printf "\n# . ~/.config/bash/prompt\n" | tee -a $HOME/.bashrc
 
 	# Fix .ssh permission
 	chmod -R a-x,u+rwX,go-rwx $HOME/.ssh
@@ -77,6 +77,6 @@ grep -q -e 'micro' /etc/environment || echo "$(< $HOME/.config/bash/environment)
 sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
 
 # setup starship prompt
-. $setup_dir/lib/starship
+# . $setup_dir/lib/starship
 
 ${SUDO} dpkg-reconfigure console-setup
