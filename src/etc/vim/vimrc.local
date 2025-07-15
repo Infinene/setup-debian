@@ -19,7 +19,7 @@ set tabstop=4
 set shiftwidth=4
 "set softtabstop=0
 set nomodeline
-set listchars=eol:⬎,tab:›\ ,trail:~,extends:›,precedes:‹,space:・
+set listchars=eol:⬎,tab:›\ ,trail:~,extends:›,precedes:‹,space:·
 
 " key maps
 " --------
