@@ -2,10 +2,10 @@
 # set hidden
 # set icons
 set ignorecase
-# set preview
-# set previewer ~//bin/lfpreview
+set preview
+set previewer /usr/local/bin/lfpreview
 set info size:time
-set ratios 1:3:4
+# set ratios 1:3:4
 set statfmt "\033[36m%p\033[0m| %c| %u:%g| %S| %t| -> %l"
 # infotimefmtnew "Jan _2 15:04"
 set infotimefmtnew "01/02 15:04"
@@ -14,7 +14,7 @@ set infotimefmtold "01/_2/2006"
 
 
 # mappings
-# map e $micro $f
+map e $micro $f
 map ; !bat $f
 map . set hidden!
 map <c-q> quit
