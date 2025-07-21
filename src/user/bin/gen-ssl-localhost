@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-path="/etc/ssl"
+path="/etc/nginx/ssl"
 
 if [ "$(whoami)" != "root" ]; then
 	SUDO=sudo
@@ -16,4 +16,5 @@ if [ $? -ne 0 ] ; then
 	exit 1
 fi
 
+${SUDO} mkdir -p $path
 ${SUDO} mv localhost.* $path
