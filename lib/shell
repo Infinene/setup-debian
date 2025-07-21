@@ -27,9 +27,20 @@ ${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
 if [ -d /etc/vim ]; then
 	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
 fi
-${SUDO} ln -s $(command -v micro) /usr/local/bin/ed
 ${SUDO} apt remove nano
+if command -v micro &> /dev/null; then
+	${SUDO} ln -s $(command -v micro) /usr/local/bin/ed
+fi
 sudo update-alternatives --config editor
+
+# Fix renamed debian packages
+if command -v fdfind &> /dev/null; then
+	${SUDO} ln -s $(command -v fdfind) /usr/local/bin/fd
+fi
+
+if command -v batcat &> /dev/null; then
+	${SUDO} ln -s $(command -v batcat) /usr/local/bin/bat
+fi
 
 ### bash setup ###
 tee -a $HOME/.bashrc <<_END_
@@ -70,7 +81,7 @@ if [ "$(id -u)" -ne 0 ]; then
 
 	${SUDO} mkdir -p /etc/lf
 	${SUDO} ln -s $HOME/.config/lf/lfrc /etc/lf/
-	${SUDO} ln -s $HOME/bin/lfpreview/lfrc /usr/local/bin/
+	${SUDO} ln -s $HOME/bin/lfpreview /usr/local/bin/
 
 	# needed for wezterm
 	grep -q -e 'x1b]0' ~/.bashrc ||
