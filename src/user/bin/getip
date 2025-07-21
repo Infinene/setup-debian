@@ -1,0 +1,5 @@
+#!/bin/sh
+ip4=$(curl -s https://api.ipify.org)
+echo "$ip4"
+ip6=$(curl -s https://api6.ipify.org)
+echo "$ip6"

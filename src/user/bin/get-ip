@@ -1,8 +1,0 @@
-#!/bin/bash
-# set x
-#printf '%s\n' $(wget -O - -q icanhazip.com)
-IPv4=$(curl -s -4 ipv4.icanhazip.com)
-IPv6=$(curl -s -6 ipv6.icanhazip.com)
-printf '%s\n' $IPv4
-printf '%s\n' $IPv6
-

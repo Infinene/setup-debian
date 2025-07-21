@@ -24,7 +24,7 @@ if (isset($_POST["mail"], $_POST["subject"], $_POST["email"], $_POST["myemail"])
 			<head>
 				<meta charset="UTF-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<title>MailHog email example</title>
+				<title>Email example</title>
 			</head>
 			<body>
 				' . $_POST["mail"] . '

@@ -20,6 +20,7 @@ alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias ngxmod='sudo ngxmod'
+alias me='micro'
 
 # view a file
 v() {
@@ -35,4 +36,12 @@ m() {
 	dir=${dir:-$(pwd)}
 	[ ! -w "${dir}" ] && local SUDO=true
 	${SUDO:+sudo} less -N +F $1
+}
+
+# launch lf as sudo if needed
+lf() {
+	local path=$1
+	local dir=${path:-$(pwd)}
+	[ ! -w "${dir}" ] && local SUDO=true
+	${SUDO:+sudo} /usr/local/bin/lf $dir
 }
