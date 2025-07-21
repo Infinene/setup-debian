@@ -43,5 +43,5 @@ lf() {
 	local path=$1
 	local dir=${path:-$(pwd)}
 	[ ! -w "${dir}" ] && local SUDO=true
-	${SUDO:+sudo} /usr/local/bin/lf $dir
+	${SUDO:+sudo} $(which lf) $dir
 }
