@@ -12,7 +12,7 @@ server {
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 	http2 on;
-	root   /srv/http/localsite;
+	root   /srv/web/localsite;
 	include snippets/php.conf;
 
 	location /utils {
@@ -20,7 +20,7 @@ server {
 		autoindex_exact_size off;
 		autoindex_localtime on;
 	}
-	
+
 	location /list-content {
 		autoindex on;
 		autoindex_exact_size off;
