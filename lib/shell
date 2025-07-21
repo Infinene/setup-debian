@@ -23,10 +23,13 @@ ${SUDO} apt install ca-certificates curl wget dirmngr rsync
 ### extras ###
 ${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
 ${SUDO} apt install micro lf fzf zoxide fd-find bat ripgrep peco fastfetch
-# ${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
-# if [ -d /etc/vim ]; then
-# 	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
-# fi
+${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
+if [ -d /etc/vim ]; then
+	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
+fi
+${SUDO} ln -s $(command -v micro) /usr/local/bin/ed
+${SUDO} apt remove nano
+sudo update-alternatives --config editor
 
 ### bash setup ###
 tee -a $HOME/.bashrc <<_END_

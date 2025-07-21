@@ -20,7 +20,6 @@ alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 alias ngxmod='sudo ngxmod'
-alias me='micro'
 
 # view a file
 v() {
