@@ -1,20 +1,3 @@
-__prompt_command() {
-	local exit="$?"                # This needs to be first
-
-	# https://colors.sh/
-	local c_host="34m" #blue
-	# local c_host="1;35m" #purple
-	# local c_host="38;5;73m" #cadetblue
-	local c_dir="32m" #greem
-	local c_error="31m" #red
-	local c_date="1;30m" #gray
-
-	PS1="\[\e[${c_host}\]\u@\h:\[\e[m\] \[\e[${c_dir}\]\w\[\e[m\]\n"
-
-	if [ $exit != 0 ]; then
-		PS1+="\[\e[${c_error}\]$exit\[\e[m\] "        # Add if exit code non 0
-	fi
-	PS1+="\[\e[${c_date}\]\t\[\e[m\] ❱ "
-}
-
-PROMPT_COMMAND=__prompt_command
+# https://unix.stackexchange.com/questions/653413/show-exit-code-of-last-command-in-bash-prompt-if-it-returned-error
+export LOCAL_IP=$(~/bin/get-local-ip)
+PS1='\[\e[90m\]${LOCAL_IP}\[\e[0m\]·\[\e[38;5;33m\]\u\[\e[0m\]@\[\e[38;5;33m\]\h\[\e[0m\]:\[\e[38;5;34m\]\w\n\[\e[37m\]\t\[\e[0m\] \[\e[91m\]${?##0}\[\e[0m\]❱ '
