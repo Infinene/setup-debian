@@ -11,6 +11,8 @@ ${SUDO} apt -y install samba
 
 ${SUDO} cp -bv $setup_dir/src/etc/samba/* /etc/samba/
 
+${SUDO} sed -i "s/<user>/${USER}/g" /etc/samba/smb.conf
+
 cat <<-EOF
 
 	Edit /etc/samba/smb.conf for user names and shares
