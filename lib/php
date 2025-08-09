@@ -29,11 +29,4 @@ ${SUDO} cp -rbv $setup_dir/src/etc/php/${php_ver}/* /etc/php/${php_ver}
 # For php error.log
 ${SUDO} mkdir -p /var/log/php && ${SUDO} chown www-data:www-data /var/log/php
 
-# Change php-fpm user/group if running apache
-if [[ `ps -acx|grep apache|wc -l` > 0 ]]; then
-	if [ -f /etc/php/$php_ver/fpm/php-fpm.conf ]; then
-		${SUDO} sed -i 's/nginx/www-data/g' /etc/php/$php_ver/fpm/php-fpm.conf
-	fi
-fi
-
 $HOME//bin/get-utils composer
