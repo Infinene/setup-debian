@@ -1,3 +1,7 @@
 # https://unix.stackexchange.com/questions/653413/show-exit-code-of-last-command-in-bash-prompt-if-it-returned-error
 export LOCAL_IP=$(~/bin/get-local-ip)
 PS1='\[\e[90m\]${LOCAL_IP}\[\e[0m\]·\[\e[38;5;33m\]\u\[\e[0m\]@\[\e[38;5;33m\]\h\[\e[0m\]:\[\e[38;5;34m\]\w\n\[\e[37m\]\t\[\e[0m\] \[\e[91m\]${?##0}\[\e[0m\]❱ '
+
+# bash prompt suggestions like zsh
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
