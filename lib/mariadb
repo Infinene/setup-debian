@@ -4,36 +4,41 @@ ${SUDO} apt-get install apt-transport-https curl
 ${SUDO} mkdir -p /etc/apt/keyrings
 ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 
-declare dist
-if curl -s https://mirror.mariadb.org/repo/${mariadb_ver}/debian/dists/ | grep $debian_release > /dev/null; then
-	dist=$debian_release
+mariadblist=/etc/apt/sources.list.d/mariadb.sources
+if [ ! -f "$mariadblist" ]; then
+	${SUDO} tee ${mariadblist} <<-_END_
+	# MariaDB 11.8 repository list - created 2025-08-10 15:09 UTC
+	# https://mariadb.org/download/
+	X-Repolib-Name: MariaDB
+	Types: deb
+	# deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
+	# URIs: https://deb.mariadb.org/${mariadb_ver}/debian
+	URIs: https://mirror.rackspace.com/mariadb/repo/${mariadb_ver}/debian
+	Suites: trixie
+	Components: main
+	Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+	_END_
 else
-	dist='sid'
+	echo "mariadb.sources alreay exists..."
+	${SUDO} cat $mariadblist
+	echo
+	printf "\n%s" "Press enter to continue"
+	read key
 fi
-${SUDO} tee /etc/apt/sources.list.d/mariadb.sources <<_END_
-# MariaDB 11.8 repository list - created 2025-07-12 01:47 UTC
-# https://mariadb.org/download/
-X-Repolib-Name: MariaDB
-Types: deb
-# deb.mariadb.org is a dynamic mirror if your preferred mirror goes offline. See https://mariadb.org/mirrorbits/ for details.
-# URIs: https://deb.mariadb.org/${mariadb_ver}/debian
-URIs: https://mirrors.gigenet.com/mariadb/repo/${mariadb_ver}/debian
-Suites: ${dist}
-Components: main
-Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
-_END_
 
 # Install
 ${SUDO} apt update
 ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/src/etc/mysql/* /etc/mysql/
 
-dbpass=$(whiptail --passwordbox "Enter a password for user '${USER}' as admin for MariaDB: " 8 0 --title "Create MariaDB admin account"  3>&1 1>&2 2>&3)
-exitstatus=$?
-if [ "x$dbpass" != "x" ]; then
+password=$(whiptail --passwordbox "Enter a password for '${USER}': " 8 0 --title "MariaDB admin password"  3>&1 1>&2 2>&3)
+password2=$(whiptail --passwordbox "Re-Enter password for '${USER}': " 8 0 --title "MariaDB admin password"  3>&1 1>&2 2>&3)
+
+if [ "$password" =  "$password2" ]; then
 	echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
-	${SUDO} mariadb -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${dbpass}'; \
+	${SUDO} mariadb -e "CREATE USER ${USER}@'%' IDENTIFIED BY '${password}'; \
 	GRANT ALL PRIVILEGES ON *.* TO ${USER}@'%' WITH GRANT OPTION;"
 else
-	echo "User account not created: canceled or no password entered"
+	echo "User not created: canceled or passwords do not match."
+	echo "Create user manually if needed"
 fi

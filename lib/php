@@ -1,11 +1,11 @@
 ### php ###
-phplistfile='/etc/apt/sources.list.d/php-sury.sources'
+phplist='/etc/apt/sources.list.d/php-sury.sources'
 
 ${SUDO} curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
 ${SUDO} dpkg -i /tmp/debsuryorg-archive-keyring.deb
 
-if [ ! -f "$phplistfile" ]; then
-	${SUDO} tee ${phplistfile} <<-_END_
+if [ ! -f "$phplist" ]; then
+	${SUDO} tee ${phplist} <<-_END_
 	# https://deb.sury.org/
 	X-Repolib-Name: php
 	Types: deb
@@ -14,6 +14,12 @@ if [ ! -f "$phplistfile" ]; then
 	Components: main
 	Signed-By: /usr/share/keyrings/debsuryorg-archive-keyring.gpg
 	_END_
+else
+	echo "${phplist} alreay exists..."
+	${SUDO} cat $phplist
+	echo
+	printf "\n%s" "Press enter to continue"
+	read key
 fi
 
 # 'Drupal/CiviCRM requirements'
