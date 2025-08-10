@@ -1,5 +1,4 @@
 alias l='ls --group --color=auto'
-alias ll='ls -Alh --group --color=auto'
 alias ping='ping -c 4'
 alias lps='ps -elf | grep'
 alias sctl='sudo systemctl'
@@ -25,6 +24,14 @@ alias ngxmod='sudo ngxmod'
 e() {
 	[ ! -w "$1" ] && local SUDO=true
 	${SUDO:+sudo} $(which micro) $1
+}
+
+# launch lf as sudo if needed
+ll() {
+        local path=$1
+        local dir=${path:-$(pwd)}
+        [ ! -w "${dir}" ] && local SUDO=true
+        ${SUDO:+sudo} ls -Alh --group --color=auto  $dir
 }
 
 # launch lf as sudo if needed
