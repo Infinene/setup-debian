@@ -18,7 +18,6 @@ alias aptsrch='apt search --names-only'
 alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
-alias ngxmod='sudo ngxmod'
 
 # launch micro editor
 e() {
@@ -26,12 +25,12 @@ e() {
 	${SUDO:+sudo} $(which micro) $1
 }
 
-# launch lf as sudo if needed
+# launch ls as sudo if needed
 ll() {
-        local path=$1
-        local dir=${path:-$(pwd)}
-        [ ! -w "${dir}" ] && local SUDO=true
-        ${SUDO:+sudo} ls -Alh --group --color=auto  $dir
+	local path=$1
+	local dir=${path:-$(pwd)}
+	[ ! -w "${dir}" ] && local SUDO=true
+	${SUDO:+sudo} ls -Alh --group --color=auto  $dir
 }
 
 # launch lf as sudo if needed
