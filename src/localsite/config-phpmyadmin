@@ -1,0 +1,43 @@
+#!/bin/bash
+# set -x
+
+blowfishSecret=$(openssl rand -base64 22)
+pass=$(openssl rand -base64 8)
+sed -e "s|cfg\['blowfish_secret'\] = '|cfg['blowfish_secret'] = '$blowfishSecret|" pma/config.sample.inc.php >pma/config.inc.php
+sed -i -r "s|(\['controlpass'\] = ')pmapass|\1$pass|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['controluser')|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['controlpass')|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['pmadb'] =)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['bookmarkt)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['relation')|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['table_inf)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['table_coo)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['pdf_pages)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['column_in)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['history'])|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['table_uip)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['tracking')|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['userconfi)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['recent'] )|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['favorite')|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['users'] =)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['usergroup)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['navigatio)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['savedsear)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['central_c)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['designer_)|\1|" pma/config.inc.php
+sed -i -r "s|^// (.cfg\['Server.*i\]\['export_te)|\1|" pma/config.inc.php
+sed -i -r "s|^//(.cfg\['MaxRows.+)50|\1250|" pma/config.inc.php
+sed -i -r "s|^//(.cfg\['QueryHistoryDB)|\1;|" pma/config.inc.php
+sed -i -r "s|^//(.cfg\['QueryHistoryMax)|\1;|" pma/config.inc.php
+sed -i -r "s|^//(.cfg\['SendErrorReports.+)always|\1never|" pma/config.inc.php
+
+sed -i -r "s|^--\s(GRANT SELECT)|\1|" pma/sql/create_tables.sql
+sed -i -r "s|^--\s+('pma'@localhost)|\1|"  pma/sql/create_tables.sql
+
+mkdir pma/tmp
+$HOME//bin/chmodw pma
+chmod g+w pma/tmp
+
+sudo mysql -e "CREATE USER pma@localhost IDENTIFIED BY '$pass'"
+sudo mysql < pma/sql/create_tables.sql
