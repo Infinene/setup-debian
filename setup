@@ -96,7 +96,7 @@ fi
 echo
 echo "Restarting services ..."
 instr "MariaDB" "$selection" && echo "mariadb" && ${SUDO} systemctl restart mariadb
-instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx && curl -k https://localhost
+instr "Nginx" "$selection" && echo "nginx" && ${SUDO} systemctl restart nginx && links -ssl.certificates 0 https://localhost
 instr "PHP" "$selection" && echo "php${php_ver}-fpm" && ${SUDO} systemctl restart php${php_ver}-fpm
 instr "Apache" "$selection" && echo "Apache2" && ${SUDO} systemctl restart apache2
 
