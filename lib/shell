@@ -12,8 +12,7 @@ fi
 read -p  "Add azlux packages to apt sources? [y/N] " response
 if [ ${response,,} = 'y' ]; then
 		# rhit and other utils https://packages.azlux.fr/
-		echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | ${SUDO} tee /etc/apt/sources.list.d/azlux.list
-		${SUDO} wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+		curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | ${SUDO} bash -s terminal devops
 fi
 
 ${SUDO} apt update

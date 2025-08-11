@@ -1,2 +1,7 @@
-export RESTIC_PASSWORD_COMMAND=/home/sysusr/bin/resticpwd
+# View man pages in bat
+export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
+man 2 select
+
+# local restic repo
+export RESTIC_PASSWORD_COMMAND=/home/${USER}/bin/resticpwd
 export RESTIC_REPOSITORY='rest:http://10.0.0.20:2225/dev'
