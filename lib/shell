@@ -1,3 +1,10 @@
+${SUDO} apt update
+${SUDO} apt full-upgrade
+if ! command -v curl >/dev/null 2>&1; then
+	${SUDO} apt install curl
+fi
+
+
 ### backports ###
 if grep -r backports /etc/apt/ > /dev/null; then
 	read -p  "Change backports priority in apt sources? [y/N] " response
@@ -12,18 +19,12 @@ fi
 
 ### wakemeops ###
 if ! grep -r wakemeops /etc/apt > /dev/null; then
-	read -p  "Add wakemeops repository? [y/N] " response
-	if [ ${response,,} = 'y' ]; then
-		curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash -s terminal devops
-	fi
+	curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | ${SUDO} bash -s terminal devops
+	${SUDO} apt update
 fi
 
-${SUDO} apt update
-${SUDO} apt full-upgrade
-### required by php-mysql-nginx ###
-${SUDO} apt install ca-certificates curl wget dirmngr rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree duf
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree duf rsync
 ${SUDO} apt install micro lf fzf zoxide fd bat ripgrep peco dog fastfetch
 ${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
 if [ -d /etc/vim ]; then
