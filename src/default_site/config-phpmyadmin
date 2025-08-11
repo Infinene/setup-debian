@@ -1,5 +1,8 @@
 #!/bin/bash
 # set -x
+if [ ! -d ./pma ]; then
+	echo 'phpMyAdmin not found at ./pma '
+fi
 
 blowfishSecret=$(openssl rand -base64 22)
 pass=$(openssl rand -base64 8)
@@ -31,6 +34,7 @@ sed -i -r "s|^//(.cfg\['MaxRows.+)50|\1250|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['QueryHistoryDB)|\1;|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['QueryHistoryMax)|\1;|" pma/config.inc.php
 sed -i -r "s|^//(.cfg\['SendErrorReports.+)always|\1never|" pma/config.inc.php
+echo "\$cfg['AllowUserDropDatabase'] = true;" >> pma/config.inc.php
 
 sed -i -r "s|^--\s(GRANT SELECT)|\1|" pma/sql/create_tables.sql
 sed -i -r "s|^--\s+('pma'@localhost)|\1|"  pma/sql/create_tables.sql
@@ -39,5 +43,5 @@ mkdir pma/tmp
 $HOME//bin/chmodw pma
 chmod g+w pma/tmp
 
-sudo mysql -e "CREATE USER pma@localhost IDENTIFIED BY '$pass'"
-sudo mysql < pma/sql/create_tables.sql
+sudo mariadb -e "CREATE USER pma@localhost IDENTIFIED BY '$pass'"
+sudo mariadb < pma/sql/create_tables.sql
