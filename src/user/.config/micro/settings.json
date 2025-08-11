@@ -2,7 +2,7 @@
 	"autoindent": true,
 	"backup": false,
 	"clipboard": "terminal",
-	"colorscheme": "atom-dark",
+	"colorscheme": "material-tc",
 	"hlsearch": true,
 	"hltaberrors": true,
 	"indentchar": "→",
