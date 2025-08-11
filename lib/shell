@@ -20,6 +20,7 @@ fi
 ### wakemeops ###
 if ! grep -r wakemeops /etc/apt > /dev/null; then
 	curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | ${SUDO} bash -s terminal devops
+	curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/set_repository_priority | sudo bash -s 900
 	${SUDO} apt update
 fi
 
