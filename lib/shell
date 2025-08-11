@@ -1,18 +1,21 @@
 ### backports ###
-read -p  "Change backports priority in apt sources? [y/N] " response
-if [ ${response,,} = 'y' ]; then
-
-	[ -f /etc/apt/preferences.d/backports ] || ${SUDO} tee -a /etc/apt/preferences.d/backports <<-EOF
-		Package: *
-		Pin: release a=${debian_release}-backports
-		Pin-Priority: 500
-		EOF
+if grep -r backports /etc/apt/ > /dev/null; then
+	read -p  "Change backports priority in apt sources? [y/N] " response
+	if [ ${response,,} = 'y' ]; then
+		[ -f /etc/apt/preferences.d/backports ] || ${SUDO} tee -a /etc/apt/preferences.d/backports <<-EOF
+			Package: *
+			Pin: release a=${debian_release}-backports
+			Pin-Priority: 500
+			EOF
+	fi
 fi
-### backports ###
-read -p  "Add azlux packages to apt sources? [y/N] " response
-if [ ${response,,} = 'y' ]; then
-		# rhit and other utils https://packages.azlux.fr/
+
+### wakemeops ###
+if ! grep -r wakemeops /etc/apt > /dev/null; then
+	read -p  "Add wakemeops repository? [y/N] " response
+	if [ ${response,,} = 'y' ]; then
 		curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | ${SUDO} bash -s terminal devops
+	fi
 fi
 
 ${SUDO} apt update
@@ -20,8 +23,8 @@ ${SUDO} apt full-upgrade
 ### required by php-mysql-nginx ###
 ${SUDO} apt install ca-certificates curl wget dirmngr rsync
 ### extras ###
-${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree broot duf
-${SUDO} apt install micro lf fzf zoxide fd-find bat ripgrep peco fastfetch
+${SUDO} apt install zstd unzip ncdu htop mmv git ncal shellcheck nmon tree duf
+${SUDO} apt install micro lf fzf zoxide fd bat ripgrep peco dog fastfetch
 ${SUDO} apt install vim vim-doc vim-tabular vim-autopairs
 if [ -d /etc/vim ]; then
 	${SUDO} cp -rv $setup_dir/src/etc/vim/. /etc/vim/
@@ -31,15 +34,6 @@ if command -v micro &> /dev/null; then
 	${SUDO} ln -s $(command -v micro) /usr/local/bin/ed
 fi
 sudo update-alternatives --config editor
-
-# Fix renamed debian packages
-if command -v fdfind &> /dev/null; then
-	${SUDO} ln -s $(command -v fdfind) /usr/local/bin/fd
-fi
-
-if command -v batcat &> /dev/null; then
-	${SUDO} ln -s $(command -v batcat) /usr/local/bin/bat
-fi
 
 ### bash setup ###
 tee -a $HOME/.bashrc <<_END_
@@ -72,6 +66,7 @@ if [ "$(id -u)" -ne 0 ]; then
 		echo "# Disable ~/.sudo_as_admin_successful file"
 		echo "Defaults !admin_flag"
 		echo "Defaults:${USER} timestamp_timeout=480"
+		echo "# ${USER} ALL=(ALL) NOPASSWD: ALL"
 	} | ${SUDO} tee -a /etc/sudoers.d/${USER}
 	rm ~/.sudo_as_admin_successful
 
@@ -79,8 +74,7 @@ if [ "$(id -u)" -ne 0 ]; then
 	printf "\nInstalling utils...\n"
 	$HOME//bin/get-utils mcfly
 
-	${SUDO} mkdir -p /etc/lf
-	${SUDO} ln -s $HOME/.config/lf/lfrc /etc/lf/
+	${SUDO} cp -rbv $setup_dir/etc/lf /etc
 	${SUDO} ln -s $HOME/bin/lfpreview /usr/local/bin/
 
 	# if setting up WSL
