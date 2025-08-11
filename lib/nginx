@@ -21,14 +21,14 @@ if [ -f /etc/nginx/conf.d/default.conf ]; then
 fi
 
 ### create webroot ###
-${SUDO} mkdir -p /srv/web/localsite
-# printf "$(hostname) $(~//bin/get-ip)\n" | ${SUDO} tee /srv/web/localhost/index.html
-${SUDO} cp -rv $setup_dir/src/localsite/* /srv/web/localsite/
+${SUDO} mkdir -p /srv/default_site
+# printf "$(hostname) $(~//bin/get-ip)\n" | ${SUDO} tee /srv/localhost/index.html
+${SUDO} cp -rv $setup_dir/src/default_site/* /srv/default_site/
 ${SUDO} ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 
 ### set permissions ###
-$HOME//bin/chmodw /srv/web
+$HOME//bin/chmodw /srv
 
 ### Generate self-signed certificate ###
 $HOME//bin/gen-ssl-localhost

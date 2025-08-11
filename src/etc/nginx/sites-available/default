@@ -12,7 +12,7 @@ server {
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 	http2 on;
-	root   /srv/web/localsite;
+	root   /srv/default_site;
 	include snippets/php.conf;
 
 	location /utils {
