@@ -10,8 +10,8 @@
 # Configuration
 #
 log=true
-server_root=/srv/www
-backup_root=~/backups
+server_root=/srv
+backup_root=~/backup
 drushbin=/usr/local/bin
 
 #
