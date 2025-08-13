@@ -1,5 +1,9 @@
 # https://unix.stackexchange.com/questions/653413/show-exit-code-of-last-command-in-bash-prompt-if-it-returned-error
-export LOCAL_IP=$(~/bin/get-local-ip)
+ip=$(~/bin/get-local-ip)
+if [[ $ip == "10."* || $ip == "192.168."* || $ip == "172.16."* ]]; then
+        ip=local:$(echo $ip | cut -d. -f4)
+fi
+export LOCAL_IP=$ip
 
 # cloud server
 # PS1='\n\[\e[90m\]╭─[\[\e[38;5;246m\]${LOCAL_IP}\[\e[90m\]]──(\[\e[38;5;33m\]\u\[\e[37m\]@\[\e[38;5;75m\]\h\[\e[90m\])──[\[\e[38;5;34m\]\w\[\e[90m\]]\n╰─[\[\e[38;5;137m\]\t\[\e[90m\]] \[\e[91m\]${?##0}\[\e[38;5;34m\]❱\[\e[0m\] '
