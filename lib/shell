@@ -92,3 +92,5 @@ sudo sed -i 's#:/bin:/usr/local/games:/usr/games##' /etc/profile
 # . $setup_dir/lib/starship
 
 ${SUDO} dpkg-reconfigure console-setup
+
+${SUDO} chown -R $USER: ./*
