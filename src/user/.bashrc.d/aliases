@@ -21,9 +21,12 @@ alias bat='bat --style=plain'
 
 # launch micro editor
 e() {
-	[ ! -w "$1" ] && local SUDO=true
-	${SUDO:+sudo} $(which micro) $1
+	local file=$1
+	local dir=$(dirname "${file}")
+	[ ! -w "${dir}" ] && local SUDO=true
+	${SUDO:+sudo} $(which micro) $file
 }
+
 
 # launch ls as sudo if needed
 ll() {
