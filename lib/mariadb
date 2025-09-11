@@ -31,8 +31,16 @@ ${SUDO} apt update
 ${SUDO} apt -y install mariadb-server
 ${SUDO} cp -rbv $setup_dir/src/etc/mysql/* /etc/mysql/
 
-password=$(whiptail --passwordbox "Enter a password for '${USER}': " 8 0 --title "MariaDB admin password"  3>&1 1>&2 2>&3)
-password2=$(whiptail --passwordbox "Re-Enter password for '${USER}': " 8 0 --title "MariaDB admin password"  3>&1 1>&2 2>&3)
+echo
+echo "Setup MariaDb login as admin for ${USER}"
+while true; do
+  read -s -p "Enter a password for '${USER}': " password
+  echo
+  read -s -p "Re-Enter password for '${USER}': " password2
+  echo
+  [ "$password" = "$password2" ] && break
+  echo "Passwords do not match. Please try again."
+done
 
 if [ "$password" =  "$password2" ]; then
 	echo "Creating MariaDB user $USER and Granting all privileges to this account ..."
