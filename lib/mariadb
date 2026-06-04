@@ -7,7 +7,7 @@ ${SUDO} curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/maria
 mariadblist=/etc/apt/sources.list.d/mariadb.sources
 if [ ! -f "$mariadblist" ]; then
 	${SUDO} tee ${mariadblist} <<-_END_
-	# MariaDB 11.8 repository list - created 2025-08-10 15:09 UTC
+	# MariaDB 12.3 repository list - created 2026-06-04 10:10 UTC
 	# https://mariadb.org/download/
 	X-Repolib-Name: MariaDB
 	Types: deb
