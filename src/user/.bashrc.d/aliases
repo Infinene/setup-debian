@@ -12,10 +12,10 @@ alias sdisable='sudo systemctl disable'
 alias sdaemon='sudo systemctl daemon-reload'
 
 alias sudo='sudo -E '	#space at the end allows expansion of aliases when used with sudo
-alias aptup='sudo apt update && sudo apt full-upgrade'
+alias apt='sudo apt'
+alias aptup='sudo apt update && sudo apt upgrade && sudo apt full-upgrade'
 alias aptlist='sudo apt list --installed | pager'
 alias aptsrch='apt search --names-only'
-alias aptin='sudo apt install'
 
 alias bat='bat --style=plain'
 
